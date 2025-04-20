@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia de Viagem – Portugal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff4e50;
+      --secondary: #009fb7;
+      --bg: #f5f7fa;
+      --text: #333;
+      --card-bg: #ffffff;
+    }
+    * {box-sizing: border-box; margin: 0; padding: 0;}
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1rem 6rem;
+      position: relative;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    header p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+    }
+    nav {
+      position: absolute;
+      bottom: -1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border-radius: 999px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 1rem;
+      padding: 0.5rem 1.5rem;
+    }
+    nav a {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+    }
+    nav a:hover { color: var(--primary); }
+
+    section {
+      padding: 4rem 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card-content {
+      flex: 1;
+      padding: 1rem 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    .hours { font-size: 0.9rem; opacity: 0.8; }
+    .card a {
+      margin-top: auto;
+      align-self: flex-start;
+      background: var(--primary);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+    .card a:hover { background: var(--secondary); }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Portugal Incrível</h1>
+    <p>Descubra os lugares imperdíveis entre Lisboa, Porto e arredores</p>
+    <nav>
+      <a href="#lisboa">Lisboa</a>
+      <a href="#batevolta">Bate-voltas</a>
+      <a href="#porto">Porto</a>
+    </nav>
+  </header>
+
+  <!-- LISBOA -->
+  <section id="lisboa">
+    <h2>Lisboa</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?jeronimos+lisbon" alt="Mosteiro dos Jerónimos">
+        <div class="card-content">
+          <h3>Mosteiro dos Jerónimos</h3>
+          <p class="hours">Mai–Set 10 h–18 h30 • Out–Abr 10 h–17 h30 • Fecha 2ª-feira</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mosteiro+dos+Jer%C3%B3nimos+Lisboa" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?torre+belem+lisbon" alt="Torre de Belém">
+        <div class="card-content">
+          <h3>Torre de Belém</h3>
+          <p class="hours">Mai–Set 10 h–18 h30 • Out–Abr 10 h–17 h30 • Fecha 2ª-feira</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Torre+de+Bel%C3%A9m+Lisboa" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?castelo+sao+jorge+lisbon" alt="Castelo de São Jorge">
+        <div class="card-content">
+          <h3>Castelo de São Jorge</h3>
+          <p class="hours">Mar–Out 09 h–21 h • Nov–Fev 09 h–18 h</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Castelo+de+S%C3%A3o+Jorge+Lisboa" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?azulejo+museum+lisbon" alt="Museu Nacional do Azulejo">
+        <div class="card-content">
+          <h3>Museu Nacional do Azulejo</h3>
+          <p class="hours">Ter–Dom 10 h–18 h • Fecha 2ª-feira</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Museu+Nacional+do+Azulejo+Lisboa" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?se+lisboa+cathedral" alt="Sé de Lisboa">
+        <div class="card-content">
+          <h3>Sé de Lisboa</h3>
+          <p class="hours">Consultar calendário litúrgico</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=S%C3%A9+de+Lisboa" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?commerce+square+lisbon" alt="Praça do Comércio">
+        <div class="card-content">
+          <h3>Praça do Comércio</h3>
+          <p class="hours">Aberta 24 h</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Pra%C3%A7a+do+Com%C3%A9rcio+Lisboa" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BATE-VOLTA -->
+  <section id="batevolta" style="background:#fff4f4;">
+    <h2>Bate‑voltas entre Lisboa & Porto</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?obidos+portugal" alt="Óbidos">
+        <div class="card-content">
+          <h3>Óbidos</h3>
+          <p class="hours">Vila medieval — prove ginjinha no copo de chocolate</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=%C3%93bidos+Portugal" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?nazare+portugal" alt="Nazaré">
+        <div class="card-content">
+          <h3>Nazaré</h3>
+          <p class="hours">Miradouro do Sítio & praia • Funicular 07 h15‑00 h</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Nazar%C3%A9+Portugal" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?alcobaca+monastery" alt="Mosteiro de Alcobaça">
+        <div class="card-content">
+          <h3>Mosteiro de Alcobaça</h3>
+          <p class="hours">Ter‑Dom 09 h‑18 h • Fecha 2ª-feira</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mosteiro+de+Alcoba%C3%A7a" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?batalha+monastery" alt="Mosteiro da Batalha">
+        <div class="card-content">
+          <h3>Mosteiro da Batalha</h3>
+          <p class="hours">09 h‑18 h30 • Fecha 2ª-feira</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mosteiro+da+Batalha" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?fatima+sanctuary+portugal" alt="Fátima">
+        <div class="card-content">
+          <h3>Santuário de Fátima</h3>
+          <p class="hours">Basílica Ter‑Dom 09 h‑13 h / 14 h30‑18 h30</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Santu%C3%A1rio+de+F%C3%A1tima" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?coimbra+machado+castro" alt="Museu Machado de Castro">
+        <div class="card-content">
+          <h3>Museu Machado de Castro (Coimbra)</h3>
+          <p class="hours">Ter‑Dom 10 h‑18 h</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Museu+Machado+de+Castro+Coimbra" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?aveiro+moliceiro" alt="Aveiro">
+        <div class="card-content">
+          <h3>Aveiro</h3>
+          <p class="hours">Passeio de Moliceiro & ovos moles</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Aveiro+Portugal" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTO -->
+  <section id="porto">
+    <h2>Porto</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?bolhao+market+porto" alt="Mercado do Bolhão">
+        <div class="card-content">
+          <h3>Mercado do Bolhão</h3>
+          <p class="hours">Seg‑Sex 08 h‑20 h • Sáb 08 h‑18 h</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mercado+do+Bolh%C3%A3o+Porto" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?livraria+lello" alt="Livraria Lello">
+        <div class="card-content">
+          <h3>Livraria Lello</h3>
+          <p class="hours">Diariamente 09 h‑19 h30 (venda antecipada online)</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Livraria+Lello+Porto" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?clerigos+tower" alt="Torre dos Clérigos">
+        <div class="card-content">
+          <h3>Torre dos Clérigos</h3>
+          <p class="hours">09 h‑19 h (até 23 h na alta)</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Torre+dos+Cl%C3%A9rigos+Porto" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?reitoria+universidade+do+porto" alt="Universidade do Porto">
+        <div class="card-content">
+          <h3>Reitoria da Universidade do Porto</h3>
+          <p class="hours">Horário diurno</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Reitoria+Universidade+do+Porto" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?douro+river+cruise" alt="Passeio de barco 6 pontes">
+        <div class="card-content">
+          <h3>Passeio de barco '6 pontes'</h3>
+          <p class="hours">10 h‑18 h • saídas a cada 30 min</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Cais+da+Ribeira+Porto" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?porto+wine+cellar" alt="Caves Ferreira">
+        <div class="card-content">
+          <h3>Caves Ferreira (Vila Nova de Gaia)</h3>
+          <p class="hours">10 h‑12 h30 & 14 h‑18 h</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Caves+Ferreira+Gaia" target="_blank">Abrir no Maps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 • Guia de Viagem criado para Hooch – Boa aventura!
+  </footer>
+</body>
+</html>
