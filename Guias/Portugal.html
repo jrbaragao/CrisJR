@@ -540,6 +540,7 @@
         buttonDiv.appendChild(aboutButton);
  // Botão/Link Bilhete (se houver)
         if (atracao.ticketUrl) {
+                console.log("atracao.ticketUrl",atracao.ticketUrl);
             const ticketLink = document.createElement('a');
             ticketLink.href = atracao.ticketUrl;
             ticketLink.target = '_blank';
