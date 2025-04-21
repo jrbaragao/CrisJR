@@ -549,16 +549,20 @@
             ticketLink.title = atracao.ticketTitle;
             ticketLink.innerHTML = '<i class="fas fa-ticket-alt"></i>';
             buttonDiv.appendChild(ticketLink);
-        } else {
-             // Adiciona um DIV invisível com as mesmas classes de espaçamento/flex
-             // para manter o layout consistente quando não há botão de bilhete.
-             const dummyPlaceholder = document.createElement('div');
-             // Aplicar flex-1 para crescimento e card-button para padding/tamanho base consistentes
-             // A classe 'invisible' do Tailwind esconde o elemento visualmente e de leitores de tela,
-             // mas permite que ele ocupe espaço no layout flexbox.
-             dummyPlaceholder.className = 'flex-1 card-button invisible';
-             buttonDiv.appendChild(dummyPlaceholder);
-        }
+        }   else {
+     // Adiciona um DIV invisível com as mesmas classes de espaçamento/flex
+     // para manter o layout consistente quando não há botão de bilhete.
+     const dummyPlaceholder = document.createElement('div');
+     // Aplicar flex-1 para crescimento e card-button para padding/tamanho base consistentes
+     // A classe 'invisible' do Tailwind esconde o elemento visualmente e de leitores de tela,
+     // mas permite que ele ocupe espaço no layout flexbox.
+     dummyPlaceholder.className = 'flex-1 card-button invisible';
+
+          console.log("flex-1 card-button invisible");
+
+     // *** ESTA LINHA É ESSENCIAL ***
+     buttonDiv.appendChild(dummyPlaceholder); 
+}
 
 
         card.appendChild(buttonDiv);
