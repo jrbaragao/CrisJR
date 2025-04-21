@@ -199,12 +199,13 @@
 
 <script>
 
+        const pageInfoData = {
+        "tituloHeader": "Cris & JR em Portugal",
+        "tituloPrincipal": "Roteiro inesquecível por Portugal",
+        "subtituloPrincipal": "As melhores dicas de Lisboa e Porto para um casal apaixonado por história, arte e boa comida!"
+    };
+
  const locationsData = {
-        "paginaInfo": {
-            "tituloHeader": "Cris & JR em Portugal",
-            "tituloPrincipal": "Roteiro inesquecível por Portugal",
-            "subtituloPrincipal": "As melhores dicas de Lisboa e Porto para um casal apaixonado por história, arte e boa comida!"
-        },
   "lisboa": {
     "nome": "Lisboa — A cidade das sete colinas",
     "corTema": "sky", // Usado para classes Tailwind (text-sky-700, border-sky-200)
@@ -688,8 +689,8 @@
         // --- Função Principal para Gerar o Conteúdo Dinâmico ---
         function generatePageContent() {
  
-        // Preenche informações globais da página (Título, Subtítulo)
-        const pageInfo = locationsData.paginaInfo;
+       // Preenche informações globais da página (Título, Subtítulo)
+        const pageInfo = pageInfoData; // Usa a variável separada
         if (pageInfo) {
             const headerTitleEl = document.getElementById('header-title');
             const mainTitleEl = document.getElementById('main-title');
@@ -697,7 +698,6 @@
 
             if (headerTitleEl && pageInfo.tituloHeader) {
                 headerTitleEl.textContent = pageInfo.tituloHeader;
-                // Opcional: Atualizar também o <title> da página
                 document.title = pageInfo.tituloHeader + " - Dicas de Viagem";
             }
             if (mainTitleEl && pageInfo.tituloPrincipal) {
@@ -707,7 +707,7 @@
                 mainSubtitleEl.textContent = pageInfo.subtituloPrincipal;
             }
         } else {
-            console.warn("Dados 'paginaInfo' não encontrados no JSON.");
+            console.warn("Dados 'pageInfoData' não encontrados.");
         }
 
             const mainContainer = document.getElementById('city-sections-container');
