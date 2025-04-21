@@ -1,4 +1,4 @@
-<script>const locationsData = {
+const locationsData = {
   "lisboa": {
     "nome": "Lisboa — A cidade das sete colinas",
     "corTema": "sky", // Usado para classes Tailwind (text-sky-700, border-sky-200)
@@ -36,74 +36,168 @@
         "descricaoCurta": "Ícone emblemático dos Descobrimentos Portugueses, esta fortaleza manuelina elegantemente decorada ergue-se à beira do Tejo, oferecendo vistas históricas e arquitetura única."
       },
       {
-          "id": "lis-atr-3",
-          "nome": "Castelo de São Jorge",
-          "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/1/15/Castelo_de_Sao_Jorge_%2828482996488%29.jpg",
-          "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Castelo",
-          "mapQuery": "Castelo de São Jorge, Lisboa, Portugal",
-          "mapTitle": "Ver mapa do Castelo de São Jorge",
-          "aboutTitle": "Castelo de São Jorge",
-          "visitTime": "1 h 30 – 2 h",
-          "whatToSee": "Explorar as muralhas e as 11 torres medievais; vistas panorâmicas espetaculares de Lisboa; Câmara Escura (periscópio com vista 360º); ruínas arqueológicas do antigo Paço Real; jardins com pavões.",
-          "history": "Originalmente uma fortificação muçulmana (alcáçova) conquistada por D. Afonso Henriques em 1147. Foi residência da corte real portuguesa entre os séculos XIII e XVI. Sofreu danos significativos no terramoto de 1755 e foi extensivamente restaurado durante o século XX, tornando-se um monumento nacional e miradouro privilegiado.",
-          "aboutButtonTitle": "Saber mais sobre o Castelo de São Jorge",
-          "ticketUrl": "https://castelodesaojorge.pt/en/plan-your-visit/choose-your-ticket/",
-          "ticketTitle": "Comprar bilhetes para o Castelo de São Jorge",
-          "descricaoCurta": "Imponente fortaleza que coroa a colina mais alta de Lisboa, oferecendo muralhas antigas para explorar, vistas panorâmicas deslumbrantes sobre a cidade e o rio, e séculos de história."
+        "id": "lis-atr-3",
+        "nome": "Castelo de São Jorge",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/1/15/Castelo_de_Sao_Jorge_%2828482996488%29.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Castelo",
+        "mapQuery": "Castelo de São Jorge, Lisboa, Portugal",
+        "mapTitle": "Ver mapa do Castelo de São Jorge",
+        "aboutTitle": "Castelo de São Jorge",
+        "visitTime": "1 h 30 – 2 h",
+        "whatToSee": "Explorar as muralhas e as 11 torres medievais; vistas panorâmicas espetaculares de Lisboa; Câmara Escura (periscópio com vista 360º); ruínas arqueológicas do antigo Paço Real; jardins com pavões.",
+        "history": "Originalmente uma fortificação muçulmana (alcáçova) conquistada por D. Afonso Henriques em 1147. Foi residência da corte real portuguesa entre os séculos XIII e XVI. Sofreu danos significativos no terramoto de 1755 e foi extensivamente restaurado durante o século XX, tornando-se um monumento nacional e miradouro privilegiado.",
+        "aboutButtonTitle": "Saber mais sobre o Castelo de São Jorge",
+        "ticketUrl": "https://castelodesaojorge.pt/en/plan-your-visit/choose-your-ticket/",
+        "ticketTitle": "Comprar bilhetes para o Castelo de São Jorge",
+        "descricaoCurta": "Imponente fortaleza que coroa a colina mais alta de Lisboa, oferecendo muralhas antigas para explorar, vistas panorâmicas deslumbrantes sobre a cidade e o rio, e séculos de história."
       },
       {
-          "id": "lis-atr-4",
-          "nome": "Museu Nacional de Arte Antiga",
-          "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/1/13/Lisbon%2C_the_museum_Nacional_de_Arte_Antiga.JPG",
-          "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=MNAA",
-          "mapQuery": "Museu Nacional de Arte Antiga, Rua das Janelas Verdes, Lisboa",
-          "mapTitle": "Ver mapa do Museu Nacional de Arte Antiga",
-          "aboutTitle": "Museu Nacional de Arte Antiga",
-          "visitTime": "2 – 3 h",
-          "whatToSee": "Obras-primas da pintura portuguesa (Painéis de S. Vicente de Fora); pintura europeia (Bosch, Dürer); escultura; artes decorativas (ourivesaria, mobiliário, cerâmica); arte Namban (influência japonesa); jardins agradáveis com vista rio.",
-          "history": "Fundado em 1884 e instalado no Palácio Alvor-Pombal (antiga residência do Marquês de Pombal). O seu vasto acervo provém principalmente de conventos e mosteiros extintos após as reformas liberais de 1834, bem como de coleções reais e doações particulares, oferecendo um panorama da arte portuguesa e europeia do século XII ao XIX.",
-          "aboutButtonTitle": "Saber mais sobre o Museu Nacional de Arte Antiga",
-          "ticketUrl": null, // Sem link direto de compra online
-          "ticketTitle": null,
-          "descricaoCurta": "Principal museu de arte de Portugal, alojado num palácio histórico, guardando uma vasta coleção que abrange pintura, escultura e artes decorativas, com destaque para os Painéis de São Vicente (bilhetes apenas na portaria)."
+        "id": "lis-atr-4",
+        "nome": "Museu Nacional de Arte Antiga",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/1/13/Lisbon%2C_the_museum_Nacional_de_Arte_Antiga.JPG",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=MNAA",
+        "mapQuery": "Museu Nacional de Arte Antiga, Rua das Janelas Verdes, Lisboa",
+        "mapTitle": "Ver mapa do Museu Nacional de Arte Antiga",
+        "aboutTitle": "Museu Nacional de Arte Antiga",
+        "visitTime": "2 – 3 h",
+        "whatToSee": "Obras-primas da pintura portuguesa (Painéis de S. Vicente de Fora); pintura europeia (Bosch, Dürer); escultura; artes decorativas (ourivesaria, mobiliário, cerâmica); arte Namban (influência japonesa); jardins agradáveis com vista rio.",
+        "history": "Fundado em 1884 e instalado no Palácio Alvor-Pombal (antiga residência do Marquês de Pombal). O seu vasto acervo provém principalmente de conventos e mosteiros extintos após as reformas liberais de 1834, bem como de coleções reais e doações particulares, oferecendo um panorama da arte portuguesa e europeia do século XII ao XIX.",
+        "aboutButtonTitle": "Saber mais sobre o Museu Nacional de Arte Antiga",
+        "ticketUrl": null, // Sem link direto de compra online
+        "ticketTitle": null,
+        "descricaoCurta": "Principal museu de arte de Portugal, alojado num palácio histórico, guardando uma vasta coleção que abrange pintura, escultura e artes decorativas, com destaque para os Painéis de São Vicente (bilhetes apenas na portaria)."
       },
       {
-          "id": "lis-atr-5",
-          "nome": "Alfama & Elétrico 28",
-          "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/The_Iconic_Tram_28_Lisbon%2C_Portugal.jpg",
-          "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Alfama",
-          "mapQuery": "Miradouro de Santa Luzia, Alfama, Lisboa",
-          "mapTitle": "Ver mapa de Alfama (Miradouro Sta. Luzia)",
-          "aboutTitle": "Alfama & Elétrico 28",
-          "visitTime": "Elétrico ~40 min (trajeto completo); Alfama 2‑3 h (exploração a pé)",
-          "whatToSee": "Passeio no Elétrico 28 (apanhar cedo para evitar multidões); perder-se nas ruelas de Alfama; Sé de Lisboa; Miradouro de Santa Luzia; Miradouro das Portas do Sol; Panteão Nacional; Feira da Ladra (terças e sábados); ouvir Fado numa casa típica.",
-          "history": "Alfama é o bairro mais antigo e um dos mais típicos de Lisboa, com as suas origens remontando ao período muçulmano. As suas ruas estreitas e sinuosas sobreviveram em grande parte ao devastador terramoto de 1755. A linha 28 do elétrico, inaugurada em 1914, tornou-se um ícone turístico, percorrendo muitos dos pontos históricos da cidade.",
-          "aboutButtonTitle": "Saber mais sobre Alfama e o Elétrico 28",
-          "ticketUrl": null, // Bilhete de transporte público
-          "ticketTitle": null,
-          "descricaoCurta": "Perca-se pelas ruelas labirínticas e cheias de charme de Alfama, o bairro mais antigo de Lisboa, e desfrute de um passeio pitoresco no icónico elétrico amarelo 28, absorvendo a atmosfera tradicional."
+        "id": "lis-atr-5",
+        "nome": "Alfama & Elétrico 28",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/The_Iconic_Tram_28_Lisbon%2C_Portugal.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Alfama",
+        "mapQuery": "Miradouro de Santa Luzia, Alfama, Lisboa",
+        "mapTitle": "Ver mapa de Alfama (Miradouro Sta. Luzia)",
+        "aboutTitle": "Alfama & Elétrico 28",
+        "visitTime": "Elétrico ~40 min (trajeto completo); Alfama 2‑3 h (exploração a pé)",
+        "whatToSee": "Passeio no Elétrico 28 (apanhar cedo para evitar multidões); perder-se nas ruelas de Alfama; Sé de Lisboa; Miradouro de Santa Luzia; Miradouro das Portas do Sol; Panteão Nacional; Feira da Ladra (terças e sábados); ouvir Fado numa casa típica.",
+        "history": "Alfama é o bairro mais antigo e um dos mais típicos de Lisboa, com as suas origens remontando ao período muçulmano. As suas ruas estreitas e sinuosas sobreviveram em grande parte ao devastador terramoto de 1755. A linha 28 do elétrico, inaugurada em 1914, tornou-se um ícone turístico, percorrendo muitos dos pontos históricos da cidade.",
+        "aboutButtonTitle": "Saber mais sobre Alfama e o Elétrico 28",
+        "ticketUrl": null, // Bilhete de transporte público
+        "ticketTitle": null,
+        "descricaoCurta": "Perca-se pelas ruelas labirínticas e cheias de charme de Alfama, o bairro mais antigo de Lisboa, e desfrute de um passeio pitoresco no icónico elétrico amarelo 28, absorvendo a atmosfera tradicional."
       }
     ],
     "ondeComer": [
-        { "id": "lis-comer-1", "nome": "Bonjardim (Rei dos Frangos)", "descricao": "Famoso pelo seu delicioso frango assado com molho piri-piri, um clássico lisboeta.", "endereco": "Travessa de Santo Antão 11", "mapQuery": "Bonjardim Rei dos Frangos, Travessa de Santo Antão 11, Lisboa", "tipo": "restaurante" },
-        { "id": "lis-comer-2", "nome": "O Trevo", "descricao": "Local popular e simples, conhecido pelas suas autênticas e saborosas bifanas (sanduíches de porco).", "endereco": "Praça Luís de Camões 48", "mapQuery": "O Trevo, Praça Luís de Camões 48, Lisboa", "tipo": "restaurante" },
-        { "id": "lis-comer-3", "nome": "D’Bacalhau", "descricao": "Restaurante especializado no fiel amigo da gastronomia portuguesa, oferecendo inúmeras receitas de bacalhau num ambiente moderno no Parque das Nações.", "endereco": "Rua do Bojador 45", "mapQuery": "D'Bacalhau, Rua do Bojador 45, Lisboa", "tipo": "restaurante" },
-        { "id": "lis-comer-4", "nome": "Pastéis de Belém", "descricao": "A casa original e mundialmente famosa dos pastéis de nata, com receita secreta desde 1837. Imperdível!", "endereco": "Rua de Belém 84‑92", "mapQuery": "Pastéis de Belém, Rua de Belém 84, Lisboa", "tipo": "doce" },
-        { "id": "lis-comer-5", "nome": "Manteigaria (Chiado)", "descricao": "Considerada por muitos como tendo um dos melhores pastéis de nata de Lisboa, feitos à vista dos clientes.", "endereco": "Rua do Loreto 2", "mapQuery": "Manteigaria, Rua do Loreto 2, Lisboa", "tipo": "doce" },
-        { "id": "lis-comer-6", "nome": "Pastelaria Alcoa", "descricao": "Premiada pastelaria que oferece uma vasta seleção de doces conventuais tradicionais portugueses, verdadeiras tentações.", "endereco": "Rua Garrett 37", "mapQuery": "Pastelaria Alcoa, Rua Garrett 37, Lisboa", "tipo": "doce" },
-        { "id": "lis-comer-7", "nome": "A Padaria Portuguesa (Rua Augusta)", "descricao": "Rede de padarias moderna com várias localizações, ideal para um pequeno-almoço ou lanche rápido. Experimente o Pão-de-Deus.", "endereco": "Rua Augusta 148", "mapQuery": "A Padaria Portuguesa, Rua Augusta 148, Lisboa", "tipo": "padaria" },
-        { "id": "lis-comer-8", "nome": "Pastelaria Versailles", "descricao": "Pastelaria clássica e elegante com salões em estilo Art Déco, perfeita para um chá da tarde ou uma refeição ligeira num ambiente histórico.", "endereco": "Av. da República 15A", "mapQuery": "Pastelaria Versailles, Av. da República 15A, Lisboa", "tipo": "padaria" }
+      {
+        "id": "lis-comer-1",
+        "nome": "Ao 26 - Vegan Food Project",
+        "descricao": "Aclamado restaurante vegano com pratos criativos, incluindo versões de clássicos portugueses, num ambiente moderno no Chiado.",
+        "endereco": "Rua Vítor Cordon 26",
+        "mapQuery": "Ao 26 - Vegan Food Project, Rua Vítor Cordon 26, Lisboa",
+        "tipo": "restaurante"
+      },
+      {
+        "id": "lis-comer-2",
+        "nome": "The Food Temple",
+        "descricao": "Espaço acolhedor e muito popular em Alfama, conhecido pelas suas deliciosas e criativas tapas vegetarianas e veganas.",
+        "endereco": "Beco do Jasmim 18",
+        "mapQuery": "The Food Temple, Beco do Jasmim 18, Lisboa",
+        "tipo": "restaurante"
+      },
+      {
+        "id": "lis-comer-3",
+        "nome": "D’Bacalhau",
+        "descricao": "Restaurante especializado no fiel amigo da gastronomia portuguesa, oferecendo inúmeras receitas de bacalhau num ambiente moderno no Parque das Nações.",
+        "endereco": "Rua do Bojador 45",
+        "mapQuery": "D'Bacalhau, Rua do Bojador 45, Lisboa",
+        "tipo": "restaurante"
+      },
+      {
+        "id": "lis-comer-4",
+        "nome": "Pastéis de Belém",
+        "descricao": "A casa original e mundialmente famosa dos pastéis de nata, com receita secreta desde 1837. Imperdível!",
+        "endereco": "Rua de Belém 84‑92",
+        "mapQuery": "Pastéis de Belém, Rua de Belém 84, Lisboa",
+        "tipo": "doce"
+      },
+      {
+        "id": "lis-comer-5",
+        "nome": "Manteigaria (Chiado)",
+        "descricao": "Considerada por muitos como tendo um dos melhores pastéis de nata de Lisboa, feitos à vista dos clientes.",
+        "endereco": "Rua do Loreto 2",
+        "mapQuery": "Manteigaria, Rua do Loreto 2, Lisboa",
+        "tipo": "doce"
+      },
+      {
+        "id": "lis-comer-6",
+        "nome": "Pastelaria Alcoa",
+        "descricao": "Premiada pastelaria que oferece uma vasta seleção de doces conventuais tradicionais portugueses, verdadeiras tentações.",
+        "endereco": "Rua Garrett 37",
+        "mapQuery": "Pastelaria Alcoa, Rua Garrett 37, Lisboa",
+        "tipo": "doce"
+      },
+      {
+        "id": "lis-comer-7",
+        "nome": "A Padaria Portuguesa (Rua Augusta)",
+        "descricao": "Rede de padarias moderna com várias localizações, ideal para um pequeno-almoço ou lanche rápido. Experimente o Pão-de-Deus.",
+        "endereco": "Rua Augusta 148",
+        "mapQuery": "A Padaria Portuguesa, Rua Augusta 148, Lisboa",
+        "tipo": "padaria"
+      },
+      {
+        "id": "lis-comer-8",
+        "nome": "Pastelaria Versailles",
+        "descricao": "Pastelaria clássica e elegante com salões em estilo Art Déco, perfeita para um chá da tarde ou uma refeição ligeira num ambiente histórico.",
+        "endereco": "Av. da República 15A",
+        "mapQuery": "Pastelaria Versailles, Av. da República 15A, Lisboa",
+        "tipo": "padaria"
+      }
     ],
     "musicaEventos": [
-        { "id": "lis-musica-1", "nome": "Clube de Fado", "descricao": "Casa de fados de renome em Alfama, com ambiente intimista e atuações de fadistas consagrados e novos talentos. Ideal para uma noite tradicional portuguesa.", "endereco": "Rua de São João da Praça 94", "mapQuery": "Clube de Fado, Rua de São João da Praça 94, Lisboa" },
-        { "id": "lis-musica-2", "nome": "Lux Frágil", "descricao": "Discoteca icónica de Lisboa, conhecida pela sua programação de música eletrónica de vanguarda, ambiente sofisticado e terraço com vista para o Tejo.", "endereco": "Av. Infante D. Henrique, Armazém A, Cais da Pedra", "mapQuery": "Lux Frágil, Av. Infante D. Henrique, Lisboa" },
-        { "id": "lis-musica-3", "nome": "Altice Arena", "descricao": "A maior sala de espetáculos de Portugal, localizada no Parque das Nações, recebe grandes concertos de artistas internacionais, eventos desportivos e feiras.", "endereco": "Rossio dos Olivais, Lote 2.13.01A", "mapQuery": "Altice Arena, Rossio dos Olivais, Lisboa" }
+      {
+        "id": "lis-musica-1",
+        "nome": "Clube de Fado",
+        "descricao": "Casa de fados de renome em Alfama, com ambiente intimista e atuações de fadistas consagrados e novos talentos. Ideal para uma noite tradicional portuguesa.",
+        "endereco": "Rua de São João da Praça 94",
+        "mapQuery": "Clube de Fado, Rua de São João da Praça 94, Lisboa"
+      },
+      {
+        "id": "lis-musica-2",
+        "nome": "Lux Frágil",
+        "descricao": "Discoteca icónica de Lisboa, conhecida pela sua programação de música eletrónica de vanguarda, ambiente sofisticado e terraço com vista para o Tejo.",
+        "endereco": "Av. Infante D. Henrique, Armazém A, Cais da Pedra",
+        "mapQuery": "Lux Frágil, Av. Infante D. Henrique, Lisboa"
+      },
+      {
+        "id": "lis-musica-3",
+        "nome": "Altice Arena",
+        "descricao": "A maior sala de espetáculos de Portugal, localizada no Parque das Nações, recebe grandes concertos de artistas internacionais, eventos desportivos e feiras.",
+        "endereco": "Rossio dos Olivais, Lote 2.13.01A",
+        "mapQuery": "Altice Arena, Rossio dos Olivais, Lisboa"
+      }
     ],
     "bateVolta": [
-        { "id": "lis-bv-1", "nome": "Sintra", "descricao": "Vila mágica e romântica aninhada nas colinas perto de Lisboa, famosa pelos seus palácios de conto de fadas como o colorido Palácio da Pena, a misteriosa Quinta da Regaleira com os seus túneis e poço iniciático, e o centro histórico charmoso.", "mapQuery": "Centro Histórico de Sintra, Portugal" },
-        { "id": "lis-bv-2", "nome": "Cascais & Estoril", "descricao": "Elegante linha costeira a oeste de Lisboa. Cascais oferece um centro histórico pitoresco, praias e uma marina animada, enquanto Estoril é conhecida pelo seu famoso casino, jardins e proximidade a praias como a do Tamariz.", "mapQuery": "Cascais, Portugal" },
-        { "id": "lis-bv-3", "nome": "Óbidos", "descricao": "Encantadora vila medieval perfeitamente preservada dentro de muralhas imponentes. Passeie pelas suas ruas floridas e estreitas, visite o castelo (hoje uma pousada) e não deixe de provar a famosa Ginjinha de Óbidos, licor de cereja servido num copinho de chocolate.", "mapQuery": "Óbidos, Portugal" },
-        { "id": "lis-bv-4", "nome": "Mosteiro da Batalha", "descricao": "Impressionante obra-prima da arquitetura gótica e manuelina, classificada como Património Mundial pela UNESCO. Construído para celebrar a vitória portuguesa na Batalha de Aljubarrota, destaca-se pela sua igreja monumental, o Panteão Real, o Claustro Real e as inacabadas Capelas Imperfeitas.", "mapQuery": "Mosteiro da Batalha, Batalha, Portugal" }
+      {
+        "id": "lis-bv-1",
+        "nome": "Sintra",
+        "descricao": "Vila mágica e romântica aninhada nas colinas perto de Lisboa, famosa pelos seus palácios de conto de fadas como o colorido Palácio da Pena, a misteriosa Quinta da Regaleira com os seus túneis e poço iniciático, e o centro histórico charmoso.",
+        "mapQuery": "Centro Histórico de Sintra, Portugal"
+      },
+      {
+        "id": "lis-bv-2",
+        "nome": "Cascais & Estoril",
+        "descricao": "Elegante linha costeira a oeste de Lisboa. Cascais oferece um centro histórico pitoresco, praias e uma marina animada, enquanto Estoril é conhecida pelo seu famoso casino, jardins e proximidade a praias como a do Tamariz.",
+        "mapQuery": "Cascais, Portugal"
+      },
+      {
+        "id": "lis-bv-3",
+        "nome": "Óbidos",
+        "descricao": "Encantadora vila medieval perfeitamente preservada dentro de muralhas imponentes. Passeie pelas suas ruas floridas e estreitas, visite o castelo (hoje uma pousada) e não deixe de provar a famosa Ginjinha de Óbidos, licor de cereja servido num copinho de chocolate.",
+        "mapQuery": "Óbidos, Portugal"
+      },
+      {
+        "id": "lis-bv-4",
+        "nome": "Mosteiro da Batalha",
+        "descricao": "Impressionante obra-prima da arquitetura gótica e manuelina, classificada como Património Mundial pela UNESCO. Construído para celebrar a vitória portuguesa na Batalha de Aljubarrota, destaca-se pela sua igreja monumental, o Panteão Real, o Claustro Real e as inacabadas Capelas Imperfeitas.",
+        "mapQuery": "Mosteiro da Batalha, Batalha, Portugal"
+      }
     ]
   },
   "porto": {
@@ -263,7 +357,7 @@
         { "id": "pto-bv-4", "nome": "Aveiro", "descricao": "Charmosa cidade conhecida como a 'Veneza Portuguesa' pelos seus canais urbanos atravessados por coloridos barcos moliceiros (passeios disponíveis). Prove os deliciosos Ovos Moles (doce típico à base de ovos e açúcar) e admire a arquitetura Arte Nova presente em vários edifícios.", "mapQuery": "Aveiro, Portugal" }
     ]
   }
-};</script>
+};
 
 <!DOCTYPE html>
 <html lang="pt">
