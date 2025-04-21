@@ -828,61 +828,54 @@
             return `${baseUrl}?key=${Maps_API_KEY}&q=${encodedQuery}&language=pt`;
         };
 
-   // --- Event Listeners (Delegação - COM LOGS PARA DEBUG) ---
+        // --- Event Listeners (Delegação - Mantidos como antes) ---
          document.body.addEventListener('click', function(event) {
              // Botão Abrir Mapa
              const mapButton = event.target.closest('.open-map-modal');
              if (mapButton) {
-     
                  const mapQuery = mapButton.dataset.mapQuery;
                  const locationId = mapButton.dataset.locationId;
                  const locationType = mapButton.dataset.locationType;
+                 // Busca cityKey do elemento section pai
                  const cityKey = mapButton.closest('section[data-city]')?.dataset.city;
 
                  let locationName = "Localização";
+                 let locationData = null;
+
+                 if(cityKey && locationId && locationType && locationsData[cityKey] && locationsData[cityKey][locationType]) {
+                     locationData = locationsData[cityKey][locationType].find(item => item.id === locationId);
+                     if(locationData && locationData.nome) { locationName = locationData.nome; }
+                 }
+                 if (locationName === "Localização" && mapButton.title) { locationName = mapButton.title.replace('Ver mapa de ', ''); }
+                 if (locationName === "Localização" && mapQuery) { locationName = mapQuery.split(',')[0]; }
 
                  const embedUrl = constructEmbedUrlWithApiKey(mapQuery);
 
-                 // Se a URL é inválida E a chave NÃO está configurada
+                  // Se a URL é inválida E a chave NÃO está configurada, mostra o modal de erro
                  if (!embedUrl && (!Maps_API_KEY || Maps_API_KEY === "SUA_CHAVE_API_AQUI")) {
-                     openModal(mapModal); // Mostra modal com erro
+                     openModal(mapModal); // Mostra o modal com a mensagem de erro inserida por constructEmbedUrl
                      return;
                  }
 
                  if (embedUrl) {
                      const mapBody = document.querySelector('#mapModal .modal-body-map');
-                     // Re-seleciona o iframe para garantir que estamos com a referência correta
-                     let currentMapIframe = document.getElementById("mapIframe");
-
                      // Verifica se o iframe existe ou precisa ser recriado
-                     if (mapBody && !currentMapIframe) {
-                         console.log("Recriando o iframe...");
+                     if (mapBody && !mapBody.querySelector('iframe')) {
                          mapBody.innerHTML = '<iframe id="mapIframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="" title="Mapa Interativo"></iframe>';
-                         currentMapIframe = document.getElementById("mapIframe"); // Pega o novo
+                         mapIframe = document.getElementById("mapIframe"); // Reatribui a variável global
                      }
-
-                     if (currentMapIframe) {
-                         currentMapIframe.src = embedUrl; // Define a nova URL
+                     if (mapIframe) {
+                         mapIframe.src = embedUrl;
                          document.getElementById('map-modal-title').textContent = `Mapa: ${locationName}`;
                          openModal(mapModal);
-                     } else {
-                          console.error("Não foi possível encontrar ou criar o iframe do mapa.");
                      }
                  } else {
-                     console.log("Erro: embedUrl está vazia ou inválida (verificar logs anteriores).");
-                      // Considerar alertar o usuário aqui se a chave estiver configurada mas algo falhou
-                      // alert("Ocorreu um erro ao tentar carregar o mapa.");
+                     // Caso a chave esteja configurada mas a URL falhe
+                     console.error("Não foi possível construir a URL do mapa para a query:", mapQuery);
+                      alert("Ocorreu um erro ao tentar carregar o mapa.");
                  }
-                 return; // Impede processamento adicional
-             }
-
-             // --- Lógica do botão About (inalterada) ---
-             const aboutButton = event.target.closest('.open-about-modal');
-             if (aboutButton) {
-                // ... (código do about modal) ...
                  return;
              }
-         });
 
              // Botão Abrir Detalhes (About)
              const aboutButton = event.target.closest('.open-about-modal');
