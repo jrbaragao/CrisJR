@@ -540,7 +540,6 @@
         buttonDiv.appendChild(aboutButton);
  // Botão/Link Bilhete (se houver)
         if (atracao.ticketUrl) {
-                console.log("atracao.ticketUrl",atracao.ticketUrl);
             const ticketLink = document.createElement('a');
             ticketLink.href = atracao.ticketUrl;
             ticketLink.target = '_blank';
@@ -551,18 +550,17 @@
             ticketLink.innerHTML = '<i class="fas fa-ticket-alt"></i>';
             buttonDiv.appendChild(ticketLink);
         }   else {
-     // Adiciona um DIV invisível com as mesmas classes de espaçamento/flex
-     // para manter o layout consistente quando não há botão de bilhete.
+     // Adiciona um DIV transparente e não interativo com as mesmas classes e conteúdo
+     // para manter o layout (largura E ALTURA) consistente.
      const dummyPlaceholder = document.createElement('div');
-     // Aplicar flex-1 para crescimento e card-button para padding/tamanho base consistentes
-     // A classe 'invisible' do Tailwind esconde o elemento visualmente e de leitores de tela,
-     // mas permite que ele ocupe espaço no layout flexbox.
-     dummyPlaceholder.className = 'flex-1 card-button invisible';
+     // Aplicar flex-1, card-button. Usar opacity-0 em vez de invisible.
+     dummyPlaceholder.className = 'flex-1 card-button opacity-0 pointer-events-none';
 
-          console.log("flex-1 card-button invisible");
+     // Adiciona um ícone idêntico aos outros botões para garantir a mesma altura computada.
+     dummyPlaceholder.innerHTML = '<i class="fas fa-ticket-alt" aria-hidden="true"></i>';
 
-     // *** ESTA LINHA É ESSENCIAL ***
-     buttonDiv.appendChild(dummyPlaceholder); 
+     // Adiciona o placeholder (agora com um ícone transparente dentro) ao div dos botões
+     buttonDiv.appendChild(dummyPlaceholder);
 }
 
 
