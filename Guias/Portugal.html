@@ -833,31 +833,18 @@
              // Botão Abrir Mapa
              const mapButton = event.target.closest('.open-map-modal');
              if (mapButton) {
-                 console.log("--- Botão Mapa Clicado ---"); // Log inicial
-
-                 // Log do elemento botão para garantir que é o correto
-                 console.log("Elemento Botão:", mapButton);
-
+     
                  const mapQuery = mapButton.dataset.mapQuery;
-                 // ---> LOG IMPORTANTE 1: Verifica a query lida do botão clicado <---
-                 console.log("Map Query lida do botão:", mapQuery);
-
                  const locationId = mapButton.dataset.locationId;
                  const locationType = mapButton.dataset.locationType;
                  const cityKey = mapButton.closest('section[data-city]')?.dataset.city;
 
                  let locationName = "Localização";
-                 // ... (lógica para achar nome - pode logar 'locationName' aqui também se suspeitar) ...
-                 // Ex: console.log("Nome do local encontrado:", locationName);
-
 
                  const embedUrl = constructEmbedUrlWithApiKey(mapQuery);
-                 // ---> LOG IMPORTANTE 2: Verifica a URL construída <---
-                 console.log("URL do Embed construída:", embedUrl);
 
                  // Se a URL é inválida E a chave NÃO está configurada
                  if (!embedUrl && (!Maps_API_KEY || Maps_API_KEY === "SUA_CHAVE_API_AQUI")) {
-                     console.log("Erro: Chave API não configurada ou URL inválida.");
                      openModal(mapModal); // Mostra modal com erro
                      return;
                  }
@@ -875,10 +862,7 @@
                      }
 
                      if (currentMapIframe) {
-                         // ---> LOG IMPORTANTE 3: Verifica o SRC antes de definir <---
-                         console.log("Definindo iframe.src para:", embedUrl);
                          currentMapIframe.src = embedUrl; // Define a nova URL
-
                          document.getElementById('map-modal-title').textContent = `Mapa: ${locationName}`;
                          openModal(mapModal);
                      } else {
