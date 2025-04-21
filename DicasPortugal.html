@@ -11,35 +11,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; @apply bg-gray-50 text-gray-800; } /* Tailwind para body */
+        body { font-family: 'Inter', sans-serif; @apply bg-gray-50 text-gray-800; }
         section { scroll-margin-top: 80px; }
 
-        /* Estilos Botões Card (do Exemplo User) */
+        /* Estilos Botões Card (CSS Padrão) */
         .card-button {
             display: inline-flex; align-items: center; justify-content: center;
             padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500;
             border-radius: 0.375rem; transition: all 0.3s ease-in-out; cursor: pointer;
         }
-        .map-button-attraction {
-            background-color: #0284c7; /* sky-600 */ color: white;
-        }
-        .map-button-attraction:hover {
-            background-color: #0369a1; /* sky-700 */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .about-button {
-            background-color: #e5e7eb; /* gray-200 */ color: #374151; /* gray-700 */
-        }
-        .about-button:hover {
-            background-color: #d1d5db; /* gray-300 */
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        }
-        .map-button-daytrip {
-             @apply inline-flex items-center justify-center px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-md transition duration-300 ease-in-out hover:bg-emerald-700 hover:shadow-sm;
-             cursor: pointer;
-        }
+        .map-button-attraction { background-color: #0284c7; color: white; }
+        .map-button-attraction:hover { background-color: #0369a1; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .about-button { background-color: #e5e7eb; color: #374151; }
+        .about-button:hover { background-color: #d1d5db; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
+        .map-button-daytrip { @apply inline-flex items-center justify-center px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-md transition duration-300 ease-in-out hover:bg-emerald-700 hover:shadow-sm; cursor: pointer; }
 
-        /* Estilos Modais (do Exemplo User) */
+        /* Estilos Modais (Revertido para v13/v14 - Lógica do Exemplo User) */
         .modal {
             position: fixed; top: 0; right: 0; bottom: 0; left: 0;
             background-color: rgba(0, 0, 0, 0.7);
@@ -59,6 +46,7 @@
             transform: scale(0.95); /* Começa ligeiramente pequeno */
             transition: transform 0.3s ease-in-out;
             max-width: 600px; /* Largura default */
+            position: relative; /* Necessário para posicionar botão fechar */
         }
         .modal.is-open .modal-content {
             transform: scale(1); /* Anima para tamanho normal */
@@ -71,18 +59,18 @@
             position: absolute; top: 0.5rem; right: 1rem; z-index: 10; cursor: pointer;
         }
         .modal-close-button:hover { color: #1f2937; }
-         #mapModal .modal-content { max-width: 48rem; }
-         #mapModal .modal-body { padding: 0.25rem; flex-grow: 1; background-color: #f3f4f6; }
+         #mapModal .modal-content { max-width: 48rem; } /* Largura Modal Mapa */
+         #mapModal .modal-body-map { /* Div que contém o iframe */
+           padding: 0.25rem; flex-grow: 1; background-color: #f3f4f6;
+         }
          #mapModal iframe { width: 100%; height: 60vh; border: 0; }
+
 
         /* Outros Estilos (Tailwind via @apply ou CSS padrão) */
         .object-cover { object-fit: cover; background-color: #e2e8f0; }
-        .attraction-card {
-             @apply bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.03] flex flex-col;
-             /* O flex flex-col já está aqui, ótimo! */
-        }
+        /* Adicionado h-full aqui */
+        .attraction-card { @apply bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.03] flex flex-col h-full; }
         .info-box { @apply p-4 rounded-lg; }
-        .section-title { @apply text-3xl font-semibold mb-8 border-b-2 pb-2; }
         .section-subtitle { @apply text-2xl font-semibold text-gray-800 mb-6 mt-10; }
 
         /* Cores específicas (Tailwind via @apply) */
@@ -90,17 +78,14 @@
          .bg-rose-50 { @apply bg-rose-50; } .text-rose-700 { @apply text-rose-700; } .text-rose-800 { @apply text-rose-800; }
          .bg-orange-50 { @apply bg-orange-50; } .text-orange-700 { @apply text-orange-700; } .text-orange-800 { @apply text-orange-800; }
          .bg-emerald-50 { @apply bg-emerald-50; } .text-emerald-700 { @apply text-emerald-700; } .text-emerald-800 { @apply text-emerald-800; }
-         .text-sky-700 { @apply text-sky-700; } .border-sky-200 { @apply border-sky-200; }
-         .text-purple-700 { @apply text-purple-700; } .border-purple-200 { @apply border-purple-200; }
-         .text-sky-100 { @apply text-sky-100; } .text-sky-600 { @apply text-sky-600; } .text-sky-800 { @apply text-sky-800; }
+         .text-sky-100 { @apply text-sky-100; } .text-sky-600 { @apply text-sky-600; }
          .text-gray-600 { @apply text-gray-600; } .text-gray-700 { @apply text-gray-700; } .text-gray-800 { @apply text-gray-800; }
          .text-gray-900 { @apply text-gray-900; } .bg-gray-200 { @apply bg-gray-200; }
 
-         /* Ajuste para altura igual dos cards na grelha */
+         /* Ajuste para altura igual dos cards na grelha (Mantido de v14/v15) */
          .attraction-grid {
-             grid-auto-rows: 1fr; /* Faz com que as linhas da grelha tenham altura igual */
+           grid-auto-rows: 1fr; /* Faz com que as linhas da grelha tenham altura igual */
          }
-
     </style>
 </head>
 <body>
@@ -124,17 +109,13 @@
         </div>
 
         <section id="lisboa" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
-            <h3 class="section-title text-sky-700 border-sky-200">Lisboa: A Cidade das Sete Colinas</h3>
+             <h3 class="text-3xl font-semibold mb-8 border-b-2 pb-2 text-sky-700 border-sky-200">Lisboa: A Cidade das Sete Colinas</h3>
             <h4 class="section-subtitle">O que Visitar</h4>
             <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-
                 <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Mosteiro_dos_Jer%C3%B3nimos_%2844651116202%29.jpg" alt="[Imagem de Mosteiro dos Jerónimos]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Mosteiro dos Jerónimos</h5>
-                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Impressionante obra-prima do estilo manuelino, Património Mundial da UNESCO. Abriga os túmulos de Vasco da Gama e Luís de Camões.</p>
-                    <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 10h–18h30 (Mai-Set); 10h–17h30 (Out-Abr); Fecha 2ª-feira.</p>
-                    <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.989799011835!2d-9.208536684655566!3d38.6978689796016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb5a17ff457b%3A0x997a42a78b7a448d!2sMosteiro%20dos%20Jer%C3%B3nimos!5e0!3m2!1spt-BR!2sbr!4v1678886543210!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Mosteiro_dos_Jer%C3%B3nimos_%2844651116202%29.jpg" alt="[Imagem de Mosteiro dos Jerónimos]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                    <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.989799011835!2d-9.208536684655566!3d38.6978689796016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb5a17ff457b%3A0x997a42a78b7a448d!2sMosteiro%20dos%20Jer%C3%B3nimos!5e0!3m2!1spt-BR!2sbr!4v1678886543210!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
                         </button>
                         <button class="open-about-modal about-button flex-1"
@@ -145,80 +126,81 @@
                             <i class="fas fa-info-circle mr-2"></i> Sobre
                         </button>
                     </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Mosteiro dos Jerónimos</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Impressionante obra-prima do estilo manuelino, Património Mundial da UNESCO. Abriga os túmulos de Vasco da Gama e Luís de Camões.</p>
+                    <p class="text-gray-600 text-xs flex-shrink-0"><strong>Horários:</strong> 10h–18h30 (Mai-Set); 10h–17h30 (Out-Abr); Fecha 2ª-feira.</p>
                 </div>
-
                 <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Torre_de_Bel%C3%A9m_front.jpg" alt="[Imagem de Torre de Belém]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Torre de Belém</h5>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Torre_de_Bel%C3%A9m_front.jpg" alt="[Imagem de Torre de Belém]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3114.575380853355!2d-9.21839568465598!3d38.69157997960266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb64a62183d7%3A0x34a59e489e9e7b18!2sTorre%20de%20Bel%C3%A9m!5e0!3m2!1spt-BR!2sbr!4v1678886612345!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Torre de Belém"
+                                data-visit-time="Aprox. 1 hora"
+                                data-what-to-see="Exterior ricamente decorado (cordas, esferas armilares), terraço com vista, canhoneiras, sala do governador."
+                                data-history="Construída entre 1514 e 1519 por Francisco de Arruda. Serviu como fortaleza, alfândega e farol. Símbolo da expansão marítima portuguesa.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Torre de Belém</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Ícone de Lisboa e da Era dos Descobrimentos. Uma elegante torre defensiva do século XVI à beira do Tejo.</p>
-                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 10h–18h30 (Mai-Set); 10h–17h30 (Out-Abr); Fecha 2ª-feira.</p>
-                     <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3114.575380853355!2d-9.21839568465598!3d38.69157997960266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb64a62183d7%3A0x34a59e489e9e7b18!2sTorre%20de%20Bel%C3%A9m!5e0!3m2!1spt-BR!2sbr!4v1678886612345!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Torre de Belém"
-                                 data-visit-time="Aprox. 1 hora"
-                                 data-what-to-see="Exterior ricamente decorado (cordas, esferas armilares), terraço com vista, canhoneiras, sala do governador."
-                                 data-history="Construída entre 1514 e 1519 por Francisco de Arruda. Serviu como fortaleza, alfândega e farol. Símbolo da expansão marítima portuguesa.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
-                    </div>
+                    <p class="text-gray-600 text-xs flex-shrink-0"><strong>Horários:</strong> 10h–18h30 (Mai-Set); 10h–17h30 (Out-Abr); Fecha 2ª-feira.</p>
                 </div>
                 <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Castelo_de_Sao_Jorge_%2828482996488%29.jpg" alt="[Imagem de Castelo de São Jorge]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Castelo de São Jorge</h5>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Castelo_de_Sao_Jorge_%2828482996488%29.jpg" alt="[Imagem de Castelo de São Jorge]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                    <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.088615903716!2d-9.13581868465495!3d38.71390797960001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19344f005a05d7%3A0x7a3c8d2e4c6d6a9e!2sCastelo%20de%20S%C3%A3o%20Jorge!5e0!3m2!1spt-BR!2sbr!4v1678886678901!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Castelo de São Jorge"
+                                data-visit-time="Aprox. 1.5 - 2 horas"
+                                data-what-to-see="Muralhas e torres, vista panorâmica sobre Lisboa, exposição permanente, câmara escura (periscópio), jardins."
+                                data-history="Ocupado desde a Idade do Ferro, foi alcáçova moura até ser conquistado por D. Afonso Henriques em 1147. Foi Paço Real até ao séc. XVI.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Castelo de São Jorge</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Antiga fortaleza moura com muralhas imponentes, jardins e vistas panorâmicas deslumbrantes sobre Lisboa e o rio Tejo.</p>
-                    <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 09h–21h (Mar-Out); 09h–18h (Nov-Fev).</p>
-                     <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.088615903716!2d-9.13581868465495!3d38.71390797960001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19344f005a05d7%3A0x7a3c8d2e4c6d6a9e!2sCastelo%20de%20S%C3%A3o%20Jorge!5e0!3m2!1spt-BR!2sbr!4v1678886678901!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Castelo de São Jorge"
-                                 data-visit-time="Aprox. 1.5 - 2 horas"
-                                 data-what-to-see="Muralhas e torres, vista panorâmica sobre Lisboa, exposição permanente, câmara escura (periscópio), jardins."
-                                 data-history="Ocupado desde a Idade do Ferro, foi alcáçova moura até ser conquistado por D. Afonso Henriques em 1147. Foi Paço Real até ao séc. XVI.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
-                    </div>
+                    <p class="text-gray-600 text-xs flex-shrink-0"><strong>Horários:</strong> 09h–21h (Mar-Out); 09h–18h (Nov-Fev).</p>
                 </div>
                 <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Lisbon%2C_the_museum_Nacional_de_Arte_Antiga.JPG" alt="[Imagem de Museu Nacional de Arte Antiga]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Museu Nacional de Arte Antiga</h5>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Lisbon%2C_the_museum_Nacional_de_Arte_Antiga.JPG" alt="[Imagem de Museu Nacional de Arte Antiga]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.68989366815!2d-9.16103968465531!3d38.70491897960096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934e165134467%3A0x591a880780db93f!2sMuseu%20Nacional%20de%20Arte%20Antiga!5e0!3m2!1spt-BR!2sbr!4v1678886734567!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Museu Nacional de Arte Antiga"
+                                data-visit-time="Aprox. 2 - 3 horas (ou mais, dependendo do interesse)"
+                                data-what-to-see="Painéis de São Vicente de Fora (Nuno Gonçalves), Tentações de Santo Antão (Bosch), pintura portuguesa (séc. XV-XIX), arte Namban, ourivesaria."
+                                data-history="Instalado no Palácio Alvor-Pombal (séc. XVII), reúne coleções provenientes de palácios reais, conventos extintos e doações. Fundado em 1884.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Museu Nacional de Arte Antiga</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Principal museu de arte do país, com vasta coleção de pintura, escultura e artes decorativas portuguesas e europeias.</p>
-                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 10h–18h (Ter-Dom); Fecha 2ª-feira.</p>
-                      <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.68989366815!2d-9.16103968465531!3d38.70491897960096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934e165134467%3A0x591a880780db93f!2sMuseu%20Nacional%20de%20Arte%20Antiga!5e0!3m2!1spt-BR!2sbr!4v1678886734567!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Museu Nacional de Arte Antiga"
-                                 data-visit-time="Aprox. 2 - 3 horas (ou mais, dependendo do interesse)"
-                                 data-what-to-see="Painéis de São Vicente de Fora (Nuno Gonçalves), Tentações de Santo Antão (Bosch), pintura portuguesa (séc. XV-XIX), arte Namban, ourivesaria."
-                                 data-history="Instalado no Palácio Alvor-Pombal (séc. XVII), reúne coleções provenientes de palácios reais, conventos extintos e doações. Fundado em 1884.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
-                    </div>
+                    <p class="text-gray-600 text-xs flex-shrink-0"><strong>Horários:</strong> 10h–18h (Ter-Dom); Fecha 2ª-feira.</p>
                 </div>
-                 <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/The_Iconic_Tram_28_Lisbon%2C_Portugal.jpg" alt="[Imagem de Alfama & Elétrico 28]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Alfama & Elétrico 28</h5>
+                <div class="attraction-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/The_Iconic_Tram_28_Lisbon%2C_Portugal.jpg" alt="[Imagem de Alfama & Elétrico 28]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                    <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12452.69029197085!2d-9.13719963955078!3d38.711709300000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934455d4432ad%3A0x43d4a1e416710850!2sAlfama%2C%20Lisboa%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678886790123!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa (Alfama)
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Alfama & Elétrico 28"
+                                data-visit-time="Variável (Passeio elétrico ~40min; Explorar Alfama 2-3 horas ou mais)"
+                                data-what-to-see="Ruas estreitas e sinuosas de Alfama, Sé de Lisboa, Miradouro de Santa Luzia, Panteão Nacional. O elétrico passa por vários bairros históricos."
+                                data-history="Alfama é o bairro mais antigo, resistiu ao terramoto de 1755. Mantém a traça moura. O Elétrico 28 é uma linha histórica que percorre colinas e ruas estreitas.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Alfama & Elétrico 28</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Perca-se pelas ruelas históricas de Alfama, o bairro mais antigo de Lisboa, e apanhe o famoso elétrico 28 para um passeio pitoresco.</p>
-                     <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12452.69029197085!2d-9.13719963955078!3d38.711709300000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934455d4432ad%3A0x43d4a1e416710850!2sAlfama%2C%20Lisboa%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678886790123!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa (Alfama)
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Alfama & Elétrico 28"
-                                 data-visit-time="Variável (Passeio elétrico ~40min; Explorar Alfama 2-3 horas ou mais)"
-                                 data-what-to-see="Ruas estreitas e sinuosas de Alfama, Sé de Lisboa, Miradouro de Santa Luzia, Panteão Nacional. O elétrico passa por vários bairros históricos."
-                                 data-history="Alfama é o bairro mais antigo, resistiu ao terramoto de 1755. Mantém a traça moura. O Elétrico 28 é uma linha histórica que percorre colinas e ruas estreitas.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
                     </div>
-                </div>
-
             </div>
 
             <h4 class="section-subtitle">Onde Comer</h4>
@@ -242,159 +224,150 @@
         </section>
 
         <section id="porto" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
-            <h3 class="section-title text-purple-700 border-purple-200">Porto: A Capital do Norte</h3>
+             <h3 class="text-3xl font-semibold mb-8 border-b-2 pb-2 text-purple-700 border-purple-200">Porto: A Capital do Norte</h3>
              <h4 class="section-subtitle">O que Visitar</h4>
-              <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-
+             <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                  <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mercado_do_Bolh%C3%A3o_2023-08-08_05.02.56_%2853111822406%29.jpg" alt="[Imagem de Mercado do Bolhão]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Mercado do Bolhão</h5>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mercado_do_Bolh%C3%A3o_2023-08-08_05.02.56_%2853111822406%29.jpg" alt="[Imagem de Mercado do Bolhão]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.665977958378!2d-8.60801668458207!3d41.147488979287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e1c092a31b%3A0x115a471f6545e530!2sMercado%20do%20Bolh%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1678887154321!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Mercado do Bolhão"
+                                data-visit-time="Aprox. 30 min - 1 hora"
+                                data-what-to-see="Bancas de produtos frescos (frutas, legumes, peixe), flores, artesanato, restaurantes no piso superior, arquitetura do edifício renovado."
+                                data-history="Inaugurado em 1914, é um dos mercados mais emblemáticos do Porto. Foi recentemente renovado, mantendo a sua estrutura original e espírito tradicional.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Mercado do Bolhão</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Mercado histórico lindamente renovado. Ótimo para sentir a atmosfera local, comprar produtos frescos, flores e artesanato.</p>
-                    <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Seg-Sex 08h-20h; Sáb 08h-18h.</p>
-                     <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.665977958378!2d-8.60801668458207!3d41.147488979287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e1c092a31b%3A0x115a471f6545e530!2sMercado%20do%20Bolh%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1678887154321!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Mercado do Bolhão"
-                                 data-visit-time="Aprox. 30 min - 1 hora"
-                                 data-what-to-see="Bancas de produtos frescos (frutas, legumes, peixe), flores, artesanato, restaurantes no piso superior, arquitetura do edifício renovado."
-                                 data-history="Inaugurado em 1914, é um dos mercados mais emblemáticos do Porto. Foi recentemente renovado, mantendo a sua estrutura original e espírito tradicional.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
+                    <p class="text-gray-600 text-xs flex-shrink-0"><strong>Horários:</strong> Seg-Sex 08h-20h; Sáb 08h-18h.</p>
+                 </div>
+                 <div class="attraction-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Livraria_LELLO_Porto.jpg" alt="[Imagem de Livraria Lello]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.708492547351!2d-8.6169616845821!3d41.14659897928709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e10a5845d1%3A0x676a3a0a89c47c8c!2sLivraria%20Lello!5e0!3m2!1spt-BR!2sbr!4v1678887210987!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Livraria Lello"
+                                data-visit-time="Aprox. 30 - 45 minutos (pode haver fila)"
+                                data-what-to-see="Escadaria central carmim, vitral no teto, prateleiras de madeira trabalhada, fachada neogótica."
+                                data-history="Inaugurada em 1906 pelos irmãos Lello. Diz-se que inspirou J.K. Rowling para a saga Harry Potter. O bilhete de entrada é descontável na compra de livros.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
                     </div>
-                </div>
-
-                <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Livraria_LELLO_Porto.jpg" alt="[Imagem de Livraria Lello]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Livraria Lello</h5>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Livraria Lello</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Considerada uma das livrarias mais bonitas do mundo, com sua escadaria vermelha icónica e vitrais deslumbrantes.</p>
-                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Diariamente 09h-19h30 (Verificar site, requer bilhete).</p>
-                      <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.708492547351!2d-8.6169616845821!3d41.14659897928709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e10a5845d1%3A0x676a3a0a89c47c8c!2sLivraria%20Lello!5e0!3m2!1spt-BR!2sbr!4v1678887210987!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Livraria Lello"
-                                 data-visit-time="Aprox. 30 - 45 minutos (pode haver fila)"
-                                 data-what-to-see="Escadaria central carmim, vitral no teto, prateleiras de madeira trabalhada, fachada neogótica."
-                                 data-history="Inaugurada em 1906 pelos irmãos Lello. Diz-se que inspirou J.K. Rowling para a saga Harry Potter. O bilhete de entrada é descontável na compra de livros.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
-                    </div>
+                    <p class="text-gray-600 text-xs flex-shrink-0"><strong>Horários:</strong> Diariamente 09h-19h30 (Verificar site, requer bilhete).</p>
                 </div>
-
                  <div class="attraction-card">
-                     <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/2013-11-30_-_Porto_Ribeira_-_IMG_0072-Editar_%2814661401688%29.jpg" alt="[Imagem de Ribeira]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Ribeira</h5>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/2013-11-30_-_Porto_Ribeira_-_IMG_0072-Editar_%2814661401688%29.jpg" alt="[Imagem de Ribeira]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6009.982423357891!2d-8.616039653906248!3d41.1411209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e7f18b977b%3A0xaf01d5132650a99a!2sCais%20da%20Ribeira%2C%20Porto%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887265432!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Ribeira"
+                                data-visit-time="Variável (Passeio de 1-2 horas, ou mais para refeições/relaxar)"
+                                data-what-to-see="Casas coloridas, Cais da Ribeira, Ponte D. Luís I, barcos rabelos (tradicionais), restaurantes e esplanadas, artistas de rua."
+                                data-history="Zona histórica e coração da cidade medieval. Foi um importante centro comercial e de navegação. Classificada como Património Mundial pela UNESCO em 1996.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Ribeira</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Cais histórico à beira do rio Douro, Património Mundial da UNESCO. Casas coloridas, restaurantes, bares e vistas para a Ponte D. Luís I.</p>
-                     <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6009.982423357891!2d-8.616039653906248!3d41.1411209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e7f18b977b%3A0xaf01d5132650a99a!2sCais%20da%20Ribeira%2C%20Porto%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887265432!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Ribeira"
-                                 data-visit-time="Variável (Passeio de 1-2 horas, ou mais para refeições/relaxar)"
-                                 data-what-to-see="Casas coloridas, Cais da Ribeira, Ponte D. Luís I, barcos rabelos (tradicionais), restaurantes e esplanadas, artistas de rua."
-                                 data-history="Zona histórica e coração da cidade medieval. Foi um importante centro comercial e de navegação. Classificada como Património Mundial pela UNESCO em 1996.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
                     </div>
-                </div>
-
-                <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vila_Nova_de_Gaia-Caves_Calem-20140910.jpg" alt="[Imagem de Caves do Vinho do Porto (Cálem, Gaia)]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Caves do Vinho do Porto (Gaia)</h5>
+                 <div class="attraction-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vila_Nova_de_Gaia-Caves_Calem-20140910.jpg" alt="[Imagem de Caves do Vinho do Porto (Cálem, Gaia)]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.082296670085!2d-8.61501168458239!3d41.1389489792878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e67890b32d%3A0x9a755b26677f8d6a!2sCaves%20C%C3%A1lem!5e0!3m2!1spt-BR!2sbr!4v1678887321098!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Caves do Vinho do Porto (Gaia)"
+                                data-visit-time="Aprox. 1 - 1.5 horas por cave (visita + prova)"
+                                data-what-to-see="Processo de envelhecimento do Vinho do Porto, grandes balseiros de carvalho, prova de diferentes tipos de vinho (Ruby, Tawny, Branco, Vintage)."
+                                data-history="As caves localizam-se em Vila Nova de Gaia, na margem oposta ao Porto. É aqui que o vinho produzido no Douro envelhece devido às condições climáticas ideais.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Caves do Vinho do Porto (Gaia)</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Atravesse a ponte para Vila Nova de Gaia e visite uma das famosas caves para aprender sobre o Vinho do Porto e fazer uma degustação.</p>
-                     <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.082296670085!2d-8.61501168458239!3d41.1389489792878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e67890b32d%3A0x9a755b26677f8d6a!2sCaves%20C%C3%A1lem!5e0!3m2!1spt-BR!2sbr!4v1678887321098!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Caves do Vinho do Porto (Gaia)"
-                                 data-visit-time="Aprox. 1 - 1.5 horas por cave (visita + prova)"
-                                 data-what-to-see="Processo de envelhecimento do Vinho do Porto, grandes balseiros de carvalho, prova de diferentes tipos de vinho (Ruby, Tawny, Branco, Vintage)."
-                                 data-history="As caves localizam-se em Vila Nova de Gaia, na margem oposta ao Porto. É aqui que o vinho produzido no Douro envelhece devido às condições climáticas ideais.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
                     </div>
-                </div>
-
-                 <div class="attraction-card">
-                     <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Pal%C3%A1cio_da_Bolsa%2C_Bolsa_Palace%2C_Porto%2C_Portugal_%2853973583947%29.jpg" alt="[Imagem de Palácio da Bolsa]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Palácio da Bolsa</h5>
-                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Edifício histórico com interiores deslumbrantes, com destaque para o Salão Árabe, ricamente decorado em estilo mourisco.</p>
-                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Visitas guiadas, verificar horários no site oficial.</p>
-                      <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.98014759238!2d-8.6160476845823!3d41.14114697928759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e79a3a09c7%3A0x7a7e9a3015e7f8d2!2sPal%C3%A1cio%20da%20Bolsa!5e0!3m2!1spt-BR!2sbr!4v1678887376543!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Palácio da Bolsa"
-                                 data-visit-time="Aprox. 45 minutos (visita guiada obrigatória)"
-                                 data-what-to-see="Pátio das Nações, Escadaria Nobre, Sala Dourada, Sala das Assembleias Gerais, Salão Árabe (o mais famoso)."
-                                 data-history="Construído no séc. XIX pela Associação Comercial do Porto sobre as ruínas de um convento. Nunca foi uma bolsa de valores, mas sim a sede da associação.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
-                    </div>
-                </div>
-
-                 <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Porto_-_Igreja_da_Ordem_de_S%C3%A3o_Francisco1536.jpg" alt="[Imagem de Igreja de São Francisco]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Igreja de São Francisco</h5>
-                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Exterior gótico simples que esconde um interior barroco exuberante, coberto de talha dourada. Uma visita impressionante.</p>
-                     <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.002375438748!2d-8.61675568458232!3d41.14069097928769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e77f4a246d%3A0x749a0a9e6a05f6d6!2sIgreja%20de%20S%C3%A3o%20Francisco!5e0!3m2!1spt-BR!2sbr!4v1678887432109!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Igreja de São Francisco"
-                                 data-visit-time="Aprox. 45 min - 1 hora"
-                                 data-what-to-see="Interior coberto de talha dourada (estima-se 300-400kg de ouro), Árvore de Jessé (escultura em talha), Catacumbas."
-                                 data-history="Construção iniciada no séc. XIV (gótica). O interior foi revestido a talha dourada nos sécs. XVII e XVIII, tornando-se um dos melhores exemplos do barroco português.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
-                    </div>
-                </div>
-
                 <div class="attraction-card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Vista_da_Torre_dos_Cl%C3%A9rigos_a_partir_do_Jardim_da_Cordoaria.jpg" alt="[Imagem de Torre dos Clérigos]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Torre dos Clérigos</h5>
-                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Ex-libris do Porto, esta torre barroca oferece vistas panorâmicas de 360º após subir os seus mais de 200 degraus.</p>
-                    <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Geralmente 09h–19h (verificar site oficial).</p>
-                     <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/search/?api=1&query=O+Trevo+Lisboa0" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Torre dos Clérigos"
-                                 data-visit-time="Aprox. 1 hora (incluindo subida e tempo no topo)"
-                                 data-what-to-see="Subida dos 225 degraus, vista panorâmica sobre o Porto e Gaia, Igreja dos Clérigos (adjacente)."
-                                 data-history="Obra barroca do arquiteto Nicolau Nasoni, construída entre 1754 e 1763. Com 75.6 metros, foi o edifício mais alto de Portugal na época da sua conclusão.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Pal%C3%A1cio_da_Bolsa%2C_Bolsa_Palace%2C_Porto%2C_Portugal_%2853973583947%29.jpg" alt="[Imagem de Palácio da Bolsa]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.98014759238!2d-8.6160476845823!3d41.14114697928759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e79a3a09c7%3A0x7a7e9a3015e7f8d2!2sPal%C3%A1cio%20da%20Bolsa!5e0!3m2!1spt-BR!2sbr!4v1678887376543!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Palácio da Bolsa"
+                                data-visit-time="Aprox. 45 minutos (visita guiada obrigatória)"
+                                data-what-to-see="Pátio das Nações, Escadaria Nobre, Sala Dourada, Sala das Assembleias Gerais, Salão Árabe (o mais famoso)."
+                                data-history="Construído no séc. XIX pela Associação Comercial do Porto sobre as ruínas de um convento. Nunca foi uma bolsa de valores, mas sim a sede da associação.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
                     </div>
-                </div>
-
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Palácio da Bolsa</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Edifício histórico com interiores deslumbrantes, com destaque para o Salão Árabe, ricamente decorado em estilo mourisco.</p>
+                    <p class="text-gray-600 text-xs flex-shrink-0"><strong>Horários:</strong> Visitas guiadas, verificar horários no site oficial.</p>
+                 </div>
                  <div class="attraction-card">
-                     <img src="https://museudoporto.pt/wp-content/uploads/2020/08/AAF5073-copy-co%CC%81pia.jpg" alt="[Imagem de Casa-Museu Marta Ortigão Sampaio]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.style.display='none'">
-                    <h5 class="text-xl font-bold text-gray-900 mb-2">Casa-Museu Marta Ortigão Sampaio</h5>
-                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Casa de estilo romântico tardio que alberga coleções de pintura naturalista, mobiliário e artes decorativas.</p>
-                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Ter-Dom 10h–17h30 (verificar site oficial).</p>
-                      <div class="mt-auto flex space-x-2">
-                         <button data-map-url="https://www.google.com/maps/search/?api=1&query=O+Trevo+Lisboa1" class="open-map-modal map-button-attraction flex-1">
-                             <i class="fas fa-map-marker-alt mr-2"></i> Mapa
-                         </button>
-                         <button class="open-about-modal about-button flex-1"
-                                 data-attraction-name="Casa-Museu Marta Ortigão Sampaio"
-                                 data-visit-time="Aprox. 1 hora"
-                                 data-what-to-see="Coleções de pintura (António Silva Porto, Marques de Oliveira), joias, mobiliário indo-português, jardins."
-                                 data-history="Residência projetada nos anos 50, legada pela sobrinha do pintor Aurélia de Souza à Câmara do Porto. Reflete o gosto burguês da época.">
-                             <i class="fas fa-info-circle mr-2"></i> Sobre
-                         </button>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Porto_-_Igreja_da_Ordem_de_S%C3%A3o_Francisco1536.jpg" alt="[Imagem de Igreja de São Francisco]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.002375438748!2d-8.61675568458232!3d41.14069097928769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e77f4a246d%3A0x749a0a9e6a05f6d6!2sIgreja%20de%20S%C3%A3o%20Francisco!5e0!3m2!1spt-BR!2sbr!4v1678887432109!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Igreja de São Francisco"
+                                data-visit-time="Aprox. 45 min - 1 hora"
+                                data-what-to-see="Interior coberto de talha dourada (estima-se 300-400kg de ouro), Árvore de Jessé (escultura em talha), Catacumbas."
+                                data-history="Construção iniciada no séc. XIV (gótica). O interior foi revestido a talha dourada nos sécs. XVII e XVIII, tornando-se um dos melhores exemplos do barroco português.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
                     </div>
-                </div>
-
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Igreja de São Francisco</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Exterior gótico simples que esconde um interior barroco exuberante, coberto de talha dourada. Uma visita impressionante.</p>
+                    </div>
+                 <div class="attraction-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Vista_da_Torre_dos_Cl%C3%A9rigos_a_partir_do_Jardim_da_Cordoaria.jpg" alt="[Imagem de Torre dos Clérigos]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/search/?api=1&query=O+Trevo+Lisboa0" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Torre dos Clérigos"
+                                data-visit-time="Aprox. 1 hora (incluindo subida e tempo no topo)"
+                                data-what-to-see="Subida dos 225 degraus, vista panorâmica sobre o Porto e Gaia, Igreja dos Clérigos (adjacente)."
+                                data-history="Obra barroca do arquiteto Nicolau Nasoni, construída entre 1754 e 1763. Com 75.6 metros, foi o edifício mais alto de Portugal na época da sua conclusão.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Torre dos Clérigos</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Ex-libris do Porto, esta torre barroca oferece vistas panorâmicas de 360º após subir os seus mais de 200 degraus.</p>
+                    <p class="text-gray-600 text-xs flex-shrink-0"><strong>Horários:</strong> Geralmente 09h–19h (verificar site oficial).</p>
+                 </div>
+                 <div class="attraction-card">
+                    <img src="https://museudoporto.pt/wp-content/uploads/2020/08/AAF5073-copy-co%CC%81pia.jpg" alt="[Imagem de Casa-Museu Marta Ortigão Sampaio]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
+                     <div class="flex space-x-2 flex-shrink-0 mb-4">
+                        <button data-map-url="https://www.google.com/maps/search/?api=1&query=O+Trevo+Lisboa1" class="open-map-modal map-button-attraction flex-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button flex-1"
+                                data-attraction-name="Casa-Museu Marta Ortigão Sampaio"
+                                data-visit-time="Aprox. 1 hora"
+                                data-what-to-see="Coleções de pintura (António Silva Porto, Marques de Oliveira), joias, mobiliário indo-português, jardins."
+                                data-history="Residência projetada nos anos 50, legada pela sobrinha do pintor Aurélia de Souza à Câmara do Porto. Reflete o gosto burguês da época.">
+                            <i class="fas fa-info-circle mr-2"></i> Sobre
+                        </button>
+                    </div>
+                    <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Casa-Museu Marta Ortigão Sampaio</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Casa de estilo romântico tardio que alberga coleções de pintura naturalista, mobiliário e artes decorativas.</p>
+                    <p class="text-gray-600 text-xs flex-shrink-0"><strong>Horários:</strong> Ter-Dom 10h–17h30 (verificar site oficial).</p>
+                 </div>
             </div>
 
             <h4 class="section-subtitle">Onde Comer</h4>
@@ -426,12 +399,12 @@
 
     <div id="mapModal" class="modal" aria-labelledby="map-modal-title" role="dialog" aria-modal="true">
         <div class="modal-content">
-             <button id="closeMapModal" class="modal-close-button">×</button>
+            <button id="closeMapModal" class="modal-close-button">×</button>
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #e5e7eb;">
-                <h2 id="map-modal-title" style="font-size: 1.125rem; font-weight: 600; color: #1f2937;">Localização no Mapa</h2>
+                 <h2 id="map-modal-title" style="font-size: 1.125rem; font-weight: 600; color: #1f2937;">Localização no Mapa</h2>
             </div>
-            <div class="modal-body">
-                 <iframe id="mapIframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src=""></iframe>
+            <div class="modal-body-map">
+                <iframe id="mapIframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src=""></iframe>
             </div>
         </div>
     </div>
@@ -440,28 +413,27 @@
         <div class="modal-content">
              <button id="closeAboutModal" class="modal-close-button">×</button>
             <div class="modal-body">
-                <h3 id="about-modal-title" style="font-size: 1.5rem; font-weight: 700; color: #0369a1; margin-bottom: 1.5rem;">Nome da Atração</h3>
-                <div style="display: flex; flex-direction: column; gap: 1.25rem; font-size: 0.875rem; color: #374151;">
-                    <div>
-                        <h5 style="font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">Tempo Estimado de Visita:</h5>
-                        <p id="about-visit-time" style="line-height: 1.625;">...</p>
-                    </div>
-                    <div>
-                        <h5 style="font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">O Que Ver:</h5>
-                        <p id="about-what-to-see" style="line-height: 1.625;">...</p>
-                    </div>
-                    <div>
-                        <h5 style="font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">Pequena História:</h5>
-                        <p id="about-history" style="line-height: 1.625;">...</p>
-                    </div>
-                </div>
+                 <h3 id="about-modal-title" style="font-size: 1.5rem; font-weight: 700; color: #0369a1; margin-bottom: 1.5rem;">Nome da Atração</h3>
+                 <div style="display: flex; flex-direction: column; gap: 1.25rem; font-size: 0.875rem; color: #374151;">
+                     <div>
+                         <h5 style="font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">Tempo Estimado de Visita:</h5>
+                         <p id="about-visit-time" style="line-height: 1.625;">...</p>
+                     </div>
+                     <div>
+                         <h5 style="font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">O Que Ver:</h5>
+                         <p id="about-what-to-see" style="line-height: 1.625;">...</p>
+                     </div>
+                     <div>
+                         <h5 style="font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">Pequena História:</h5>
+                         <p id="about-history" style="line-height: 1.625;">...</p>
+                     </div>
+                 </div>
             </div>
         </div>
     </div>
 
     <script>
-         // Inicializa logs para verificar se o script está carregando
-         console.log('Script iniciado');
+         console.log('Script iniciado (v16 - Revertido - Card Order Changed)');
 
          // --- Seletores Globais ---
          const mapModalElement = document.getElementById('mapModal');
@@ -474,164 +446,118 @@
          const closeMapModalBtn = document.getElementById('closeMapModal');
          const closeAboutModalBtn = document.getElementById('closeAboutModal');
 
-
          console.log('Elementos obtidos:',
-             mapModalElement ? 'mapModal OK' : 'mapModal não encontrado',
-             aboutModalElement ? 'aboutModal OK' : 'aboutModal não encontrado',
-             closeMapModalBtn ? 'closeMapModalBtn OK' : 'closeMapModalBtn não encontrado',
-             closeAboutModalBtn ? 'closeAboutModalBtn OK' : 'closeAboutModalBtn não encontrado'
+           mapModalElement ? 'mapModal OK' : 'mapModal NÃO encontrado',
+           aboutModalElement ? 'aboutModal OK' : 'aboutModal NÃO encontrado',
+           closeMapModalBtn ? 'closeMapModalBtn OK' : 'closeMapModalBtn NÃO encontrado',
+           closeAboutModalBtn ? 'closeAboutModalBtn OK' : 'closeAboutModalBtn NÃO encontrado'
          );
 
-         // --- Funções de Controle de Modal (do Exemplo User) ---
+         // --- Funções de Controle de Modal ---
          function openModal(modalElement) {
-             if (!modalElement) {
-                 console.error('Modal não encontrado para abrir!');
-                 return;
-             }
-             console.log('Abrindo modal:', modalElement.id);
-             modalElement.classList.add('is-open'); // Adiciona classe para tornar visível (CSS controla opacity/pointer-events)
-             document.body.style.overflow = 'hidden'; // Bloqueia scroll
+           if (!modalElement) { console.error('Modal não encontrado para abrir!'); return; }
+           console.log('Abrindo modal:', modalElement.id);
+           modalElement.classList.add('is-open');
+           document.body.style.overflow = 'hidden';
          }
 
          function closeModal(modalElement) {
-             if (!modalElement) {
-                 console.error('Modal não encontrado para fechar!');
-                 return;
-             }
-             console.log('Fechando modal:', modalElement.id);
-             modalElement.classList.remove('is-open'); // Remove classe (CSS controla opacity/pointer-events)
+           if (!modalElement) { console.error('Modal não encontrado para fechar!'); return; }
+           console.log('Fechando modal:', modalElement.id);
+           modalElement.classList.remove('is-open');
 
-             // Só restaura scroll se NENHUM modal estiver aberto
-             const mapIsOpen = mapModalElement ? mapModalElement.classList.contains('is-open') : false;
-             const aboutIsOpen = aboutModalElement ? aboutModalElement.classList.contains('is-open') : false;
+           const mapIsOpen = mapModalElement ? mapModalElement.classList.contains('is-open') : false;
+           const aboutIsOpen = aboutModalElement ? aboutModalElement.classList.contains('is-open') : false;
 
-             if (!mapIsOpen && !aboutIsOpen) {
-                 console.log('Restaurando scroll do body');
-                 document.body.style.overflow = '';
-             } else {
-                 console.log('Outro modal ainda está aberto, não restaurando scroll.');
-             }
+           if (!mapIsOpen && !aboutIsOpen) {
+             console.log('Restaurando scroll do body');
+             document.body.style.overflow = '';
+           } else {
+             console.log('Outro modal ainda está aberto, não restaurando scroll.');
+           }
          }
 
          // --- Lógica Modal Mapa ---
          document.querySelectorAll('.open-map-modal').forEach(button => {
-             button.addEventListener('click', () => {
-                 console.log('Botão mapa clicado:', button);
-                 const mapUrl = button.getAttribute('data-map-url');
-                 if (!mapUrl) {
-                     console.error('URL do mapa não fornecida no botão:', button);
-                     return;
-                 }
+           button.addEventListener('click', () => {
+             console.log('Botão mapa clicado:', button);
+             const mapUrl = button.getAttribute('data-map-url');
+             if (!mapUrl) { console.error('URL do mapa não fornecida:', button); return; }
 
-                 let embedUrl = mapUrl;
-                 // Lógica de placeholder (pode remover se não usar mais placeholders)
-                 if (mapUrl.includes('googleusercontent.com/maps')) {
-                    console.warn('URL de placeholder detectado para mapa. Substitua data-map-url por um URL de embed real.');
-                    embedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d398879.8008087465!2d-9.41481671943362!3d38.72790203898525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19331a61e4f33b%3A0x400ebbde49036d0!2sLisboa%2C%20Portugal!5e0!3m2!1spt-PT!2sbr!4v1678886478531!5m2!1spt-PT!2sbr'; // Fallback genérico
-                 }
+             let embedUrl = mapUrl;
+             if (mapUrl.includes('googleusercontent.com/maps')) {
+                console.warn('URL de placeholder detectado. Use URL de embed real.');
+                embedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d398879.8008087465!2d-9.41481671943362!3d38.72790203898525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19331a61e4f33b%3A0x400ebbde49036d0!2sLisboa%2C%20Portugal!5e0!3m2!1spt-PT!2sbr!4v1678886478531!5m2!1spt-PT!2sbr'; // Fallback genérico - substitua por um link de embed real
+             }
 
-                 if (mapIframeElement) {
-                     mapIframeElement.src = embedUrl;
-                     console.log('URL do mapa definida no iframe:', embedUrl);
-                 } else {
-                     console.error('Elemento iframe do mapa (mapIframe) não encontrado!');
-                 }
+             if (mapIframeElement) { mapIframeElement.src = embedUrl; }
+             else { console.error('Iframe do mapa não encontrado!'); }
 
-                 openModal(mapModalElement);
-             });
+             openModal(mapModalElement);
+           });
          });
 
-         // Evento no botão de fechar o modal de mapa
          if (closeMapModalBtn) {
-             closeMapModalBtn.addEventListener('click', () => {
-                 console.log('Botão fechar mapa clicado');
-                 if (mapIframeElement) {
-                     mapIframeElement.src = ''; // Limpa iframe
-                     console.log('Iframe do mapa limpo.');
-                 }
-                 closeModal(mapModalElement);
-             });
-         }
+           closeMapModalBtn.addEventListener('click', () => {
+             console.log('Botão fechar mapa clicado');
+             if (mapIframeElement) { mapIframeElement.src = ''; } // Limpa o src para parar o carregamento
+             closeModal(mapModalElement);
+           });
+         } else { console.error('Botão fechar mapa não encontrado!'); }
 
          // --- Lógica Modal Sobre ---
          document.querySelectorAll('.open-about-modal').forEach(button => {
-             button.addEventListener('click', () => {
-                 console.log('Botão sobre clicado:', button);
-                 const name = button.getAttribute('data-attraction-name');
-                 const time = button.getAttribute('data-visit-time');
-                 const see = button.getAttribute('data-what-to-see');
-                 const history = button.getAttribute('data-history');
+           button.addEventListener('click', () => {
+             console.log('Botão sobre clicado:', button);
+             const name = button.getAttribute('data-attraction-name');
+             const time = button.getAttribute('data-visit-time');
+             const see = button.getAttribute('data-what-to-see');
+             const history = button.getAttribute('data-history');
 
-                 console.log('Dados do botão sobre:', { name, time, see, history });
+             if (aboutTitleElement) aboutTitleElement.textContent = name || 'Detalhes'; else console.error('Título sobre não encontrado!');
+             if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = time || 'N/A'; else console.error('Tempo visita sobre não encontrado!');
+             if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = see || 'N/A'; else console.error('O que ver sobre não encontrado!');
+             if (aboutHistoryElement) aboutHistoryElement.textContent = history || 'N/A'; else console.error('História sobre não encontrada!');
 
-                 if (aboutTitleElement) {
-                     aboutTitleElement.textContent = name || 'Detalhes da Atração';
-                 } else { console.error('Elemento about-modal-title não encontrado!'); }
-
-                 if (aboutVisitTimeElement) {
-                     aboutVisitTimeElement.textContent = time || 'N/A';
-                 } else { console.error('Elemento about-visit-time não encontrado!'); }
-
-                 if (aboutWhatToSeeElement) {
-                     aboutWhatToSeeElement.textContent = see || 'N/A';
-                 } else { console.error('Elemento about-what-to-see não encontrado!'); }
-
-                 if (aboutHistoryElement) {
-                     aboutHistoryElement.textContent = history || 'N/A';
-                 } else { console.error('Elemento about-history não encontrado!'); }
-
-                 openModal(aboutModalElement);
-             });
+             openModal(aboutModalElement);
+           });
          });
 
-         // Evento no botão de fechar o modal sobre
          if (closeAboutModalBtn) {
-             closeAboutModalBtn.addEventListener('click', () => {
-                 console.log('Botão fechar sobre clicado');
-                 // Limpar conteúdo (opcional)
-                 if (aboutTitleElement) aboutTitleElement.textContent = '...';
-                 if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = '...';
-                 if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = '...';
-                 if (aboutHistoryElement) aboutHistoryElement.textContent = '...';
-                 closeModal(aboutModalElement);
-             });
-         }
+           closeAboutModalBtn.addEventListener('click', () => {
+             console.log('Botão fechar sobre clicado');
+             // Limpar conteúdo (opcional)
+             if (aboutTitleElement) aboutTitleElement.textContent = '...';
+             if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = '...';
+             if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = '...';
+             if (aboutHistoryElement) aboutHistoryElement.textContent = '...';
+             closeModal(aboutModalElement);
+           });
+         } else { console.error('Botão fechar sobre não encontrado!'); }
 
          // --- Fechar Modals com ESC ou clique fora ---
          document.addEventListener('keydown', (event) => {
-             if (event.key === 'Escape') {
-                 console.log('Tecla ESC pressionada');
-                 if (mapModalElement && mapModalElement.classList.contains('is-open')) {
-                     closeModal(mapModalElement);
-                 }
-                 if (aboutModalElement && aboutModalElement.classList.contains('is-open')) {
-                     closeModal(aboutModalElement);
-                 }
+           if (event.key === 'Escape') {
+             console.log('Tecla ESC pressionada');
+             if (mapModalElement && mapModalElement.classList.contains('is-open')) {
+               closeModal(mapModalElement);
              }
+             if (aboutModalElement && aboutModalElement.classList.contains('is-open')) {
+               closeModal(aboutModalElement);
+             }
+           }
          });
 
-         // Fecha os modais quando clicar fora deles (no backdrop)
-         if (mapModalElement) {
-             mapModalElement.addEventListener('click', (event) => {
-                 // Verifica se o clique foi no próprio elemento modal (o fundo)
-                 if (event.target === mapModalElement) {
-                     console.log('Clique fora do conteúdo do modal de mapa');
-                     closeModal(mapModalElement);
-                 }
-             });
-         }
+         [mapModalElement, aboutModalElement].forEach(modal => {
+           modal?.addEventListener('click', (event) => {
+             if (event.target === modal) { // Fecha apenas se clicar no fundo
+               console.log('Clique fora do conteúdo do modal:', modal.id);
+               closeModal(modal);
+             }
+           });
+         });
 
-         if (aboutModalElement) {
-             aboutModalElement.addEventListener('click', (event) => {
-                 // Verifica se o clique foi no próprio elemento modal (o fundo)
-                 if (event.target === aboutModalElement) {
-                     console.log('Clique fora do conteúdo do modal sobre');
-                     closeModal(aboutModalElement);
-                 }
-             });
-         }
-
-         console.log('Script carregado e listeners adicionados com sucesso!');
+         console.log('Script carregado e listeners adicionados (v16 - Revertido - Card Order Changed)');
     </script>
 
 </body>
