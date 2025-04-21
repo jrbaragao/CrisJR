@@ -1,261 +1,447 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia de Viagem – Portugal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #ff4e50;
-      --secondary: #009fb7;
-      --bg: #f5f7fa;
-      --text: #333;
-      --card-bg: #ffffff;
-    }
-    * {box-sizing: border-box; margin: 0; padding: 0;}
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff;
-      text-align: center;
-      padding: 4rem 1rem 6rem;
-      position: relative;
-    }
-    header h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-    header p {
-      font-size: 1.25rem;
-      opacity: 0.9;
-    }
-    nav {
-      position: absolute;
-      bottom: -1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #fff;
-      border-radius: 999px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-      display: flex;
-      gap: 1rem;
-      padding: 0.5rem 1.5rem;
-    }
-    nav a {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
-    }
-    nav a:hover { color: var(--primary); }
-
-    section {
-      padding: 4rem 1rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    section h2 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary);
-      text-align: center;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s ease;
-    }
-    .card:hover { transform: translateY(-4px); }
-    .card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-    }
-    .card-content {
-      flex: 1;
-      padding: 1rem 1.25rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .card h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--secondary);
-    }
-    .hours { font-size: 0.9rem; opacity: 0.8; }
-    .card a {
-      margin-top: auto;
-      align-self: flex-start;
-      background: var(--primary);
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      text-decoration: none;
-      transition: background 0.2s ease;
-    }
-    .card a:hover { background: var(--secondary); }
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.85rem;
-      opacity: 0.7;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicas de Viagem Portugal - Cris & JR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo para scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Fonte Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Adiciona um pouco de espaço no topo ao navegar para uma seção */
+        section {
+            scroll-margin-top: 80px; /* Ajuste conforme a altura do seu header */
+        }
+        /* Estilo para o botão do Google Maps */
+        .map-button {
+            transition: background-color 0.3s ease;
+            cursor: pointer; /* Indica que é clicável */
+        }
+        .map-button:hover {
+            background-color: #e53e3e; /* Vermelho mais escuro no hover */
+        }
+        /* Estilos para o Modal */
+        .modal {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal.hidden .modal-content {
+             transform: scale(0.95);
+        }
+        .modal:not(.hidden) .modal-content {
+            transform: scale(1);
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <h1>Portugal Incrível</h1>
-    <p>Descubra os lugares imperdíveis entre Lisboa, Porto e arredores</p>
-    <nav>
-      <a href="#lisboa">Lisboa</a>
-      <a href="#batevolta">Bate-voltas</a>
-      <a href="#porto">Porto</a>
-    </nav>
-  </header>
+<body class="bg-gray-100">
 
-  <!-- LISBOA -->
-  <section id="lisboa">
-    <h2>Lisboa</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="https://picsum.photos/seed/jeronimos/600/400" alt="Mosteiro dos Jerónimos">
-        <div class="card-content">
-          <h3>Mosteiro dos Jerónimos</h3>
-          <p class="hours">Mai–Set 10 h–18 h30 • Out–Abr 10 h–17 h30 • Fecha 2ª-feira</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Mosteiro+dos+Jer%C3%B3nimos+Lisboa" target="_blank">Abrir no Maps</a>
+    <header class="bg-blue-600 text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Cris & JR em Portugal</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#lisboa" class="hover:text-blue-200 transition duration-300">Lisboa</a></li>
+                    <li><a href="#porto" class="hover:text-blue-200 transition duration-300">Porto</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/belem/600/400" alt="Torre de Belém">
-        <div class="card-content">
-          <h3>Torre de Belém</h3>
-          <p class="hours">Mai–Set 10 h–18 h30 • Out–Abr 10 h–17 h30 • Fecha 2ª-feira</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Torre+de+Bel%C3%A9m+Lisboa" target="_blank">Abrir no Maps</a>
+    </header>
+
+    <main class="container mx-auto p-6 mt-6">
+
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Roteiro Inesquecível por Portugal</h2>
+            <p class="text-lg text-gray-600">As melhores dicas de Lisboa e Porto para um casal apaixonado por história, arte e boa comida!</p>
         </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/saojorge/600/400" alt="Castelo de São Jorge">
-        <div class="card-content">
-          <h3>Castelo de São Jorge</h3>
-          <p class="hours">Mar–Out 09 h–21 h • Nov–Fev 09 h–18 h</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Castelo+de+S%C3%A3o+Jorge+Lisboa" target="_blank">Abrir no Maps</a>
+
+        <section id="lisboa" class="mb-16 bg-white p-8 rounded-lg shadow-lg">
+            <h3 class="text-3xl font-semibold text-blue-700 mb-8 border-b-2 border-blue-200 pb-2">Lisboa: A Cidade das Sete Colinas</h3>
+
+            <h4 class="text-2xl font-semibold text-gray-800 mb-6">O que Visitar</h4>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+                <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/a0aec0/ffffff?text=Mosteiro+dos+Jerónimos" alt="Imagem do Mosteiro dos Jerónimos" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Mosteiro dos Jerónimos</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Impressionante obra-prima do estilo manuelino, Património Mundial da UNESCO. Abriga os túmulos de Vasco da Gama e Luís de Camões.</p>
+                    <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 10h–18h30 (Mai-Set); 10h–17h30 (Out-Abr); Fecha 2ª-feira.</p>
+                    <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.989799011835!2d-9.208536684655566!3d38.6978689796016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb5a17ff457b%3A0x997a42a78b7a448d!2sMosteiro%20dos%20Jer%C3%B3nimos!5e0!3m2!1spt-BR!2sbr!4v1678886543210!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/718096/ffffff?text=Torre+de+Belém" alt="Imagem da Torre de Belém" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Torre de Belém</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Ícone de Lisboa e da Era dos Descobrimentos. Uma elegante torre defensiva do século XVI à beira do Tejo.</p>
+                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 10h–18h30 (Mai-Set); 10h–17h30 (Out-Abr); Fecha 2ª-feira.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3114.575380853355!2d-9.21839568465598!3d38.69157997960266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb64a62183d7%3A0x34a59e489e9e7b18!2sTorre%20de%20Bel%C3%A9m!5e0!3m2!1spt-BR!2sbr!4v1678886612345!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/4a5568/ffffff?text=Castelo+de+São+Jorge" alt="Imagem do Castelo de São Jorge" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Castelo de São Jorge</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Antiga fortaleza moura com muralhas imponentes, jardins e vistas panorâmicas deslumbrantes sobre Lisboa e o rio Tejo.</p>
+                    <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 09h–21h (Mar-Out); 09h–18h (Nov-Fev).</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.088615903716!2d-9.13581868465495!3d38.71390797960001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19344f005a05d7%3A0x7a3c8d2e4c6d6a9e!2sCastelo%20de%20S%C3%A3o%20Jorge!5e0!3m2!1spt-BR!2sbr!4v1678886678901!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/e2e8f0/2d3748?text=Museu+Nacional+Arte+Antiga" alt="Imagem do Museu Nacional de Arte Antiga" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Museu Nacional de Arte Antiga</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Principal museu de arte do país, com vasta coleção de pintura, escultura e artes decorativas portuguesas e europeias.</p>
+                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 10h–18h (Ter-Dom); Fecha 2ª-feira.</p>
+                      <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.68989366815!2d-9.16103968465531!3d38.70491897960096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934e165134467%3A0x591a880780db93f!2sMuseu%20Nacional%20de%20Arte%20Antiga!5e0!3m2!1spt-BR!2sbr!4v1678886734567!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/cbd5e0/4a5568?text=Alfama+&+Elétrico+28" alt="Imagem de Alfama e Elétrico 28" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Alfama & Elétrico 28</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Perca-se pelas ruelas históricas de Alfama, o bairro mais antigo de Lisboa, e apanhe o famoso elétrico 28 para um passeio pitoresco.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12452.69029197085!2d-9.13719963955078!3d38.711709300000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934455d4432ad%3A0x43d4a1e416710850!2sAlfama%2C%20Lisboa%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678886790123!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver Mapa (Alfama)
+                    </button>
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-semibold text-gray-800 mb-6 mt-10">Onde Comer</h4>
+            <div class="space-y-6 mb-10">
+                <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h5 class="font-semibold text-yellow-800">Bonjardim (Frango Piri-Piri)</h5>
+                    <p class="text-sm text-yellow-700">Travessa de Santo Antão 12 (12h–23h)</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h5 class="font-semibold text-yellow-800">O Trevo (Bifana / Bolinho de Bacalhau)</h5>
+                    <p class="text-sm text-yellow-700">Praça Luís de Camões 48 (10h–22h) - *Nota: Bifana é de porco*</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=O+Trevo+Praça+Luís+de+Camões+Lisboa" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h5 class="font-semibold text-yellow-800">D'Bacalhau (Especialidade Bacalhau)</h5>
+                    <p class="text-sm text-yellow-700">Rua do Bojador 45 – Parque das Nações (12h–23h)</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=D'Bacalhau+Parque+das+Nações+Lisboa" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-lg border border-pink-200">
+                    <h5 class="font-semibold text-pink-800">Pastéis de Belém (Pastel de Nata Original)</h5>
+                    <p class="text-sm text-pink-700">Rua de Belém 84-92 (08h–23h)</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Pastéis+de+Belém+Lisboa" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-pink-50 p-4 rounded-lg border border-pink-200">
+                    <h5 class="font-semibold text-pink-800">Manteigaria (Pastel de Nata)</h5>
+                    <p class="text-sm text-pink-700">Rua Augusta 192 (08h–21h) - Várias localizações</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=Manteigaria+Rua+Augusta+Lisboa" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-pink-50 p-4 rounded-lg border border-pink-200">
+                    <h5 class="font-semibold text-pink-800">Pastelaria Alcoa (Doces Conventuais)</h5>
+                    <p class="text-sm text-pink-700">Rua Garrett 37 (09h–20h)</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=Pastelaria+Alcoa+Rua+Garrett+Lisboa" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                    <h5 class="font-semibold text-orange-800">A Padaria Portuguesa</h5>
+                    <p class="text-sm text-orange-700">Várias localizações (Ex: Rua Áurea 175). Pão de Deus, croissants, pães variados.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa6" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa (Exemplo)</a>
+                </div>
+                 <div class="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                    <h5 class="font-semibold text-orange-800">Pastelaria Versailles</h5>
+                    <p class="text-sm text-orange-700">Av. da República 15 A. Ambiente clássico, bolos, salgados e pães.</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa7" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-semibold text-gray-800 mb-6 mt-10">Sugestões de Bate e Volta</h4>
+            <div class="grid md:grid-cols-2 gap-8">
+                 <div class="bg-green-50 p-6 rounded-lg border border-green-200 flex flex-col">
+                    <h5 class="text-xl font-semibold text-green-800 mb-2">Sintra</h5>
+                    <p class="text-green-700 mb-3 flex-grow">Vila mágica com palácios de contos de fadas (Pena, Quinta da Regaleira, Palácio Nacional). Essencial para quem ama história e arquitetura.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50063.95939932781!2d-9.423974648632814!3d38.799479!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecf215ee86737%3A0x790a60a44c8f4e7c!2sSintra%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678886901234!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition duration-300">
+                         <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa
+                    </button>
+                </div>
+                 <div class="bg-green-50 p-6 rounded-lg border border-green-200 flex flex-col">
+                    <h5 class="text-xl font-semibold text-green-800 mb-2">Cascais & Estoril</h5>
+                    <p class="text-green-700 mb-3 flex-grow">Antigas vilas piscatórias que se tornaram refúgios da realeza e aristocracia. Praias charmosas, marina e o famoso Casino Estoril.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24920.06131852438!2d-9.445676648632813!3d38.70114299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ec45b064d477d%3A0x535a3c6c6eef25a5!2sCascais%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678886954321!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition duration-300">
+                         <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa
+                    </button>
+                </div>
+                 <div class="bg-green-50 p-6 rounded-lg border border-green-200 flex flex-col">
+                    <h5 class="text-xl font-semibold text-green-800 mb-2">Óbidos</h5>
+                    <p class="text-green-700 mb-3 flex-grow">Vila medieval perfeitamente preservada dentro de muralhas. Ruas floridas, castelo e a famosa ginjinha em copo de chocolate.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24689.81698985156!2d-9.177990648632814!3d39.360789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd18b45b6d0be68d%3A0x59d1df6e96e9012e!2zw5NiaWRvcywgUG9ydHVnYWw!5e0!3m2!1spt-BR!2sbr!4v1678887009876!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition duration-300">
+                         <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa
+                    </button>
+                </div>
+                 <div class="bg-green-50 p-6 rounded-lg border border-green-200 flex flex-col">
+                    <h5 class="text-xl font-semibold text-green-800 mb-2">Mosteiro da Batalha (Opcional)</h5>
+                    <p class="text-green-700 mb-3 flex-grow">Magnífico mosteiro gótico/manuelino, Património Mundial. Fica a cerca de 1h30 de Lisboa, pode ser combinado com Fátima ou Alcobaça.</p>
+                    <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 09h–18h30; Fecha 2ª-feira.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3064.854352146255!2d-8.82777778462268!3d39.6587779794603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1881a50e8e8e1f%3A0x80991e6a9c8d8e4c!2sMosteiro%20da%20Batalha!5e0!3m2!1spt-BR!2sbr!4v1678887065432!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition duration-300">
+                         <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="porto" class="mb-16 bg-white p-8 rounded-lg shadow-lg">
+            <h3 class="text-3xl font-semibold text-purple-700 mb-8 border-b-2 border-purple-200 pb-2">Porto: A Capital do Norte</h3>
+
+             <h4 class="text-2xl font-semibold text-gray-800 mb-6">O que Visitar</h4>
+             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/a0aec0/ffffff?text=Mercado+do+Bolhão" alt="Imagem do Mercado do Bolhão" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Mercado do Bolhão</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Mercado histórico lindamente renovado. Ótimo para sentir a atmosfera local, comprar produtos frescos, flores e artesanato.</p>
+                    <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Seg-Sex 08h-20h; Sáb 08h-18h.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.665977958378!2d-8.60801668458207!3d41.147488979287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e1c092a31b%3A0x115a471f6545e530!2sMercado%20do%20Bolh%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1678887154321!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/718096/ffffff?text=Livraria+Lello" alt="Imagem da Livraria Lello" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Livraria Lello</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Considerada uma das livrarias mais bonitas do mundo, com sua escadaria vermelha icónica e vitrais deslumbrantes.</p>
+                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Diariamente 09h-19h30 (Verificar site, requer bilhete).</p>
+                      <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.708492547351!2d-8.6169616845821!3d41.14659897928709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e10a5845d1%3A0x676a3a0a89c47c8c!2sLivraria%20Lello!5e0!3m2!1spt-BR!2sbr!4v1678887210987!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/4a5568/ffffff?text=Ribeira+do+Porto" alt="Imagem da Ribeira do Porto" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Ribeira</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Cais histórico à beira do rio Douro, Património Mundial da UNESCO. Casas coloridas, restaurantes, bares e vistas para a Ponte D. Luís I.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6009.982423357891!2d-8.616039653906248!3d41.1411209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e7f18b977b%3A0xaf01d5132650a99a!2sCais%20da%20Ribeira%2C%20Porto%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887265432!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/e2e8f0/2d3748?text=Caves+Vinho+do+Porto" alt="Imagem das Caves do Vinho do Porto" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Caves do Vinho do Porto (Gaia)</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Atravesse a ponte para Vila Nova de Gaia e visite uma das famosas caves para aprender sobre o Vinho do Porto e fazer uma degustação.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.082296670085!2d-8.61501168458239!3d41.1389489792878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e67890b32d%3A0x9a755b26677f8d6a!2sCaves%20C%C3%A1lem!5e0!3m2!1spt-BR!2sbr!4v1678887321098!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/cbd5e0/4a5568?text=Palácio+da+Bolsa" alt="Imagem do Palácio da Bolsa" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Palácio da Bolsa</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Edifício histórico com interiores deslumbrantes, com destaque para o Salão Árabe, ricamente decorado em estilo mourisco.</p>
+                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Visitas guiadas, verificar horários no site oficial.</p>
+                      <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.98014759238!2d-8.6160476845823!3d41.14114697928759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e79a3a09c7%3A0x7a7e9a3015e7f8d2!2sPal%C3%A1cio%20da%20Bolsa!5e0!3m2!1spt-BR!2sbr!4v1678887376543!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/9fa6b2/ffffff?text=Igreja+São+Francisco" alt="Imagem da Igreja de São Francisco" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Igreja de São Francisco</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Exterior gótico simples que esconde um interior barroco exuberante, coberto de talha dourada. Uma visita impressionante.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.002375438748!2d-8.61675568458232!3d41.14069097928769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e77f4a246d%3A0x749a0a9e6a05f6d6!2sIgreja%20de%20S%C3%A3o%20Francisco!5e0!3m2!1spt-BR!2sbr!4v1678887432109!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/a3bffa/ffffff?text=Torre+dos+Clérigos" alt="Imagem da Torre dos Clérigos" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Torre dos Clérigos</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Ex-libris do Porto, esta torre barroca oferece vistas panorâmicas de 360º após subir os seus mais de 200 degraus.</p>
+                    <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Geralmente 09h–19h (verificar site oficial).</p>
+                     <button data-map-url="https://www.google.com/maps/search/?api=1&query=O+Trevo+Lisboa0" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/600x400/fbd38d/4a5568?text=Casa-Museu+Marta+O.+Sampaio" alt="Imagem da Casa-Museu Marta Ortigão Sampaio" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <h5 class="text-xl font-bold text-gray-900 mb-2">Casa-Museu Marta Ortigão Sampaio</h5>
+                    <p class="text-gray-700 mb-3 text-sm flex-grow">Casa de estilo romântico tardio que alberga coleções de pintura naturalista, mobiliário e artes decorativas.</p>
+                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Ter-Dom 10h–17h30 (verificar site oficial).</p>
+                     <button data-map-url="https://www.google.com/maps/search/?api=1&query=O+Trevo+Lisboa1" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Ver no Mapa
+                    </button>
+                </div>
+
+            </div> <h4 class="text-2xl font-semibold text-gray-800 mb-6 mt-10">Onde Comer</h4>
+            <div class="space-y-6 mb-10">
+                <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h5 class="font-semibold text-yellow-800">Adega São Nicolau</h5>
+                    <p class="text-sm text-yellow-700">Rua de São Nicolau 1 (Ribeira). Cozinha tradicional portuguesa, peixe fresco, ambiente acolhedor.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa5" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h5 class="font-semibold text-yellow-800">Meia-Nau (Peixe e Marisco - Matosinhos)</h5>
+                    <p class="text-sm text-yellow-700">Av. Eng. Duarte Pacheco 38, Matosinhos (12h–23h) - *Requer deslocação*</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=Meia-Nau+Matosinhos" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h5 class="font-semibold text-yellow-800">Bacalhoeiro (Bacalhau - Gaia)</h5>
+                    <p class="text-sm text-yellow-700">Av. de Diogo Leite 74, Vila Nova de Gaia (12h–23h)</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=Bacalhoeiro+Vila+Nova+de+Gaia" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h5 class="font-semibold text-yellow-800">Café Santiago / Brasão Cervejaria (Francesinha)</h5>
+                    <p class="text-sm text-yellow-700">Vários locais. *Nota: Francesinha tradicionalmente leva carnes variadas, incluindo porco.*</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=Café+Santiago+Porto" target="_blank" class="text-xs text-blue-600 hover:underline">Ver Mapa (Santiago)</a>
+                </div>
+                 <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h5 class="font-semibold text-yellow-800">O Paparico</h5>
+                    <p class="text-sm text-yellow-700">Rua de Costa Cabral 2343. Cozinha portuguesa refinada, ambiente sofisticado. Requer reserva.</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=O+Trevo+Lisboa2" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h5 class="font-semibold text-yellow-800">O Celeiro</h5>
+                    <p class="text-sm text-yellow-700">Av. da Boavista 868. Cozinha regional portuguesa, ambiente rústico e tradicional.</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=O+Trevo+Lisboa3" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+
+                <div class="bg-pink-50 p-4 rounded-lg border border-pink-200">
+                    <h5 class="font-semibold text-pink-800">Confeitaria do Bolhão</h5>
+                    <p class="text-sm text-pink-700">Rua Formosa 339 (07h–21h Seg-Sex; 07h–19h30 Sáb)</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Confeitaria+do+Bolhão+Porto" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-pink-50 p-4 rounded-lg border border-pink-200">
+                    <h5 class="font-semibold text-pink-800">Manteigaria (Pastel de Nata)</h5>
+                    <p class="text-sm text-pink-700">Rua de Alexandre Braga 24 (Horários variáveis) - Várias localizações</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=Manteigaria+Rua+de+Alexandre+Braga+Porto" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                    <h5 class="font-semibold text-orange-800">Padaria Ribeiro</h5>
+                    <p class="text-sm text-orange-700">Praça Guilherme Gomes Fernandes 21. Famosa pelo "Lanche" (massa folhada com fiambre e queijo), pães e bolos.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa8" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+                 <div class="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                    <h5 class="font-semibold text-orange-800">Confeitaria Tavi</h5>
+                    <p class="text-sm text-orange-700">Rua da Sra. da Luz 374 (Foz). Vista para o mar, boa pastelaria e pães.</p>
+                     <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa9" target="_blank" class="text-xs text-blue-600 hover:underline">Ver no Mapa</a>
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-semibold text-gray-800 mb-6 mt-10">Sugestões de Bate e Volta</h4>
+             <div class="grid md:grid-cols-2 gap-8">
+                 <div class="bg-green-50 p-6 rounded-lg border border-green-200 flex flex-col">
+                    <h5 class="text-xl font-semibold text-green-800 mb-2">Vale do Douro</h5>
+                    <p class="text-green-700 mb-3 flex-grow">Paisagem Vinhateira Património Mundial. Ideal para um passeio de barco, comboio ou carro, com visitas a quintas e provas de vinho.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12007.02838213545!2d-7.795944648632812!3d41.163119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3b1e20d47d8017%3A0x500ebbde4903c10!2sPeso%20da%20R%C3%A9gua%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887554321!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition duration-300">
+                         <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa
+                    </button>
+                </div>
+                 <div class="bg-green-50 p-6 rounded-lg border border-green-200 flex flex-col">
+                    <h5 class="text-xl font-semibold text-green-800 mb-2">Guimarães</h5>
+                    <p class="text-green-700 mb-3 flex-grow">Considerada o "Berço da Nação". Centro histórico medieval bem preservado (UNESCO), Castelo de Guimarães e Paço dos Duques.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47946.80597593785!2d-8.330069648632813!3d41.442521!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24501006da8969%3A0x500ebbde4903a60!2sGuimar%C3%A3es%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887610987!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition duration-300">
+                         <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa
+                    </button>
+                </div>
+                 <div class="bg-green-50 p-6 rounded-lg border border-green-200 flex flex-col">
+                    <h5 class="text-xl font-semibold text-green-800 mb-2">Braga</h5>
+                    <p class="text-green-700 mb-3 flex-grow">Cidade religiosa com muitas igrejas barrocas, incluindo o Santuário do Bom Jesus do Monte, com sua escadaria monumental.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d95615.09716305074!2d-8.490199648632813!3d41.55183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24f5a67a95cf6d%3A0x500ebbde4903a50!2sBraga%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887665432!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition duration-300">
+                         <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa
+                    </button>
+                </div>
+                 <div class="bg-green-50 p-6 rounded-lg border border-green-200 flex flex-col">
+                    <h5 class="text-xl font-semibold text-green-800 mb-2">Aveiro</h5>
+                    <p class="text-green-700 mb-3 flex-grow">Conhecida como a "Veneza Portuguesa" pelos seus canais e barcos moliceiros coloridos. Prove os Ovos Moles, doce típico local.</p>
+                     <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d97324.60292037766!2d-8.710048648632813!3d40.640499!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd239807459ecc89%3A0x500ebbde49034f0!2sAveiro%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887721098!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition duration-300">
+                         <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-4 mt-12">
+        <p>© 2025 Dicas de Viagem Cris & JR. Boa viagem!</p>
+    </footer>
+
+    <div id="mapModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60] hidden visibility-hidden opacity-0" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[80vh] overflow-hidden flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h2 id="modal-title" class="text-lg font-semibold text-gray-800">Localização no Mapa</h2>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-800 text-2xl leading-none">×</button>
+            </div>
+            <div class="p-1 flex-grow">
+                <iframe
+                    id="mapIframe"
+                    class="w-full h-full border-0"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src=""> </iframe>
+            </div>
         </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/azulejo/600/400" alt="Museu Nacional do Azulejo">
-        <div class="card-content">
-          <h3>Museu Nacional do Azulejo</h3>
-          <p class="hours">Ter–Dom 10 h–18 h • Fecha 2ª-feira</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Museu+Nacional+do+Azulejo+Lisboa" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/selisboa/600/400" alt="Sé de Lisboa">
-        <div class="card-content">
-          <h3>Sé de Lisboa</h3>
-          <p class="hours">Consultar calendário litúrgico</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=S%C3%A9+de+Lisboa" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/praca/600/400" alt="Praça do Comércio">
-        <div class="card-content">
-          <h3>Praça do Comércio</h3>
-          <p class="hours">Aberta 24 h</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Pra%C3%A7a+do+Com%C3%A9rcio+Lisboa" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
     </div>
-  </section>
 
-  <!-- BATE-VOLTA -->
-  <section id="batevolta" style="background:#fff4f4;">
-    <h2>Bate‑voltas entre Lisboa & Porto</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="https://picsum.photos/seed/obidos/600/400" alt="Óbidos">
-        <div class="card-content">
-          <h3>Óbidos</h3>
-          <p class="hours">Vila medieval — prove ginjinha no copo de chocolate</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=%C3%93bidos+Portugal" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/nazare/600/400" alt="Nazaré">
-        <div class="card-content">
-          <h3>Nazaré</h3>
-          <p class="hours">Miradouro do Sítio & praia • Funicular 07 h15‑00 h</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Nazar%C3%A9+Portugal" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/alcobaca/600/400" alt="Mosteiro de Alcobaça">
-        <div class="card-content">
-          <h3>Mosteiro de Alcobaça</h3>
-          <p class="hours">Ter‑Dom 09 h‑18 h • Fecha 2ª-feira</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Mosteiro+de+Alcoba%C3%A7a" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/batalha/600/400" alt="Mosteiro da Batalha">
-        <div class="card-content">
-          <h3>Mosteiro da Batalha</h3>
-          <p class="hours">09 h‑18 h30 • Fecha 2ª-feira</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Mosteiro+da+Batalha" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/fatima/600/400" alt="Fátima">
-        <div class="card-content">
-          <h3>Santuário de Fátima</h3>
-          <p class="hours">Basílica Ter‑Dom 09 h‑13 h / 14 h30‑18 h30</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Santu%C3%A1rio+de+F%C3%A1tima" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/coimbra/600/400" alt="Museu Machado de Castro">
-        <div class="card-content">
-          <h3>Museu Machado de Castro (Coimbra)</h3>
-          <p class="hours">Ter‑Dom 10 h‑18 h</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Museu+Machado+de+Castro+Coimbra" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/seed/aveiro/600/400" alt="Aveiro">
-        <div class="card-content">
-          <h3>Aveiro</h3>
-          <p class="hours">Passeio de Moliceiro & ovos moles</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Aveiro+Portugal" target="_blank">Abrir no Maps</a>
-        </div>
-      </div>
-    </div>
-  </section>
+    <script>
+        const mapModal = document.getElementById('mapModal');
+        const closeModalButton = document.getElementById('closeModal');
+        const mapIframe = document.getElementById('mapIframe');
+        const openModalButtons = document.querySelectorAll('.open-map-modal');
 
-  <!-- PORTO -->
-  <section id="porto">
-    <h2>Porto</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="https://picsum.photos/seed/bolhao/600/400" alt="Mercado do Bolhão">
-        <div class="card-content">
-          <h3>Mercado do Bolhão</h3>
-          <p class="hours">Seg‑Sex 08 h‑20 h • Sáb 08 h‑18 h</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=Mercado+do+Bolh%C3
+        // Função para abrir o modal
+        const openModal = (mapUrl) => {
+            if (!mapUrl) {
+                console.error('URL do mapa não fornecida.');
+                return; // Não abre se não houver URL
+            }
+            mapIframe.src = mapUrl; // Define o src do iframe
+            mapModal.classList.remove('hidden', 'visibility-hidden', 'opacity-0'); // Mostra o modal
+            document.body.style.overflow = 'hidden'; // Impede scroll do body
+        };
+
+        // Função para fechar o modal
+        const closeModal = () => {
+            mapModal.classList.add('hidden', 'visibility-hidden', 'opacity-0'); // Esconde o modal
+            mapIframe.src = ''; // Limpa o src para parar o carregamento do mapa
+            document.body.style.overflow = ''; // Restaura scroll do body
+        };
+
+        // Adiciona evento de clique para cada botão "Ver no Mapa"
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const url = button.getAttribute('data-map-url');
+                openModal(url);
+            });
+        });
+
+        // Adiciona evento de clique para o botão de fechar
+        closeModalButton.addEventListener('click', closeModal);
+
+        // Adiciona evento de clique no fundo do modal para fechar
+        mapModal.addEventListener('click', (event) => {
+            // Fecha apenas se clicar diretamente no fundo (overlay)
+            if (event.target === mapModal) {
+                closeModal();
+            }
+        });
+
+        // Adiciona evento para fechar com a tecla Esc
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !mapModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
