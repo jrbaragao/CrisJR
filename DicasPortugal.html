@@ -26,30 +26,30 @@
         .about-button:hover { background-color: #d1d5db; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
         .map-button-daytrip { @apply inline-flex items-center justify-center px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-md transition duration-300 ease-in-out hover:bg-emerald-700 hover:shadow-sm; cursor: pointer; }
 
-        /* Estilos Modais (Revertido para v13/v14 - Lógica do Exemplo User) */
+        /* Estilos Modais */
         .modal {
             position: fixed; top: 0; right: 0; bottom: 0; left: 0;
             background-color: rgba(0, 0, 0, 0.7);
             display: flex; align-items: center; justify-content: center;
             padding: 1rem; z-index: 60;
-            opacity: 0; pointer-events: none; /* Começa escondido */
+            opacity: 0; pointer-events: none;
             transition: opacity 0.3s ease-in-out;
         }
         .modal.is-open {
-            opacity: 1; pointer-events: auto; /* Torna visível */
+            opacity: 1; pointer-events: auto;
         }
         .modal-content {
             background-color: white; border-radius: 0.5rem;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             width: 100%; max-height: 85vh; overflow: hidden;
             display: flex; flex-direction: column;
-            transform: scale(0.95); /* Começa ligeiramente pequeno */
+            transform: scale(0.95);
             transition: transform 0.3s ease-in-out;
-            max-width: 600px; /* Largura default */
-            position: relative; /* Necessário para posicionar botão fechar */
+            max-width: 600px;
+            position: relative;
         }
         .modal.is-open .modal-content {
-            transform: scale(1); /* Anima para tamanho normal */
+            transform: scale(1);
         }
         .modal-body {
             padding: 1.5rem; overflow-y: auto;
@@ -59,32 +59,35 @@
             position: absolute; top: 0.5rem; right: 1rem; z-index: 10; cursor: pointer;
         }
         .modal-close-button:hover { color: #1f2937; }
-         #mapModal .modal-content { max-width: 48rem; } /* Largura Modal Mapa */
-         #mapModal .modal-body-map { /* Div que contém o iframe */
+         #mapModal .modal-content { max-width: 48rem; }
+         #mapModal .modal-body-map {
            padding: 0.25rem; flex-grow: 1; background-color: #f3f4f6;
          }
          #mapModal iframe { width: 100%; height: 60vh; border: 0; }
 
 
-        /* Outros Estilos (Tailwind via @apply ou CSS padrão) */
+        /* Outros Estilos */
         .object-cover { object-fit: cover; background-color: #e2e8f0; }
-        /* Adicionado h-full aqui */
         .attraction-card { @apply bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.03] flex flex-col h-full; }
         .info-box { @apply p-4 rounded-lg; }
-        .section-subtitle { @apply text-2xl font-semibold text-gray-800 mb-6 mt-10; }
+        /* ALTERADO: Estilo base do subtítulo */
+        .section-subtitle {
+            @apply text-2xl font-bold text-gray-800 mb-8 mt-10 pb-2 border-b-2; /* Adicionado font-bold, pb-2, border-b-2 e ajustado mb */
+        }
 
         /* Cores específicas (Tailwind via @apply) */
          .bg-amber-50 { @apply bg-amber-50; } .text-amber-700 { @apply text-amber-700; } .text-amber-800 { @apply text-amber-800; }
          .bg-rose-50 { @apply bg-rose-50; } .text-rose-700 { @apply text-rose-700; } .text-rose-800 { @apply text-rose-800; }
          .bg-orange-50 { @apply bg-orange-50; } .text-orange-700 { @apply text-orange-700; } .text-orange-800 { @apply text-orange-800; }
          .bg-emerald-50 { @apply bg-emerald-50; } .text-emerald-700 { @apply text-emerald-700; } .text-emerald-800 { @apply text-emerald-800; }
-         .text-sky-100 { @apply text-sky-100; } .text-sky-600 { @apply text-sky-600; }
+         .text-sky-100 { @apply text-sky-100; } .text-sky-600 { @apply text-sky-600; } .border-sky-200 { @apply border-sky-200; } /* Adicionado para subtítulo Lisboa */
+         .text-purple-700 { @apply text-purple-700; } .border-purple-200 { @apply border-purple-200; } /* Adicionado para subtítulo Porto */
          .text-gray-600 { @apply text-gray-600; } .text-gray-700 { @apply text-gray-700; } .text-gray-800 { @apply text-gray-800; }
          .text-gray-900 { @apply text-gray-900; } .bg-gray-200 { @apply bg-gray-200; }
 
-         /* Ajuste para altura igual dos cards na grelha (Mantido de v14/v15) */
+         /* Ajuste para altura igual dos cards na grelha */
          .attraction-grid {
-           grid-auto-rows: 1fr; /* Faz com que as linhas da grelha tenham altura igual */
+           grid-auto-rows: 1fr;
          }
     </style>
 </head>
@@ -110,7 +113,7 @@
 
         <section id="lisboa" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
              <h3 class="text-3xl font-semibold mb-8 border-b-2 pb-2 text-sky-700 border-sky-200">Lisboa: A Cidade das Sete Colinas</h3>
-            <h4 class="section-subtitle">O que Visitar</h4>
+             <h4 class="section-subtitle border-sky-200">O que Visitar</h4>
             <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 <div class="attraction-card">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Mosteiro_dos_Jer%C3%B3nimos_%2844651116202%29.jpg" alt="[Imagem de Mosteiro dos Jerónimos]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
@@ -200,10 +203,10 @@
                     </div>
                     <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Alfama & Elétrico 28</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Perca-se pelas ruelas históricas de Alfama, o bairro mais antigo de Lisboa, e apanhe o famoso elétrico 28 para um passeio pitoresco.</p>
-                    </div>
+                </div>
             </div>
 
-            <h4 class="section-subtitle">Onde Comer</h4>
+            <h4 class="section-subtitle border-sky-200">Onde Comer</h4>
             <div class="space-y-4 mb-12">
                  <div class="info-box bg-amber-50"> <h5 class="font-semibold text-amber-800">Bonjardim (Frango Piri-Piri)</h5> <p class="text-sm text-amber-700">Travessa de Santo Antão 12 (12h–23h)</p> <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa" target="_blank" class="text-xs text-sky-600 hover:underline">Ver no Mapa</a> </div>
                  <div class="info-box bg-amber-50"> <h5 class="font-semibold text-amber-800">O Trevo (Bifana / Bolinho de Bacalhau)</h5> <p class="text-sm text-amber-700">Praça Luís de Camões 48 (10h–22h) - *Nota: Bifana é de porco*</p> <a href="https://www.google.com/maps/search/?api=1&query=O+Trevo+Praça+Luís+de+Camões+Lisboa" target="_blank" class="text-xs text-sky-600 hover:underline">Ver no Mapa</a> </div>
@@ -214,7 +217,7 @@
                  <div class="info-box bg-orange-50"> <h5 class="font-semibold text-orange-800">A Padaria Portuguesa</h5> <p class="text-sm text-orange-700">Várias localizações (Ex: Rua Áurea 175). Pão de Deus, croissants, pães variados.</p> <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa6" target="_blank" class="text-xs text-sky-600 hover:underline">Ver no Mapa (Exemplo)</a> </div>
                  <div class="info-box bg-orange-50"> <h5 class="font-semibold text-orange-800">Pastelaria Versailles</h5> <p class="text-sm text-orange-700">Av. da República 15 A. Ambiente clássico, bolos, salgados e pães.</p> <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa7" target="_blank" class="text-xs text-sky-600 hover:underline">Ver no Mapa</a> </div>
             </div>
-             <h4 class="section-subtitle">Sugestões de Bate e Volta</h4>
+            <h4 class="section-subtitle border-sky-200">Sugestões de Bate e Volta</h4>
             <div class="grid md:grid-cols-2 gap-8">
                  <div class="info-box bg-emerald-50 flex flex-col"> <h5 class="text-xl font-semibold text-emerald-800 mb-2">Sintra</h5> <p class="text-emerald-700 mb-3 flex-grow leading-relaxed">Vila mágica com palácios de contos de fadas (Pena, Quinta da Regaleira, Palácio Nacional). Essencial para quem ama história e arquitetura.</p> <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50063.95939932781!2d-9.423974648632814!3d38.799479!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecf215ee86737%3A0x790a60a44c8f4e7c!2sSintra%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678886901234!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto map-button-daytrip self-start"> <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa </button> </div>
                  <div class="info-box bg-emerald-50 flex flex-col"> <h5 class="text-xl font-semibold text-emerald-800 mb-2">Cascais & Estoril</h5> <p class="text-emerald-700 mb-3 flex-grow leading-relaxed">Antigas vilas piscatórias que se tornaram refúgios da realeza e aristocracia. Praias charmosas, marina e o famoso Casino Estoril.</p> <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24920.06131852438!2d-9.445676648632813!3d38.70114299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ec45b064d477d%3A0x535a3c6c6eef25a5!2sCascais%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678886954321!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto map-button-daytrip self-start"> <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa </button> </div>
@@ -225,7 +228,7 @@
 
         <section id="porto" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
              <h3 class="text-3xl font-semibold mb-8 border-b-2 pb-2 text-purple-700 border-purple-200">Porto: A Capital do Norte</h3>
-             <h4 class="section-subtitle">O que Visitar</h4>
+             <h4 class="section-subtitle border-purple-200">O que Visitar</h4>
              <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                  <div class="attraction-card">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mercado_do_Bolh%C3%A3o_2023-08-08_05.02.56_%2853111822406%29.jpg" alt="[Imagem de Mercado do Bolhão]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
@@ -279,7 +282,7 @@
                     </div>
                     <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Ribeira</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Cais histórico à beira do rio Douro, Património Mundial da UNESCO. Casas coloridas, restaurantes, bares e vistas para a Ponte D. Luís I.</p>
-                    </div>
+                </div>
                  <div class="attraction-card">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vila_Nova_de_Gaia-Caves_Calem-20140910.jpg" alt="[Imagem de Caves do Vinho do Porto (Cálem, Gaia)]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
                      <div class="flex space-x-2 flex-shrink-0 mb-4">
@@ -296,7 +299,7 @@
                     </div>
                     <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Caves do Vinho do Porto (Gaia)</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Atravesse a ponte para Vila Nova de Gaia e visite uma das famosas caves para aprender sobre o Vinho do Porto e fazer uma degustação.</p>
-                    </div>
+                </div>
                 <div class="attraction-card">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Pal%C3%A1cio_da_Bolsa%2C_Bolsa_Palace%2C_Porto%2C_Portugal_%2853973583947%29.jpg" alt="[Imagem de Palácio da Bolsa]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
                      <div class="flex space-x-2 flex-shrink-0 mb-4">
@@ -331,7 +334,7 @@
                     </div>
                     <h5 class="text-xl font-bold text-gray-900 mb-2 flex-shrink-0">Igreja de São Francisco</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow leading-relaxed">Exterior gótico simples que esconde um interior barroco exuberante, coberto de talha dourada. Uma visita impressionante.</p>
-                    </div>
+                </div>
                  <div class="attraction-card">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Vista_da_Torre_dos_Cl%C3%A9rigos_a_partir_do_Jardim_da_Cordoaria.jpg" alt="[Imagem de Torre dos Clérigos]" class="w-full h-48 object-cover rounded-md mb-4 flex-shrink-0" onerror="this.style.display='none'">
                      <div class="flex space-x-2 flex-shrink-0 mb-4">
@@ -370,7 +373,7 @@
                  </div>
             </div>
 
-            <h4 class="section-subtitle">Onde Comer</h4>
+            <h4 class="section-subtitle border-purple-200">Onde Comer</h4>
             <div class="space-y-4 mb-12">
                  <div class="info-box bg-amber-50"> <h5 class="font-semibold text-amber-800">Adega São Nicolau</h5> <p class="text-sm text-amber-700">Rua de São Nicolau 1 (Ribeira). Cozinha tradicional portuguesa, peixe fresco, ambiente acolhedor.</p> <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa5" target="_blank" class="text-xs text-sky-600 hover:underline">Ver no Mapa</a> </div>
                  <div class="info-box bg-amber-50"> <h5 class="font-semibold text-amber-800">Meia-Nau (Peixe e Marisco - Matosinhos)</h5> <p class="text-sm text-amber-700">Av. Eng. Duarte Pacheco 38, Matosinhos (12h–23h) - *Requer deslocação*</p> <a href="https://www.google.com/maps/search/?api=1&query=Meia-Nau+Matosinhos" target="_blank" class="text-xs text-sky-600 hover:underline">Ver no Mapa</a> </div>
@@ -383,7 +386,7 @@
                  <div class="info-box bg-orange-50"> <h5 class="font-semibold text-orange-800">Padaria Ribeiro</h5> <p class="text-sm text-orange-700">Praça Guilherme Gomes Fernandes 21. Famosa pelo "Lanche" (massa folhada com fiambre e queijo), pães e bolos.</p> <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa8" target="_blank" class="text-xs text-sky-600 hover:underline">Ver no Mapa</a> </div>
                  <div class="info-box bg-orange-50"> <h5 class="font-semibold text-orange-800">Confeitaria Tavi</h5> <p class="text-sm text-orange-700">Rua da Sra. da Luz 374 (Foz). Vista para o mar, boa pastelaria e pães.</p> <a href="https://www.google.com/maps/search/?api=1&query=Bonjardim+Lisboa9" target="_blank" class="text-xs text-sky-600 hover:underline">Ver no Mapa</a> </div>
             </div>
-             <h4 class="section-subtitle">Sugestões de Bate e Volta</h4>
+            <h4 class="section-subtitle border-purple-200">Sugestões de Bate e Volta</h4>
              <div class="grid md:grid-cols-2 gap-8">
                  <div class="info-box bg-emerald-50 flex flex-col"> <h5 class="text-xl font-semibold text-emerald-800 mb-2">Vale do Douro</h5> <p class="text-emerald-700 mb-3 flex-grow leading-relaxed">Paisagem Vinhateira Património Mundial. Ideal para um passeio de barco, comboio ou carro, com visitas a quintas e provas de vinho.</p> <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12007.02838213545!2d-7.795944648632812!3d41.163119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3b1e20d47d8017%3A0x500ebbde4903c10!2sPeso%20da%20R%C3%A9gua%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887554321!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto map-button-daytrip self-start"> <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa </button> </div>
                  <div class="info-box bg-emerald-50 flex flex-col"> <h5 class="text-xl font-semibold text-emerald-800 mb-2">Guimarães</h5> <p class="text-emerald-700 mb-3 flex-grow leading-relaxed">Considerada o "Berço da Nação". Centro histórico medieval bem preservado (UNESCO), Castelo de Guimarães e Paço dos Duques.</p> <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47946.80597593785!2d-8.330069648632813!3d41.442521!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24501006da8969%3A0x500ebbde4903a60!2sGuimar%C3%A3es%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887610987!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto map-button-daytrip self-start"> <i class="fas fa-map-marker-alt mr-1"></i> Ver Mapa </button> </div>
@@ -408,7 +411,6 @@
             </div>
         </div>
     </div>
-
     <div id="aboutModal" class="modal" aria-labelledby="about-modal-title" role="dialog" aria-modal="true">
         <div class="modal-content">
              <button id="closeAboutModal" class="modal-close-button">×</button>
@@ -433,7 +435,7 @@
     </div>
 
     <script>
-         console.log('Script iniciado (v16 - Revertido - Card Order Changed)');
+         console.log('Script iniciado (v16 - Revertido - Card Order Changed - Subtitle Highlighted)');
 
          // --- Seletores Globais ---
          const mapModalElement = document.getElementById('mapModal');
@@ -446,118 +448,83 @@
          const closeMapModalBtn = document.getElementById('closeMapModal');
          const closeAboutModalBtn = document.getElementById('closeAboutModal');
 
-         console.log('Elementos obtidos:',
-           mapModalElement ? 'mapModal OK' : 'mapModal NÃO encontrado',
-           aboutModalElement ? 'aboutModal OK' : 'aboutModal NÃO encontrado',
-           closeMapModalBtn ? 'closeMapModalBtn OK' : 'closeMapModalBtn NÃO encontrado',
-           closeAboutModalBtn ? 'closeAboutModalBtn OK' : 'closeAboutModalBtn NÃO encontrado'
-         );
-
          // --- Funções de Controle de Modal ---
          function openModal(modalElement) {
            if (!modalElement) { console.error('Modal não encontrado para abrir!'); return; }
-           console.log('Abrindo modal:', modalElement.id);
            modalElement.classList.add('is-open');
            document.body.style.overflow = 'hidden';
          }
 
          function closeModal(modalElement) {
            if (!modalElement) { console.error('Modal não encontrado para fechar!'); return; }
-           console.log('Fechando modal:', modalElement.id);
            modalElement.classList.remove('is-open');
-
            const mapIsOpen = mapModalElement ? mapModalElement.classList.contains('is-open') : false;
            const aboutIsOpen = aboutModalElement ? aboutModalElement.classList.contains('is-open') : false;
-
            if (!mapIsOpen && !aboutIsOpen) {
-             console.log('Restaurando scroll do body');
              document.body.style.overflow = '';
-           } else {
-             console.log('Outro modal ainda está aberto, não restaurando scroll.');
            }
          }
 
          // --- Lógica Modal Mapa ---
          document.querySelectorAll('.open-map-modal').forEach(button => {
            button.addEventListener('click', () => {
-             console.log('Botão mapa clicado:', button);
              const mapUrl = button.getAttribute('data-map-url');
              if (!mapUrl) { console.error('URL do mapa não fornecida:', button); return; }
-
              let embedUrl = mapUrl;
              if (mapUrl.includes('googleusercontent.com/maps')) {
                 console.warn('URL de placeholder detectado. Use URL de embed real.');
-                embedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d398879.8008087465!2d-9.41481671943362!3d38.72790203898525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19331a61e4f33b%3A0x400ebbde49036d0!2sLisboa%2C%20Portugal!5e0!3m2!1spt-PT!2sbr!4v1678886478531!5m2!1spt-PT!2sbr'; // Fallback genérico - substitua por um link de embed real
+                embedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d398879.8008087465!2d-9.41481671943362!3d38.72790203898525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19331a61e4f33b%3A0x400ebbde49036d0!2sLisboa%2C%20Portugal!5e0!3m2!1spt-PT!2sbr!4v1678886478531!5m2!1spt-PT!2sbr'; // Fallback
              }
-
              if (mapIframeElement) { mapIframeElement.src = embedUrl; }
              else { console.error('Iframe do mapa não encontrado!'); }
-
              openModal(mapModalElement);
            });
          });
-
          if (closeMapModalBtn) {
            closeMapModalBtn.addEventListener('click', () => {
-             console.log('Botão fechar mapa clicado');
-             if (mapIframeElement) { mapIframeElement.src = ''; } // Limpa o src para parar o carregamento
+             if (mapIframeElement) { mapIframeElement.src = ''; }
              closeModal(mapModalElement);
            });
-         } else { console.error('Botão fechar mapa não encontrado!'); }
+         }
 
          // --- Lógica Modal Sobre ---
          document.querySelectorAll('.open-about-modal').forEach(button => {
            button.addEventListener('click', () => {
-             console.log('Botão sobre clicado:', button);
              const name = button.getAttribute('data-attraction-name');
              const time = button.getAttribute('data-visit-time');
              const see = button.getAttribute('data-what-to-see');
              const history = button.getAttribute('data-history');
-
-             if (aboutTitleElement) aboutTitleElement.textContent = name || 'Detalhes'; else console.error('Título sobre não encontrado!');
-             if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = time || 'N/A'; else console.error('Tempo visita sobre não encontrado!');
-             if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = see || 'N/A'; else console.error('O que ver sobre não encontrado!');
-             if (aboutHistoryElement) aboutHistoryElement.textContent = history || 'N/A'; else console.error('História sobre não encontrada!');
-
+             if (aboutTitleElement) aboutTitleElement.textContent = name || 'Detalhes';
+             if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = time || 'N/A';
+             if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = see || 'N/A';
+             if (aboutHistoryElement) aboutHistoryElement.textContent = history || 'N/A';
              openModal(aboutModalElement);
            });
          });
-
          if (closeAboutModalBtn) {
            closeAboutModalBtn.addEventListener('click', () => {
-             console.log('Botão fechar sobre clicado');
-             // Limpar conteúdo (opcional)
              if (aboutTitleElement) aboutTitleElement.textContent = '...';
              if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = '...';
              if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = '...';
              if (aboutHistoryElement) aboutHistoryElement.textContent = '...';
              closeModal(aboutModalElement);
            });
-         } else { console.error('Botão fechar sobre não encontrado!'); }
+         }
 
          // --- Fechar Modals com ESC ou clique fora ---
          document.addEventListener('keydown', (event) => {
            if (event.key === 'Escape') {
-             console.log('Tecla ESC pressionada');
-             if (mapModalElement && mapModalElement.classList.contains('is-open')) {
-               closeModal(mapModalElement);
-             }
-             if (aboutModalElement && aboutModalElement.classList.contains('is-open')) {
-               closeModal(aboutModalElement);
-             }
+             if (mapModalElement && mapModalElement.classList.contains('is-open')) closeModal(mapModalElement);
+             if (aboutModalElement && aboutModalElement.classList.contains('is-open')) closeModal(aboutModalElement);
            }
          });
-
          [mapModalElement, aboutModalElement].forEach(modal => {
            modal?.addEventListener('click', (event) => {
-             if (event.target === modal) { // Fecha apenas se clicar no fundo
-               console.log('Clique fora do conteúdo do modal:', modal.id);
-               closeModal(modal);
-             }
+             if (event.target === modal) closeModal(modal);
            });
          });
 
-         console.log('Script carregado e listeners adicionados (v16 - Revertido - Card Order Changed)');
+         console.log('Script carregado e listeners adicionados (v16 - Revertido - Card Order Changed - Subtitle Highlighted)');
     </script>
 
 </body>
