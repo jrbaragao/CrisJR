@@ -11,62 +11,291 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; @apply bg-gray-50 text-gray-800; }
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; color: #1f2937; }
         section { scroll-margin-top: 80px; }
 
         /* Estilos Botões Card */
         .card-button {
-            @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md transition duration-300 ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease-in-out;
             cursor: pointer;
         }
         .map-button-attraction {
-            @apply card-button bg-sky-600 text-white hover:bg-sky-700 hover:shadow-md;
+            background-color: #0284c7;
+            color: white;
+        }
+        .map-button-attraction:hover {
+            background-color: #0369a1;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         .about-button {
-             @apply card-button bg-gray-200 text-gray-700 hover:bg-gray-300 hover:shadow-sm;
+            background-color: #e5e7eb;
+            color: #374151;
+        }
+        .about-button:hover {
+            background-color: #d1d5db;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
         .map-button-daytrip {
-             @apply inline-flex items-center justify-center px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-md transition duration-300 ease-in-out hover:bg-emerald-700 hover:shadow-sm;
-             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem 0.75rem;
+            background-color: #059669;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .map-button-daytrip:hover {
+            background-color: #047857;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
 
-        /* Estilos Modais */
+        /* Estilos Modais - CORRIGIDO */
         .modal {
-            @apply fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-[60] opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 60;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
         }
         .modal.is-open {
-            @apply opacity-100 pointer-events-auto;
+            opacity: 1;
+            pointer-events: auto;
         }
         .modal-content {
-            @apply bg-white rounded-lg shadow-xl w-full max-h-[85vh] overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform scale-95;
-             max-width: 600px; /* Largura máxima para modal de texto */
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 100%;
+            max-height: 85vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+            max-width: 600px;
         }
         .modal.is-open .modal-content {
-            @apply scale-100;
+            transform: scale(1);
         }
         .modal-body {
-             @apply p-6 overflow-y-auto; /* Scroll se conteúdo for grande */
+            padding: 1.5rem;
+            overflow-y: auto;
         }
         .modal-close-button {
-             @apply text-gray-500 hover:text-gray-800 text-3xl leading-none font-light absolute top-2 right-4 z-10; /* Garantir que está acima */
-             cursor: pointer;
+            color: #6b7280;
+            font-size: 1.875rem;
+            line-height: 1;
+            font-weight: 300;
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            z-index: 10;
+            cursor: pointer;
+        }
+        .modal-close-button:hover {
+            color: #1f2937;
         }
 
         /* Outros Estilos */
-        .object-cover { object-fit: cover; background-color: #e2e8f0; }
-        .attraction-card { @apply bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.03] flex flex-col; }
-        .info-box { @apply p-4 rounded-lg; }
-        .section-title { @apply text-3xl font-semibold mb-8 border-b-2 pb-2; }
-        .section-subtitle { @apply text-2xl font-semibold text-gray-800 mb-6 mt-10; }
+        .object-cover { 
+            object-fit: cover; 
+            background-color: #e2e8f0; 
+        }
+        .attraction-card { 
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        .attraction-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(1.03);
+        }
+        .info-box { 
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+        .section-title { 
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border-bottom-width: 2px;
+            padding-bottom: 0.5rem;
+        }
+        .section-subtitle { 
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #0284c7;
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Cores específicas */
+        .bg-amber-50 { background-color: #fffbeb; }
+        .text-amber-700 { color: #b45309; }
+        .text-amber-800 { color: #92400e; }
+        .bg-rose-50 { background-color: #fff1f2; }
+        .text-rose-700 { color: #be123c; }
+        .text-rose-800 { color: #9f1239; }
+        .bg-orange-50 { background-color: #fff7ed; }
+        .text-orange-700 { color: #c2410c; }
+        .text-orange-800 { color: #9a3412; }
+        .bg-emerald-50 { background-color: #ecfdf5; }
+        .text-emerald-700 { color: #047857; }
+        .text-emerald-800 { color: #065f46; }
+        .bg-sky-600 { background-color: #0284c7; }
+        .bg-sky-700 { background-color: #0369a1; }
+        .text-sky-700 { color: #0369a1; }
+        .border-sky-200 { border-color: #bae6fd; }
+        .text-purple-700 { color: #7e22ce; }
+        .border-purple-200 { border-color: #e9d5ff; }
+        .text-sky-100 { color: #e0f2fe; }
+        .text-sky-600 { color: #0284c7; }
+        .text-sky-800 { color: #075985; }
+        .text-gray-600 { color: #4b5563; }
+        .text-gray-700 { color: #374151; }
+        .text-gray-800 { color: #1f2937; }
+        .text-gray-900 { color: #111827; }
+        .bg-gray-50 { background-color: #f9fafb; }
+        .bg-gray-100 { background-color: #f3f4f6; }
+        .bg-gray-200 { background-color: #e5e7eb; }
+        .bg-white { background-color: white; }
     </style>
 </head>
 <body>
 
-    <!-- Todo o conteúdo HTML permanece inalterado -->
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em;">Cris & JR em Portugal</h1>
+            <nav>
+                <ul style="display: flex; gap: 1rem;">
+                    <li><a href="#lisboa" style="font-size: 0.875rem; transition: color 0.3s;">Lisboa</a></li>
+                    <li><a href="#porto" style="font-size: 0.875rem; transition: color 0.3s;">Porto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <!-- Todo conteúdo do HTML aqui... -->
+    <main class="container" style="padding: 1.5rem; margin-top: 2.5rem;">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <h2 style="font-size: 2.25rem; font-weight: 700; color: #075985; margin-bottom: 1rem; letter-spacing: -0.025em;">Roteiro Inesquecível por Portugal</h2>
+            <p style="font-size: 1.125rem; color: #4b5563; line-height: 1.625; max-width: 42rem; margin-left: auto; margin-right: auto;">As melhores dicas de Lisboa e Porto para um casal apaixonado por história, arte e boa comida!</p>
+        </div>
+
+        <section id="lisboa" style="margin-bottom: 5rem; background-color: white; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);">
+            <h3 class="section-title" style="color: #0369a1; border-color: #bae6fd;">Lisboa: A Cidade das Sete Colinas</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem;">
+                <!-- Card de exemplo -->
+                <div class="attraction-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Mosteiro_dos_Jer%C3%B3nimos_%2844651116202%29.jpg" alt="[Imagem de Mosteiro dos Jerónimos]" style="width: 100%; height: 12rem; object-fit: cover; border-radius: 0.375rem; margin-bottom: 1rem;" onerror="this.style.display='none'">
+                    <h5 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 0.5rem;">Mosteiro dos Jerónimos</h5>
+                    <p style="color: #374151; margin-bottom: 0.75rem; font-size: 0.875rem; flex-grow: 1; line-height: 1.625;">Impressionante obra-prima do estilo manuelino, Património Mundial da UNESCO. Abriga os túmulos de Vasco da Gama e Luís de Camões.</p>
+                    <p style="color: #4b5563; font-size: 0.75rem; margin-bottom: 1rem;"><strong>Horários:</strong> 10h–18h30 (Mai-Set); 10h–17h30 (Out-Abr); Fecha 2ª-feira.</p>
+                    <div style="margin-top: auto; display: flex; gap: 0.5rem;">
+                        <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.989799011835!2d-9.208536684655566!3d38.6978689796016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb5a17ff457b%3A0x997a42a78b7a448d!2sMosteiro%20dos%20Jer%C3%B3nimos!5e0!3m2!1spt-BR!2sbr!4v1678886543210!5m2!1spt-BR!2sbr" class="open-map-modal map-button-attraction" style="flex: 1;">
+                            <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> Mapa
+                        </button>
+                        <button class="open-about-modal about-button" style="flex: 1;"
+                                data-attraction-name="Mosteiro dos Jerónimos"
+                                data-visit-time="Aprox. 1.5 - 2 horas"
+                                data-what-to-see="Igreja de Santa Maria de Belém (entrada gratuita), Claustro (pago), túmulos de Vasco da Gama e Camões, portal sul."
+                                data-history="Construído no séc. XVI por ordem de D. Manuel I para celebrar o regresso de Vasco da Gama da Índia. É o expoente máximo do estilo manuelino.">
+                            <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i> Sobre
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mais conteúdo aqui... -->
+        </section>
+    </main>
+
+    <footer style="background-color: #e5e7eb; color: #4b5563; text-align: center; padding: 1.5rem; margin-top: 4rem;">
+        <p style="font-size: 0.875rem;">© 2025 Dicas de Viagem Cris & JR. Boa viagem!</p>
+    </footer>
+
+    <!-- Modal de Mapa - CORRIGIDO -->
+    <div id="mapModal" class="modal" aria-labelledby="map-modal-title" role="dialog" aria-modal="true">
+        <div class="modal-content" style="max-width: 48rem;">
+            <button id="closeMapModal" class="modal-close-button">×</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #e5e7eb;">
+                <h2 id="map-modal-title" style="font-size: 1.125rem; font-weight: 600; color: #1f2937;">Localização no Mapa</h2>
+            </div>
+            <div style="padding: 0.25rem; flex-grow: 1; background-color: #f3f4f6;">
+                <iframe id="mapIframe" style="width: 100%; height: 60vh; border: 0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Sobre - CORRIGIDO -->
+    <div id="aboutModal" class="modal" aria-labelledby="about-modal-title" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <button id="closeAboutModal" class="modal-close-button">×</button>
+            <div class="modal-body">
+                <h3 id="about-modal-title" style="font-size: 1.5rem; font-weight: 700; color: #0369a1; margin-bottom: 1.5rem;">Nome da Atração</h3>
+                <div style="display: flex; flex-direction: column; gap: 1.25rem; font-size: 0.875rem; color: #374151;">
+                    <div>
+                        <h5 style="font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">Tempo Estimado de Visita:</h5>
+                        <p id="about-visit-time" style="line-height: 1.625;">...</p>
+                    </div>
+                    <div>
+                        <h5 style="font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">O Que Ver:</h5>
+                        <p id="about-what-to-see" style="line-height: 1.625;">...</p>
+                    </div>
+                    <div>
+                        <h5 style="font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;">Pequena História:</h5>
+                        <p id="about-history" style="line-height: 1.625;">...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
+        // Inicializa logs para verificar se o script está carregando
+        console.log('Script iniciado');
+        
         // --- Seletores Globais ---
         const mapModalElement = document.getElementById('mapModal');
         const aboutModalElement = document.getElementById('aboutModal');
@@ -76,83 +305,151 @@
         const aboutWhatToSeeElement = document.getElementById('about-what-to-see');
         const aboutHistoryElement = document.getElementById('about-history');
 
-        // --- Funções de Controle de Modal ---
-        const openModal = (modalElement) => {
-            if (!modalElement) return;
-            modalElement.classList.add('is-open'); // Usar apenas is-open
-            document.body.style.overflow = 'hidden';
-        };
+        console.log('Elementos obtidos:', 
+            mapModalElement ? 'mapModal OK' : 'mapModal não encontrado',
+            aboutModalElement ? 'aboutModal OK' : 'aboutModal não encontrado');
 
-        const closeModal = (modalElement) => {
-            if (!modalElement) return;
-            modalElement.classList.remove('is-open'); // Remover apenas is-open
+        // --- Funções de Controle de Modal - CORRIGIDO ---
+        function openModal(modalElement) {
+            if (!modalElement) {
+                console.error('Modal não encontrado!');
+                return;
+            }
+            console.log('Abrindo modal', modalElement.id);
+            modalElement.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalElement) {
+            if (!modalElement) {
+                console.error('Modal não encontrado!');
+                return;
+            }
+            console.log('Fechando modal', modalElement.id);
+            modalElement.classList.remove('is-open');
+            
             // Só restaura scroll se nenhum modal estiver aberto
-            if (!mapModalElement.classList.contains('is-open') && !aboutModalElement.classList.contains('is-open')) {
+            if (!mapModalElement.classList.contains('is-open') && 
+                !aboutModalElement.classList.contains('is-open')) {
                 document.body.style.overflow = '';
             }
-        };
+        }
 
         // --- Lógica Modal Mapa ---
         document.querySelectorAll('.open-map-modal').forEach(button => {
             button.addEventListener('click', () => {
+                console.log('Botão mapa clicado');
                 const mapUrl = button.getAttribute('data-map-url');
-                if (!mapUrl) { console.error('URL do mapa não fornecida.'); return; }
-                let embedUrl = mapUrl;
-                if (mapUrl.includes('googleusercontent.com/maps')) {
-                    console.warn('URL de placeholder detectado para mapa. Substitua data-map-url por um URL de embed real.');
-                    embedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d398879.8008087465!2d-9.41481671943362!3d38.72790203898525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19331a61e4f33b%3A0x400ebbde49036d0!2sLisboa%2C%20Portugal!5e0!3m2!1spt-PT!2sbr!4v1678886478531!5m2!1spt-PT!2sbr'; // Fallback genérico
+                if (!mapUrl) { 
+                    console.error('URL do mapa não fornecida.');
+                    return;
                 }
-                if(mapIframeElement) mapIframeElement.src = embedUrl;
+                
+                let embedUrl = mapUrl;
+                // Verifica se o iframe está disponível antes de definir o src
+                if (mapIframeElement) {
+                    mapIframeElement.src = embedUrl;
+                    console.log('URL do mapa definida:', embedUrl);
+                } else {
+                    console.error('Elemento iframe do mapa não encontrado!');
+                }
+                
                 openModal(mapModalElement);
             });
         });
 
-        document.getElementById('closeMapModal')?.addEventListener('click', () => {
-             if(mapIframeElement) mapIframeElement.src = ''; // Limpa iframe ao fechar
-             closeModal(mapModalElement);
-        });
+        // Adiciona evento ao botão de fechar o modal de mapa
+        const closeMapModalBtn = document.getElementById('closeMapModal');
+        if (closeMapModalBtn) {
+            closeMapModalBtn.addEventListener('click', () => {
+                // Limpa iframe ao fechar
+                if (mapIframeElement) {
+                    mapIframeElement.src = '';
+                }
+                closeModal(mapModalElement);
+            });
+        } else {
+            console.error('Botão de fechar modal de mapa não encontrado!');
+        }
 
         // --- Lógica Modal Sobre ---
         document.querySelectorAll('.open-about-modal').forEach(button => {
             button.addEventListener('click', () => {
+                console.log('Botão sobre clicado');
                 const name = button.getAttribute('data-attraction-name');
                 const time = button.getAttribute('data-visit-time');
                 const see = button.getAttribute('data-what-to-see');
                 const history = button.getAttribute('data-history');
 
-                if (aboutTitleElement) aboutTitleElement.textContent = name || 'Detalhes da Atração';
-                if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = time || 'N/A';
-                if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = see || 'N/A';
-                if (aboutHistoryElement) aboutHistoryElement.textContent = history || 'N/A';
+                if (aboutTitleElement) {
+                    aboutTitleElement.textContent = name || 'Detalhes da Atração';
+                } else {
+                    console.error('Elemento do título de sobre não encontrado!');
+                }
+                
+                if (aboutVisitTimeElement) {
+                    aboutVisitTimeElement.textContent = time || 'N/A';
+                } else {
+                    console.error('Elemento de tempo de visita não encontrado!');
+                }
+                
+                if (aboutWhatToSeeElement) {
+                    aboutWhatToSeeElement.textContent = see || 'N/A';
+                } else {
+                    console.error('Elemento de o que ver não encontrado!');
+                }
+                
+                if (aboutHistoryElement) {
+                    aboutHistoryElement.textContent = history || 'N/A';
+                } else {
+                    console.error('Elemento de história não encontrado!');
+                }
 
                 openModal(aboutModalElement);
             });
         });
 
-        document.getElementById('closeAboutModal')?.addEventListener('click', () => {
-             // Limpar conteúdo ao fechar (opcional)
-             if (aboutTitleElement) aboutTitleElement.textContent = '...';
-             if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = '...';
-             if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = '...';
-             if (aboutHistoryElement) aboutHistoryElement.textContent = '...';
-             closeModal(aboutModalElement);
-        });
+        // Adiciona evento ao botão de fechar o modal sobre
+        const closeAboutModalBtn = document.getElementById('closeAboutModal');
+        if (closeAboutModalBtn) {
+            closeAboutModalBtn.addEventListener('click', () => {
+                closeModal(aboutModalElement);
+            });
+        } else {
+            console.error('Botão de fechar modal sobre não encontrado!');
+        }
 
         // --- Fechar Modals com ESC ou clique fora ---
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
-                if (mapModalElement?.classList.contains('is-open')) closeModal(mapModalElement);
-                if (aboutModalElement?.classList.contains('is-open')) closeModal(aboutModalElement);
+                console.log('Tecla ESC pressionada');
+                if (mapModalElement && mapModalElement.classList.contains('is-open')) {
+                    closeModal(mapModalElement);
+                }
+                if (aboutModalElement && aboutModalElement.classList.contains('is-open')) {
+                    closeModal(aboutModalElement);
+                }
             }
         });
 
-        [mapModalElement, aboutModalElement].forEach(modal => {
-             modal?.addEventListener('click', (event) => {
-                 if (event.target === modal) { // Fecha apenas se clicar no fundo
-                     closeModal(modal);
-                 }
-             });
-        });
+        // Fecha os modais quando clicar fora deles
+        if (mapModalElement) {
+            mapModalElement.addEventListener('click', (event) => {
+                if (event.target === mapModalElement) {
+                    closeModal(mapModalElement);
+                }
+            });
+        }
+        
+        if (aboutModalElement) {
+            aboutModalElement.addEventListener('click', (event) => {
+                if (event.target === aboutModalElement) {
+                    closeModal(aboutModalElement);
+                }
+            });
+        }
+
+        console.log('Script carregado com sucesso!');
     </script>
 
 </body>
