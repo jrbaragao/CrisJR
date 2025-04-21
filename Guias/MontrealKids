@@ -1,6 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Dicas de Viagem</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          referrerpolicy="no-referrer" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <style>
+        /* Estilos CSS personalizados (mantidos como no original) */
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; @apply bg-gray-50 text-gray-800; }
+        /* Ajuste no scroll-margin-top se o header tiver altura variável */
+        /* section { scroll-margin-top: 80px; } */
+        section:target { /* Melhora a visibilidade ao navegar */
+            scroll-margin-top: 80px; /* Ajuste conforme altura do header */
+        }
+
+
+        /* --- Botões Base --- */
+        .card-button {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0.5rem 0.75rem; font-size: 0.875rem; font-weight: 500;
+            border-radius: 0.375rem; /* rounded-md */
+            transition: all 0.3s; cursor: pointer;
+            text-align: center; /* Ensure icon/text is centered */
+            border: 1px solid transparent; /* Base border for layout consistency */
+        }
+        /* Botão Mapa (Atração) */
+        .map-button-attraction {
+            background-color: #0284c7; /* sky-600 */ color: #fff; /* white */
+            border-color: #0284c7;
+        }
+        .map-button-attraction:hover {
+            background-color: #0369a1; /* sky-700 */
+            border-color: #0369a1;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06); /* shadow-md */
+        }
+        /* Botão Sobre (Atração) */
+        .about-button {
+            background-color: #e5e7eb; /* gray-200 */ color: #374151; /* gray-700 */
+            border-color: #e5e7eb;
+        }
+        .about-button:hover {
+            background-color: #d1d5db; /* gray-300 */
+            border-color: #d1d5db;
+            box-shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06); /* shadow-sm */
+        }
+        /* Botão Bilhete (Atração) */
+        .ticket-button {
+            background-color: #f59e0b; /* amber-500 */ color: #fff; /* white */
+            border-color: #f59e0b;
+        }
+        .ticket-button:hover {
+            background-color: #d97706; /* amber-600 */
+            border-color: #d97706;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06); /* shadow-md */
+        }
+        /* Botão Mapa (Bate e Volta) */
+        .map-button-daytrip {
+            @apply inline-flex items-center justify-center px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-md transition duration-300 ease-in-out hover:bg-emerald-700 hover:shadow-sm;
+        }
+        /* Botão Mapa (Info Box - Onde Comer/Música) */
+        .map-button-info-box {
+            @apply text-xs hover:underline font-medium cursor-pointer bg-transparent border-none p-0 inline;
+            /* A cor será definida dinamicamente com text-{corTema}-600 */
+        }
+
+        /* --- Modais --- */
+        .modal {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7);
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem; z-index: 60;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease-in-out;
+        }
+        .modal.is-open { opacity: 1; pointer-events: auto; }
+        .modal-content {
+            background: #fff; border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04); /* shadow-xl */
+            width: 100%; max-height: 90vh;
+            overflow: hidden; display: flex; flex-direction: column;
+            transform: scale(0.95); transition: transform 0.3s ease-in-out;
+            max-width: 600px; /* Default max-width for About Modal */
+            position: relative;
+        }
+        .modal.is-open .modal-content { transform: scale(1); }
+        .modal-body { padding: 1.5rem; overflow-y: auto; }
+        .modal-close-button {
+            color: #6b7280; /* gray-500 */ font-size: 1.875rem; line-height: 1;
+            position: absolute; top: 0.5rem; right: 1rem; cursor: pointer;
+            background: none; border: none; padding: 0;
+        }
+        .modal-close-button:hover { color: #1f2937; /* gray-800 */ }
+
+        /* Specific styles for Map Modal */
+        #mapModal .modal-content { max-width: 48rem; /* lg */ }
+        #mapModal .modal-body-map {
+            padding: 0;
+            flex-grow: 1;
+            background: #f3f4f6; /* gray-100 for loading background */
+            min-height: 60vh; /* Adjust as needed */
+            display: flex;
+        }
+        #mapModal iframe {
+            width: 100%; height: 100%;
+            border: 0;
+            min-height: inherit;
+        }
+
+        /* --- Cartões e Layout --- */
+        .object-cover { object-fit: cover; background: #e2e8f0; /* slate-200 for placeholder bg */ }
+        .attraction-card {
+            @apply bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.03] flex flex-col h-full;
+        }
+        .info-box { @apply p-4 rounded-lg; }
+        .section-subtitle { @apply flex items-center gap-3 text-2xl font-bold mb-8 mt-10 pb-2 border-b-2; }
+        .attraction-grid { grid-auto-rows: 1fr; /* Make grid items equal height */ }
+
+         /* Estilo para placeholder de botão invisível mas que ocupa espaço */
+         .button-placeholder {
+             display: inline-flex; align-items: center; justify-content: center;
+             padding: 0.5rem 0.75rem; font-size: 0.875rem;
+             border-radius: 0.375rem; /* rounded-md */
+             opacity: 0;
+             pointer-events: none;
+             border: 1px solid transparent; /* Manter a borda para consistência de layout */
+         }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="bg-sky-600 text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 id="header-title" class="text-xl sm:text-2xl font-bold"></h1>
+            <nav>
+                <ul id="main-nav-links" class="flex space-x-4">
+                    </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 mt-10">
+        <div class="text-center mb-16">
+             <h2 id="main-title" class="text-4xl font-bold text-sky-800 mb-4"></h2>
+        <p id="main-subtitle" class="text-lg text-gray-600 max-w-2xl mx-auto"></p>
+        </div>
+
+        <div id="city-sections-container">
+            </div>
+
+    </main>
+
+    <footer class="bg-gray-200 text-gray-600 text-center p-6 mt-16">
+        <p class="text-sm">© 2025 Dicas de Viagem Cris & JR. Boa viagem!</p>
+    </footer>
+
+    <div id="mapModal" class="modal" aria-labelledby="map-modal-title" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <button id="closeMapModal" class="modal-close-button" aria-label="Fechar mapa">×</button>
+            <div class="flex justify-between items-center p-4 border-b border-gray-200 bg-gray-50 rounded-t-lg">
+                <h2 id="map-modal-title" class="text-lg font-semibold text-gray-800">Localização no mapa</h2>
+            </div>
+            <div class="modal-body-map">
+                <iframe id="mapIframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="" title="Mapa Interativo"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div id="aboutModal" class="modal" aria-labelledby="about-modal-title" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <button id="closeAboutModal" class="modal-close-button" aria-label="Fechar detalhes">×</button>
+            <div class="modal-body">
+                <h3 id="about-modal-title" class="text-2xl font-bold text-sky-700 mb-6">Nome da atração</h3>
+                <div class="flex flex-col gap-5 text-sm text-gray-700">
+                    <div>
+                        <h5 class="font-semibold text-gray-800 mb-1 flex items-center"><i class="far fa-clock w-4 mr-2 text-gray-500"></i>Tempo estimado de visita</h5>
+                        <p id="about-visit-time" class="ml-6">…</p>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-gray-800 mb-1 flex items-center"><i class="far fa-eye w-4 mr-2 text-gray-500"></i>O que ver</h5>
+                        <div id="about-what-to-see" class="ml-6 space-y-1">…</div>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-gray-800 mb-1 flex items-center"><i class="fas fa-landmark w-4 mr-2 text-gray-500"></i>Um pouco de história</h5>
+                        <p id="about-history" class="ml-6 leading-relaxed">…</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div> </div> <div id="tipsModal" class="modal" aria-labelledby="tips-modal-title" role="dialog" aria-modal="true">
+    <div class="modal-content max-w-2xl"> <button id="closeTipsModal" class="modal-close-button" aria-label="Fechar dicas">×</button>
+        <div class="modal-body">
+            <h3 id="tips-modal-title" class="text-2xl font-bold mb-6">Dicas para a cidade</h3>
+            <div id="tips-modal-content" class="flex flex-col gap-4 text-sm text-gray-700">
+                <div id="tips-modal-seguranca"></div>
+                <div id="tips-modal-voltagemTomada"></div>
+                <div id="tips-modal-transporte"></div>
+                <div id="tips-modal-idioma"></div>
+                <div id="tips-modal-extras"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 
-     {
+{
   "pageInfoData": {
     "tituloHeader": "Montreal para Pequeninos",
     "tituloPrincipal": "Montreal para os Pequeninos (1-2 anos)",
@@ -258,3 +471,537 @@
     // Poderia haver outras chaves aqui se o escopo fosse maior (ex: "quebecCity")
   }
 }
+
+
+        // --- Funções JavaScript Auxiliares (createAttractionCard, createInfoBox - mantidas como antes) ---
+        function createAttractionCard(atracao, cityKey) {
+            const card = document.createElement('div');
+            card.className = 'attraction-card';
+            card.dataset.city = cityKey;
+
+            const img = document.createElement('img');
+            img.src = atracao.imagemUrl;
+            img.alt = atracao.nome;
+            img.className = 'w-full h-48 object-cover rounded-md mb-4';
+            img.onerror = () => { img.src = atracao.imagemPlaceholder; };
+            card.appendChild(img);
+
+            const buttonDiv = document.createElement('div');
+            buttonDiv.className = 'flex space-x-2 mb-4';
+
+            const mapButton = document.createElement('button');
+            mapButton.className = 'open-map-modal map-button-attraction flex-1 card-button';
+            mapButton.dataset.mapQuery = atracao.mapQuery;
+            mapButton.dataset.locationId = atracao.id;
+            mapButton.dataset.locationType = 'atracoes';
+            mapButton.title = atracao.mapTitle;
+            mapButton.innerHTML = '<i class="fas fa-map-marker-alt"></i>';
+            buttonDiv.appendChild(mapButton);
+
+            const aboutButton = document.createElement('button');
+            aboutButton.className = 'open-about-modal about-button flex-1 card-button';
+            aboutButton.dataset.attractionId = atracao.id;
+            aboutButton.title = atracao.aboutButtonTitle;
+            aboutButton.innerHTML = '<i class="fas fa-info-circle"></i>';
+            buttonDiv.appendChild(aboutButton);
+
+            if (atracao.ticketUrl) {
+                const ticketLink = document.createElement('a');
+                ticketLink.href = atracao.ticketUrl;
+                ticketLink.target = '_blank';
+                ticketLink.rel = 'noopener noreferrer';
+                ticketLink.className = 'ticket-button flex-1 card-button';
+                ticketLink.title = atracao.ticketTitle;
+                ticketLink.innerHTML = '<i class="fas fa-ticket-alt"></i>';
+                buttonDiv.appendChild(ticketLink);
+            } else {
+                const dummyPlaceholder = document.createElement('div');
+                dummyPlaceholder.className = 'flex-1 button-placeholder';
+                dummyPlaceholder.innerHTML = '<i class="fas fa-ticket-alt" aria-hidden="true"></i>';
+                buttonDiv.appendChild(dummyPlaceholder);
+            }
+
+            card.appendChild(buttonDiv);
+
+            const title = document.createElement('h5');
+            title.className = 'text-xl font-bold mb-2';
+            title.textContent = atracao.nome;
+            card.appendChild(title);
+
+            const description = document.createElement('p');
+            description.className = 'text-gray-700 text-sm flex-grow';
+            description.textContent = atracao.descricaoCurta;
+            card.appendChild(description);
+
+            return card;
+        }
+
+        function createInfoBox(item, tipo, corTema = 'sky', cityKey) {
+            const box = document.createElement('div');
+            box.dataset.city = cityKey;
+            let bgColorClass = 'bg-gray-50';
+            let textColorClass = 'text-gray-800';
+            let accentColorClass = 'text-gray-700';
+            let mapButtonClass = `map-button-info-box text-${corTema}-600`;
+
+            if (tipo === 'ondeComer') {
+                 if (item.tipo === 'restaurante') { bgColorClass = 'bg-amber-50'; textColorClass = 'text-amber-800'; accentColorClass = 'text-amber-700'; }
+                 else if (item.tipo === 'doce') { bgColorClass = 'bg-rose-50'; textColorClass = 'text-rose-800'; accentColorClass = 'text-rose-700'; }
+                 else if (item.tipo === 'padaria') { bgColorClass = 'bg-orange-50'; textColorClass = 'text-orange-800'; accentColorClass = 'text-orange-700'; }
+             } else if (tipo === 'musicaEventos') {
+                 bgColorClass = 'bg-indigo-50'; textColorClass = 'text-indigo-800'; accentColorClass = 'text-indigo-700';
+             } else if (tipo === 'bateVolta') {
+              bgColorClass = 'bg-emerald-50';
+              textColorClass = 'text-emerald-900'; // Um pouco mais escuro para contraste
+              accentColorClass = 'text-emerald-800'; // Um pouco mais escuro
+              mapButtonClass = 'map-button-daytrip self-start';
+              box.classList.add('flex', 'flex-col'); // Mantém layout flexível
+          }
+
+           box.className = `info-box ${bgColorClass} rounded-lg p-4`; // Garante padding
+
+          const title = document.createElement('h5');
+          title.className = `font-semibold ${textColorClass}` + (tipo === 'bateVolta' ? ' text-lg mb-2' : ' mb-1'); // Ajuste tamanho B&V
+          title.textContent = item.nome;
+          box.appendChild(title);
+
+          const description = document.createElement('p');
+          description.className = `text-sm ${accentColorClass}` + (tipo === 'bateVolta' ? ' mb-3 flex-grow' : ' mb-2');
+          // Descrição principal - usar textContent para evitar problemas com HTML injection
+          description.textContent = item.descricao;
+          box.appendChild(description);
+
+
+          if (tipo === 'bateVolta' && (item.distanciaOrigem || item.duracaoRecomendada)) {
+              const detailsDiv = document.createElement('div');
+              // Estilos: texto pequeno, cor sutil, margens, ícones alinhados
+              detailsDiv.className = 'text-xs text-emerald-700 mt-1 mb-3 space-y-1 border-t border-emerald-200 pt-2';
+
+              if (item.distanciaOrigem) {
+                  const distanciaP = document.createElement('p');
+                  distanciaP.className = 'flex items-center'; // Alinha ícone e texto
+                  distanciaP.innerHTML = `<i class="fas fa-road fa-fw mr-2 text-emerald-600 opacity-90"></i> ${item.distanciaOrigem}`;
+                  detailsDiv.appendChild(distanciaP);
+              }
+
+              if (item.duracaoRecomendada) {
+                  const duracaoP = document.createElement('p');
+                  duracaoP.className = 'flex items-center'; // Alinha ícone e texto
+                  duracaoP.innerHTML = `<i class="far fa-clock fa-fw mr-2 text-emerald-600 opacity-90"></i> ${item.duracaoRecomendada}`;
+                  detailsDiv.appendChild(duracaoP);
+              }
+              // Adiciona a div de detalhes ao card
+               box.appendChild(detailsDiv); // Adiciona após a descrição
+          }
+  
+
+const mapButton = document.createElement('button');
+          mapButton.className = `open-map-modal ${mapButtonClass}`;
+          mapButton.dataset.mapQuery = item.mapQuery;
+          mapButton.dataset.locationId = item.id;
+          mapButton.dataset.locationType = tipo;
+          mapButton.innerHTML = tipo === 'bateVolta'
+              ? '<i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa'
+              : 'Ver no mapa';
+          mapButton.title = `Ver mapa de ${item.nome}`;
+          box.appendChild(mapButton); // Botão é adicionado no final
+
+          return box;
+      }
+
+        // --- Função Principal para Gerar o Conteúdo Dinâmico ---
+        function generatePageContent() {
+ 
+       // Preenche informações globais da página (Título, Subtítulo)
+        const pageInfo = pageInfoData; // Usa a variável separada
+        if (pageInfo) {
+            const headerTitleEl = document.getElementById('header-title');
+            const mainTitleEl = document.getElementById('main-title');
+            const mainSubtitleEl = document.getElementById('main-subtitle');
+
+            if (headerTitleEl && pageInfo.tituloHeader) {
+                headerTitleEl.textContent = pageInfo.tituloHeader;
+                document.title = pageInfo.tituloHeader + " - Dicas de Viagem";
+            }
+            if (mainTitleEl && pageInfo.tituloPrincipal) {
+                mainTitleEl.textContent = pageInfo.tituloPrincipal;
+            }
+            if (mainSubtitleEl && pageInfo.subtituloPrincipal) {
+                mainSubtitleEl.textContent = pageInfo.subtituloPrincipal;
+            }
+        } else {
+            console.warn("Dados 'pageInfoData' não encontrados.");
+        }
+
+            const mainContainer = document.getElementById('city-sections-container');
+            const navLinksContainer = document.getElementById('main-nav-links');
+            if (!mainContainer || !navLinksContainer) {
+                 console.error("Container principal ou de navegação não encontrado!");
+                 return;
+            }
+            mainContainer.innerHTML = ''; // Limpa o container
+            navLinksContainer.innerHTML = ''; // Limpa links de navegação antigos
+
+            // Definição das subseções esperadas e seus detalhes
+            const subsectionsConfig = [
+                { key: 'atracoes', title: 'O que visitar', icon: 'fa-map-signs', containerType: 'grid', gridCols: 'md:grid-cols-2 lg:grid-cols-3', itemFunction: createAttractionCard },
+                { key: 'ondeComer', title: 'Onde comer', icon: 'fa-utensils', containerType: 'list', itemFunction: createInfoBox },
+                { key: 'musicaEventos', title: 'Música e eventos', icon: 'fa-music', containerType: 'list', itemFunction: createInfoBox },
+                { key: 'bateVolta', title: 'Sugestões de bate e volta', icon: 'fa-route', containerType: 'grid', gridCols: 'md:grid-cols-2', itemFunction: createInfoBox }
+            ];
+
+            // Itera sobre cada cidade no JSON
+            Object.keys(locationsData).forEach(cityKey => {
+                const cityData = locationsData[cityKey];
+                const corTema = cityData.corTema || 'sky'; // Cor padrão
+
+                // --- Cria o link de navegação para a cidade ---
+                 const navLi = document.createElement('li');
+                 const navLink = document.createElement('a');
+                 navLink.href = `#${cityKey}`;
+                 // Capitaliza a primeira letra da chave da cidade para o texto do link
+                 navLink.textContent = cityKey.charAt(0).toUpperCase() + cityKey.slice(1);
+                 navLink.className = 'text-sm sm:text-base hover:text-sky-100 transition-colors';
+                 navLi.appendChild(navLink);
+                 navLinksContainer.appendChild(navLi);
+
+
+                // --- Cria a seção principal para a cidade ---
+                const sectionElement = document.createElement('section');
+                sectionElement.id = cityKey;
+                sectionElement.className = 'mb-20 bg-white p-8 rounded-lg shadow-lg';
+                // Adiciona data-city para fácil acesso nos event listeners
+                sectionElement.dataset.city = cityKey;
+
+                // Cria o título da cidade (H3)
+                const cityTitle = document.createElement('h3');
+                cityTitle.className = `text-3xl font-semibold mb-8 pb-2 text-${corTema}-700 border-b-2 border-${corTema}-200`;
+                cityTitle.textContent = cityData.nome;
+                sectionElement.appendChild(cityTitle);
+
+// --- INÍCIO: Adicionar Resumo, Info e Botão de Dicas ---
+if (cityData.resumoHistoria) {
+              const resumoDiv = document.createElement('div');
+              resumoDiv.className = 'mb-4 text-gray-700 leading-relaxed text-sm'; // Ajuste de classe
+              resumoDiv.innerHTML = cityData.resumoHistoria; // Usar innerHTML caso o resumo contenha tags simples
+              sectionElement.appendChild(resumoDiv);
+          }
+          if (cityData.dataFundacao || cityData.populacao) {
+               const infoLine = document.createElement('p');
+               infoLine.className = 'text-sm text-gray-600 mb-4 italic'; // Ajuste de classe
+               let infoText = [];
+               if(cityData.dataFundacao) infoText.push(`<strong>Fundação:</strong> ${cityData.dataFundacao}`);
+               if(cityData.populacao) infoText.push(`<strong>População:</strong> ${cityData.populacao}`);
+               infoLine.innerHTML = infoText.join(' <span class="font-normal not-italic text-gray-400 mx-1">|</span> '); // Separador estilizado
+               sectionElement.appendChild(infoLine);
+          }
+           if (cityData.dicasTurista) {
+              const tipsButton = document.createElement('button');
+              // Reutiliza base .card-button, adiciona classe específica e cor de tema alternativa (esmeralda)
+              tipsButton.className = `open-tips-modal card-button bg-emerald-600 hover:bg-emerald-700 text-white mb-10 shadow hover:shadow-md transition-all duration-300`; // Adicionado mb-10
+              tipsButton.dataset.city = cityKey;
+              tipsButton.innerHTML = '<i class="fas fa-lightbulb mr-2"></i>Dicas do Local'; // Ícone de lâmpada
+              sectionElement.appendChild(tipsButton);
+          }
+
+                // --- Itera sobre as configurações das subseções ---
+                subsectionsConfig.forEach(subConfig => {
+                    // Verifica se existe dados para esta subseção na cidade atual
+                    if (cityData[subConfig.key] && cityData[subConfig.key].length > 0) {
+
+                        // Cria o título da subseção (H4 com ícone)
+                        const subTitleDiv = document.createElement('div');
+                        subTitleDiv.className = `section-subtitle border-${corTema}-200`;
+                        subTitleDiv.innerHTML = `<i class="fas ${subConfig.icon} text-${corTema}-700 w-6 text-center"></i>`;
+                        const subH4 = document.createElement('h4');
+                        subH4.className = `text-${corTema}-700`;
+                        subH4.textContent = subConfig.title;
+                        subTitleDiv.appendChild(subH4);
+                        sectionElement.appendChild(subTitleDiv);
+
+                        // Cria o container para os itens (grid ou lista)
+                        const itemsContainer = document.createElement('div');
+                        if (subConfig.containerType === 'grid') {
+                            itemsContainer.className = `attraction-grid grid ${subConfig.gridCols || ''} gap-8 mb-12`;
+                        } else { // 'list'
+                            itemsContainer.className = 'space-y-4 mb-12';
+                        }
+
+                        // Popula o container com os itens
+                        cityData[subConfig.key].forEach(itemData => {
+                            let itemElement;
+                            // Chama a função correta para criar o elemento do item
+                            if (subConfig.itemFunction === createAttractionCard) {
+                                itemElement = createAttractionCard(itemData, cityKey);
+                            } else if (subConfig.itemFunction === createInfoBox) {
+                                // Passa o tipo (key da subseção), cor e cidade
+                                itemElement = createInfoBox(itemData, subConfig.key, corTema, cityKey);
+                            }
+
+                            if (itemElement) {
+                                itemsContainer.appendChild(itemElement);
+                            }
+                        });
+
+                        sectionElement.appendChild(itemsContainer);
+                    }
+                });
+
+                // Adiciona a seção completa da cidade ao container principal
+                mainContainer.appendChild(sectionElement);
+            });
+        }
+
+
+        // --- Lógica dos Modais (Mantida como antes) ---
+        const mapModal = document.getElementById("mapModal");
+        const aboutModal = document.getElementById("aboutModal");
+         const tipsModal = document.getElementById("tipsModal");
+// Elementos internos do modal de dicas
+      const tipsModalTitle = document.getElementById("tips-modal-title");
+      const tipsModalContent = document.getElementById("tips-modal-content"); // Container geral
+      const tipsModalSeguranca = document.getElementById("tips-modal-seguranca");
+      const tipsModalVoltagemTomada = document.getElementById("tips-modal-voltagemTomada");
+      const tipsModalTransporte = document.getElementById("tips-modal-transporte");
+      const tipsModalIdioma = document.getElementById("tips-modal-idioma");
+      const tipsModalExtras = document.getElementById("tips-modal-extras");
+
+        let mapIframe = document.getElementById("mapIframe"); // Use let para poder reatribuir se recriado
+
+        const Maps_API_KEY = "AIzaSyCJ-J269u9m1-IR8f_dOIo3zvgNzvvQiv4"; // <-- SUA_CHAVE_API_AQUI SUBSTITUA AQUI!
+
+        const openModal = (modalElement) => { /* ... (inalterada) ... */
+             if (!modalElement) return;
+             modalElement.classList.add("is-open");
+             document.body.style.overflow = "hidden";
+        };
+
+        const closeModal = (modalElement) => {
+          if (!modalElement) return;
+          modalElement.classList.remove("is-open");
+          // Verifica se NENHUM modal está aberto antes de restaurar o scroll
+          if (!mapModal.classList.contains("is-open") &&
+              !aboutModal.classList.contains("is-open") &&
+              !tipsModal.classList.contains("is-open")) { // <-- ADICIONAR VERIFICAÇÃO
+              document.body.style.overflow = "";
+          }
+          if (modalElement === mapModal && mapIframe) {
+              mapIframe.src = "about:blank"; // Limpa src para parar carregamento/som
+          }
+          // Limpar conteúdo do modal de dicas (opcional, mas boa prática)
+          if (modalElement === tipsModal) {
+              if (tipsModalSeguranca) tipsModalSeguranca.innerHTML = '';
+              if (tipsModalVoltagemTomada) tipsModalVoltagemTomada.innerHTML = '';
+              if (tipsModalTransporte) tipsModalTransporte.innerHTML = '';
+              if (tipsModalIdioma) tipsModalIdioma.innerHTML = '';
+              if (tipsModalExtras) tipsModalExtras.innerHTML = '';
+          }
+      };
+
+       // --- Função para Construir URL de Incorporação do Google Maps ---
+        const constructEmbedUrlWithApiKey = (query) => {
+            if (!query || typeof query !== 'string' || query.trim() === '') {
+                console.error("Query inválida fornecida:", query);
+                return "";
+            }
+            if (!Maps_API_KEY || Maps_API_KEY === "SUA_CHAVE_API_AQUI") {
+                console.error("Chave de API do Google Maps não configurada no script.");
+                const mapBody = document.querySelector('#mapModal .modal-body-map');
+                if(mapBody) {
+                    mapBody.innerHTML = '<p class="p-4 text-red-600 text-center">Erro: A configuração do mapa está incompleta. Contacte o administrador.</p>';
+                }
+                document.getElementById('map-modal-title').textContent = "Erro no Mapa";
+                // Não precisa abrir o modal aqui, o listener fará isso se retornar URL vazia E a chave não estiver configurada
+                return ""; // Retorna vazio
+            }
+
+            // URL Base da API Embed (modo 'place' ou 'search')
+             const baseUrl = "https://www.google.com/maps/embed/v1/place"; // Modo Place (bom para nomes específicos)
+            // const baseUrl = "https://www.google.com/maps/embed/v1/search"; // Modo Search (bom para queries mais gerais)
+            const encodedQuery = encodeURIComponent(query);
+
+            // Retorna a URL completa com query, chave e idioma (language=pt)
+            // O parâmetro 'hl' foi removido por ser inválido nesta API.
+            return `${baseUrl}?key=${Maps_API_KEY}&q=${encodedQuery}&language=pt`;
+        };
+
+        // --- Event Listeners (Delegação - Mantidos como antes) ---
+         document.body.addEventListener('click', function(event) {
+
+            // --- INÍCIO: Listener para o Botão Abrir Dicas ---
+            const tipsButton = event.target.closest('.open-tips-modal');
+            if (tipsButton) {
+                const cityKey = tipsButton.dataset.city;
+
+                if (!cityKey || !locationsData[cityKey] || !locationsData[cityKey].dicasTurista) {
+                    console.error("Dados de dicas inválidos ou não encontrados para a cidade:", cityKey);
+                    return;
+                }
+
+                const cityData = locationsData[cityKey];
+                const tipsData = cityData.dicasTurista;
+                const cityName = cityData.nome.split('—')[0].trim(); // Pega o nome da cidade antes do '—'
+                const corTema = cityData.corTema || 'sky'; // Pega a cor do tema
+
+                // Define o título do modal
+                if (tipsModalTitle) {
+                    tipsModalTitle.textContent = `Dicas para ${cityName}`;
+                    // Aplica a cor do tema ao título do modal de dicas
+                    tipsModalTitle.classList.remove('text-sky-700', 'text-purple-700', 'text-orange-700'); // Limpa cores antigas
+                    tipsModalTitle.classList.add(`text-${corTema}-700`); // Adiciona a cor da cidade atual
+                }
+
+
+                // Função auxiliar para criar o bloco de dica com título e ícone
+                const createTipSection = (element, title, iconClass, content) => {
+                    if (element && content) {
+                         element.innerHTML = `<h5 class="font-semibold text-gray-800 mb-1 flex items-center"><i class="fas ${iconClass} w-4 mr-2 text-${corTema}-600"></i>${title}</h5><p class="ml-6">${content}</p>`; // Usa cor do tema no ícone
+                    } else if (element) {
+                        element.innerHTML = ''; // Limpa se não houver conteúdo
+                    }
+                };
+
+                // Popula as seções do modal com as dicas do JSON
+                createTipSection(tipsModalSeguranca, 'Segurança', 'fa-shield-alt', tipsData.seguranca);
+                createTipSection(tipsModalVoltagemTomada, 'Voltagem e Tomada', 'fa-plug', tipsData.voltagemTomada);
+                createTipSection(tipsModalTransporte, 'Transporte', 'fa-subway', tipsData.transporte); // Ícone de transporte
+                createTipSection(tipsModalIdioma, 'Idioma', 'fa-language', tipsData.idioma);
+                createTipSection(tipsModalExtras, 'Outras Dicas', 'fa-info-circle', tipsData.extras);
+
+
+                openModal(tipsModal); // Abre o modal de dicas
+
+                return; // Impede que outros listeners de clique sejam acionados
+            }
+           // --- FIM: Listener para o Botão Abrir Dicas ---
+
+             // Botão Abrir Mapa
+             const mapButton = event.target.closest('.open-map-modal');
+             if (mapButton) {
+                 const mapQuery = mapButton.dataset.mapQuery;
+                 const locationId = mapButton.dataset.locationId;
+                 const locationType = mapButton.dataset.locationType;
+                 // Busca cityKey do elemento section pai
+                 const cityKey = mapButton.closest('section[data-city]')?.dataset.city;
+
+                 let locationName = "Localização";
+                 let locationData = null;
+
+                 if(cityKey && locationId && locationType && locationsData[cityKey] && locationsData[cityKey][locationType]) {
+                     locationData = locationsData[cityKey][locationType].find(item => item.id === locationId);
+                     if(locationData && locationData.nome) { locationName = locationData.nome; }
+                 }
+                 if (locationName === "Localização" && mapButton.title) { locationName = mapButton.title.replace('Ver mapa de ', ''); }
+                 if (locationName === "Localização" && mapQuery) { locationName = mapQuery.split(',')[0]; }
+
+                 const embedUrl = constructEmbedUrlWithApiKey(mapQuery);
+
+                  // Se a URL é inválida E a chave NÃO está configurada, mostra o modal de erro
+                 if (!embedUrl && (!Maps_API_KEY || Maps_API_KEY === "SUA_CHAVE_API_AQUI")) {
+                     openModal(mapModal); // Mostra o modal com a mensagem de erro inserida por constructEmbedUrl
+                     return;
+                 }
+
+                 if (embedUrl) {
+                     const mapBody = document.querySelector('#mapModal .modal-body-map');
+                     // Verifica se o iframe existe ou precisa ser recriado
+                     if (mapBody && !mapBody.querySelector('iframe')) {
+                         mapBody.innerHTML = '<iframe id="mapIframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="" title="Mapa Interativo"></iframe>';
+                         mapIframe = document.getElementById("mapIframe"); // Reatribui a variável global
+                     }
+                     if (mapIframe) {
+                         mapIframe.src = embedUrl;
+                         document.getElementById('map-modal-title').textContent = `Mapa: ${locationName}`;
+                         openModal(mapModal);
+                     }
+                 } else {
+                     // Caso a chave esteja configurada mas a URL falhe
+                     console.error("Não foi possível construir a URL do mapa para a query:", mapQuery);
+                      alert("Ocorreu um erro ao tentar carregar o mapa.");
+                 }
+                 return;
+             }
+
+             // Botão Abrir Detalhes (About)
+             const aboutButton = event.target.closest('.open-about-modal');
+             if (aboutButton) {
+                 const attractionId = aboutButton.dataset.attractionId;
+                  // Busca cityKey do elemento section pai
+                 const cityKey = aboutButton.closest('section[data-city]')?.dataset.city;
+
+                 if (!attractionId || !cityKey || !locationsData[cityKey] || !locationsData[cityKey].atracoes) {
+                     console.error("Dados inválidos ou não encontrados para abrir detalhes:", { attractionId, cityKey });
+                     return;
+                 }
+
+                 const attractionData = locationsData[cityKey].atracoes.find(atr => atr.id === attractionId);
+
+                 if (attractionData) {
+                     const aboutTitleEl = document.getElementById("about-modal-title");
+                     const aboutTimeEl = document.getElementById("about-visit-time");
+                     const aboutSeeEl = document.getElementById("about-what-to-see");
+                     const aboutHistEl = document.getElementById("about-history");
+
+                     aboutTitleEl.textContent = attractionData.aboutTitle || attractionData.nome || "Detalhes";
+                     aboutTimeEl.textContent = attractionData.visitTime || "Não especificado";
+                     aboutHistEl.textContent = attractionData.history || "Não especificado";
+
+                     aboutSeeEl.innerHTML = '';
+                     const whatToSeeData = attractionData.whatToSee;
+                     if (whatToSeeData) {
+                         const items = whatToSeeData.split(';').map(item => item.trim()).filter(item => item);
+                         if (items.length > 0) {
+                             const ul = document.createElement('ul');
+                             ul.className = 'list-disc list-inside space-y-1';
+                             items.forEach(itemText => {
+                                 const li = document.createElement('li');
+                                 li.textContent = itemText;
+                                 ul.appendChild(li);
+                             });
+                             aboutSeeEl.appendChild(ul);
+                         } else { aboutSeeEl.textContent = "Não especificado"; }
+                     } else { aboutSeeEl.textContent = "Não especificado"; }
+
+                     const corTema = locationsData[cityKey].corTema || 'sky';
+                     aboutTitleEl.classList.remove('text-sky-700', 'text-purple-700', 'text-orange-700'); // Remove cores tema antigas
+                     aboutTitleEl.classList.add(`text-${corTema}-700`);
+
+                     openModal(aboutModal);
+
+                 } else {
+                     console.error("Dados da atração não encontrados para o ID:", attractionId);
+                 }
+                 return;
+             }
+         });
+
+     // --- Event Listeners para Fechar Modais ---
+      document.getElementById("closeMapModal")?.addEventListener("click", () => closeModal(mapModal));
+      document.getElementById("closeAboutModal")?.addEventListener("click", () => closeModal(aboutModal));
+      document.getElementById("closeTipsModal")?.addEventListener("click", () => closeModal(tipsModal)); // <-- ADICIONAR
+
+      document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+              if (mapModal?.classList.contains("is-open")) closeModal(mapModal);
+              if (aboutModal?.classList.contains("is-open")) closeModal(aboutModal);
+              if (tipsModal?.classList.contains("is-open")) closeModal(tipsModal); // <-- ADICIONAR
+          }
+      });
+
+      [mapModal, aboutModal, tipsModal].forEach(modal => { // <-- ADICIONAR tipsModal ao array
+          modal?.addEventListener("click", (event) => {
+              if (event.target === modal) { // Só fecha se clicar no fundo escuro
+                  closeModal(modal);
+              }
+          });
+      });
+
+
+        // --- Inicialização ---
+        // Gera o conteúdo da página quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', generatePageContent);
+
+    </script>
+
+</body>
+</html>
