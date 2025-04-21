@@ -32,23 +32,25 @@
 
         /* Estilos Modals */
         .modal {
-            @apply fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-[60] hidden visibility-hidden opacity-0 transition-all duration-300 ease-in-out;
+            @apply fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-[60] opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out;
+             /* Usar opacity e pointer-events para mostrar/esconder */
         }
-        .modal:not(.hidden) {
-             @apply visibility-visible opacity-100;
+        .modal.is-open { /* Nova classe para modal ativo */
+             @apply opacity-100 pointer-events-auto;
         }
         .modal-content {
             @apply bg-white rounded-lg shadow-xl w-full max-h-[85vh] overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform scale-95;
              max-width: 600px; /* Largura máxima para modal de texto */
         }
-         .modal:not(.hidden) .modal-content {
+         .modal.is-open .modal-content { /* Efeito de escala ao abrir */
              @apply scale-100;
          }
         .modal-body {
              @apply p-6 overflow-y-auto; /* Scroll se conteúdo for grande */
         }
         .modal-close-button {
-             @apply text-gray-500 hover:text-gray-800 text-3xl leading-none font-light absolute top-2 right-4;
+             @apply text-gray-500 hover:text-gray-800 text-3xl leading-none font-light absolute top-2 right-4 z-10; /* Garantir que está acima */
+             cursor: pointer;
         }
 
         /* Outros Estilos */
@@ -385,7 +387,8 @@
     </footer>
 
     <div id="mapModal" class="modal" aria-labelledby="map-modal-title" role="dialog" aria-modal="true">
-        <div class="modal-content max-w-3xl"> <button id="closeMapModal" class="modal-close-button">×</button>
+        <div class="modal-content max-w-3xl">
+             <button id="closeMapModal" class="modal-close-button">×</button>
             <div class="flex justify-between items-center p-4 border-b">
                 <h2 id="map-modal-title" class="text-lg font-semibold text-gray-800">Localização no Mapa</h2>
             </div>
@@ -419,99 +422,91 @@
     </div>
 
     <script>
-        // --- Controle Modal Mapa ---
-        const mapModal = document.getElementById('mapModal');
-        const closeMapModalButton = document.getElementById('closeMapModal');
-        const mapIframe = document.getElementById('mapIframe');
-        const openMapModalButtons = document.querySelectorAll('.open-map-modal');
+        // --- Seletores Globais ---
+        const mapModalElement = document.getElementById('mapModal');
+        const aboutModalElement = document.getElementById('aboutModal');
+        const mapIframeElement = document.getElementById('mapIframe');
+        const aboutTitleElement = document.getElementById('about-modal-title');
+        const aboutVisitTimeElement = document.getElementById('about-visit-time');
+        const aboutWhatToSeeElement = document.getElementById('about-what-to-see');
+        const aboutHistoryElement = document.getElementById('about-history');
 
-        const openMapModal = (mapUrl) => {
-            if (!mapUrl) { console.error('URL do mapa não fornecida.'); return; }
-             let embedUrl = mapUrl;
-             // Lógica de fallback se URL for placeholder (simplificada)
-             if (mapUrl.includes('googleusercontent.com/maps')) {
-                 console.warn('URL de placeholder detectado para mapa. Substitua data-map-url por um URL de embed real.');
-                 // Idealmente, usar um URL de embed genérico ou tratar erro
-                 embedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d398879.8008087465!2d-9.41481671943362!3d38.72790203898525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19331a61e4f33b%3A0x400ebbde49036d0!2sLisboa%2C%20Portugal!5e0!3m2!1spt-PT!2sbr!4v1678886478531!5m2!1spt-PT!2sbr'; // Exemplo genérico
-             }
-            mapIframe.src = embedUrl;
-            mapModal.classList.remove('hidden', 'opacity-0');
-            mapModal.classList.add('visibility-visible'); // Garante visibilidade
+        // --- Funções de Controle de Modal ---
+        const openModal = (modalElement) => {
+            if (!modalElement) return;
+            modalElement.classList.remove('opacity-0', 'pointer-events-none');
+            modalElement.classList.add('is-open'); // Adiciona classe para visibilidade e transição
             document.body.style.overflow = 'hidden';
         };
 
-        const closeMapModal = () => {
-            mapModal.classList.add('hidden', 'opacity-0');
-            mapModal.classList.remove('visibility-visible');
-            mapIframe.src = '';
-            if (!document.getElementById('aboutModal').classList.contains('visibility-visible')) {
-                 document.body.style.overflow = ''; // Só restaura se o outro modal não estiver aberto
+        const closeModal = (modalElement) => {
+            if (!modalElement) return;
+            modalElement.classList.add('opacity-0', 'pointer-events-none');
+            modalElement.classList.remove('is-open');
+             // Só restaura scroll se nenhum modal estiver aberto
+            if (!mapModalElement.classList.contains('is-open') && !aboutModalElement.classList.contains('is-open')) {
+                document.body.style.overflow = '';
             }
         };
 
-        openMapModalButtons.forEach(button => button.addEventListener('click', () => openMapModal(button.getAttribute('data-map-url'))));
-        closeMapModalButton?.addEventListener('click', closeMapModal); // Adicionado '?' para segurança
+        // --- Lógica Modal Mapa ---
+        document.querySelectorAll('.open-map-modal').forEach(button => {
+            button.addEventListener('click', () => {
+                const mapUrl = button.getAttribute('data-map-url');
+                if (!mapUrl) { console.error('URL do mapa não fornecida.'); return; }
+                let embedUrl = mapUrl;
+                if (mapUrl.includes('googleusercontent.com/maps')) {
+                    console.warn('URL de placeholder detectado para mapa. Substitua data-map-url por um URL de embed real.');
+                    embedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d398879.8008087465!2d-9.41481671943362!3d38.72790203898525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19331a61e4f33b%3A0x400ebbde49036d0!2sLisboa%2C%20Portugal!5e0!3m2!1spt-PT!2sbr!4v1678886478531!5m2!1spt-PT!2sbr'; // Fallback genérico
+                }
+                if(mapIframeElement) mapIframeElement.src = embedUrl;
+                openModal(mapModalElement);
+            });
+        });
 
-        // --- Controle Modal Sobre ---
-        const aboutModal = document.getElementById('aboutModal');
-        const closeAboutModalButton = document.getElementById('closeAboutModal');
-        const openAboutModalButtons = document.querySelectorAll('.open-about-modal');
-        const aboutTitle = document.getElementById('about-modal-title');
-        const aboutVisitTime = document.getElementById('about-visit-time');
-        const aboutWhatToSee = document.getElementById('about-what-to-see');
-        const aboutHistory = document.getElementById('about-history');
+        document.getElementById('closeMapModal')?.addEventListener('click', () => {
+             if(mapIframeElement) mapIframeElement.src = ''; // Limpa iframe ao fechar
+             closeModal(mapModalElement);
+        });
 
-        const openAboutModal = (button) => {
-            const name = button.getAttribute('data-attraction-name');
-            const time = button.getAttribute('data-visit-time');
-            const see = button.getAttribute('data-what-to-see');
-            const history = button.getAttribute('data-history');
+        // --- Lógica Modal Sobre ---
+        document.querySelectorAll('.open-about-modal').forEach(button => {
+            button.addEventListener('click', () => {
+                const name = button.getAttribute('data-attraction-name');
+                const time = button.getAttribute('data-visit-time');
+                const see = button.getAttribute('data-what-to-see');
+                const history = button.getAttribute('data-history');
 
-            if (aboutTitle) aboutTitle.textContent = name || 'Detalhes da Atração';
-            if (aboutVisitTime) aboutVisitTime.textContent = time || 'N/A';
-            if (aboutWhatToSee) aboutWhatToSee.textContent = see || 'N/A';
-            if (aboutHistory) aboutHistory.textContent = history || 'N/A';
+                if (aboutTitleElement) aboutTitleElement.textContent = name || 'Detalhes da Atração';
+                if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = time || 'N/A';
+                if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = see || 'N/A';
+                if (aboutHistoryElement) aboutHistoryElement.textContent = history || 'N/A';
 
-            aboutModal.classList.remove('hidden', 'opacity-0');
-            aboutModal.classList.add('visibility-visible');
-            document.body.style.overflow = 'hidden';
-        };
+                openModal(aboutModalElement);
+            });
+        });
 
-         const closeAboutModal = () => {
-            aboutModal.classList.add('hidden', 'opacity-0');
-            aboutModal.classList.remove('visibility-visible');
-             // Limpar conteúdo (opcional, mas bom para evitar flash de conteúdo antigo)
-             if (aboutTitle) aboutTitle.textContent = '';
-             if (aboutVisitTime) aboutVisitTime.textContent = '';
-             if (aboutWhatToSee) aboutWhatToSee.textContent = '';
-             if (aboutHistory) aboutHistory.textContent = '';
-
-            if (!document.getElementById('mapModal').classList.contains('visibility-visible')) {
-                 document.body.style.overflow = ''; // Só restaura se o outro modal não estiver aberto
-            }
-        };
-
-        openAboutModalButtons.forEach(button => button.addEventListener('click', () => openAboutModal(button)));
-        closeAboutModalButton?.addEventListener('click', closeAboutModal); // Adicionado '?' para segurança
+        document.getElementById('closeAboutModal')?.addEventListener('click', () => {
+             // Limpar conteúdo ao fechar (opcional)
+             if (aboutTitleElement) aboutTitleElement.textContent = '...';
+             if (aboutVisitTimeElement) aboutVisitTimeElement.textContent = '...';
+             if (aboutWhatToSeeElement) aboutWhatToSeeElement.textContent = '...';
+             if (aboutHistoryElement) aboutHistoryElement.textContent = '...';
+             closeModal(aboutModalElement);
+        });
 
         // --- Fechar Modals com ESC ou clique fora ---
-         const closeAllModals = () => {
-             closeMapModal();
-             closeAboutModal();
-         };
-
-         document.addEventListener('keydown', (event) => {
+        document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
-                closeAllModals();
+                if (mapModalElement?.classList.contains('is-open')) closeModal(mapModalElement);
+                if (aboutModalElement?.classList.contains('is-open')) closeModal(aboutModalElement);
             }
         });
 
-        // Adiciona listener para fechar ao clicar no backdrop (para ambos os modals)
-        [mapModal, aboutModal].forEach(modal => {
-             modal?.addEventListener('click', (event) => { // Adicionado '?' para segurança
+        [mapModalElement, aboutModalElement].forEach(modal => {
+             modal?.addEventListener('click', (event) => {
                  if (event.target === modal) { // Fecha apenas se clicar no fundo
-                     if (modal === mapModal) closeMapModal();
-                     if (modal === aboutModal) closeAboutModal();
+                     closeModal(modal);
                  }
              });
         });
