@@ -43,6 +43,10 @@
         .modal:not(.hidden) .modal-content {
             transform: scale(1);
         }
+        /* Garante que as imagens cubram a área designada */
+        .object-cover {
+             object-fit: cover;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -72,7 +76,7 @@
             <h4 class="text-2xl font-semibold text-gray-800 mb-6">O que Visitar</h4>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/a0aec0/ffffff?text=Mosteiro+dos+Jerónimos" alt="Imagem do Mosteiro dos Jerónimos" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <img src="https://source.unsplash.com/600x400/?jeronimos+monastery,lisbon" alt="[Image of Mosteiro dos Jerónimos]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Mosteiro dos Jerónimos</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Impressionante obra-prima do estilo manuelino, Património Mundial da UNESCO. Abriga os túmulos de Vasco da Gama e Luís de Camões.</p>
                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 10h–18h30 (Mai-Set); 10h–17h30 (Out-Abr); Fecha 2ª-feira.</p>
@@ -82,7 +86,7 @@
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/718096/ffffff?text=Torre+de+Belém" alt="Imagem da Torre de Belém" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                     <img src="https://source.unsplash.com/600x400/?belem+tower,lisbon" alt="[Image of Torre de Belém]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Torre de Belém</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Ícone de Lisboa e da Era dos Descobrimentos. Uma elegante torre defensiva do século XVI à beira do Tejo.</p>
                      <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 10h–18h30 (Mai-Set); 10h–17h30 (Out-Abr); Fecha 2ª-feira.</p>
@@ -92,7 +96,7 @@
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/4a5568/ffffff?text=Castelo+de+São+Jorge" alt="Imagem do Castelo de São Jorge" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                     <img src="https://source.unsplash.com/600x400/?sao+jorge+castle,lisbon" alt="[Image of Castelo de São Jorge]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Castelo de São Jorge</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Antiga fortaleza moura com muralhas imponentes, jardins e vistas panorâmicas deslumbrantes sobre Lisboa e o rio Tejo.</p>
                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 09h–21h (Mar-Out); 09h–18h (Nov-Fev).</p>
@@ -102,7 +106,7 @@
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/e2e8f0/2d3748?text=Museu+Nacional+Arte+Antiga" alt="Imagem do Museu Nacional de Arte Antiga" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                     <img src="https://source.unsplash.com/600x400/?national+museum+ancient+art,lisbon" alt="[Image of Museu Nacional de Arte Antiga]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Museu Nacional de Arte Antiga</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Principal museu de arte do país, com vasta coleção de pintura, escultura e artes decorativas portuguesas e europeias.</p>
                      <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> 10h–18h (Ter-Dom); Fecha 2ª-feira.</p>
@@ -112,7 +116,7 @@
                 </div>
 
                  <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/cbd5e0/4a5568?text=Alfama+&+Elétrico+28" alt="Imagem de Alfama e Elétrico 28" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                     <img src="https://source.unsplash.com/600x400/?alfama+tram,lisbon" alt="[Image of Alfama & Elétrico 28]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Alfama & Elétrico 28</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Perca-se pelas ruelas históricas de Alfama, o bairro mais antigo de Lisboa, e apanhe o famoso elétrico 28 para um passeio pitoresco.</p>
                      <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12452.69029197085!2d-9.13719963955078!3d38.711709300000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934455d4432ad%3A0x43d4a1e416710850!2sAlfama%2C%20Lisboa%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678886790123!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
@@ -205,7 +209,7 @@
              <h4 class="text-2xl font-semibold text-gray-800 mb-6">O que Visitar</h4>
              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
                  <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/a0aec0/ffffff?text=Mercado+do+Bolhão" alt="Imagem do Mercado do Bolhão" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <img src="https://source.unsplash.com/600x400/?mercado+bolhao,porto" alt="[Image of Mercado do Bolhão]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Mercado do Bolhão</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Mercado histórico lindamente renovado. Ótimo para sentir a atmosfera local, comprar produtos frescos, flores e artesanato.</p>
                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Seg-Sex 08h-20h; Sáb 08h-18h.</p>
@@ -215,7 +219,7 @@
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/718096/ffffff?text=Livraria+Lello" alt="Imagem da Livraria Lello" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <img src="https://source.unsplash.com/600x400/?livraria+lello,porto" alt="[Image of Livraria Lello]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Livraria Lello</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Considerada uma das livrarias mais bonitas do mundo, com sua escadaria vermelha icónica e vitrais deslumbrantes.</p>
                      <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Diariamente 09h-19h30 (Verificar site, requer bilhete).</p>
@@ -225,7 +229,7 @@
                 </div>
 
                  <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/4a5568/ffffff?text=Ribeira+do+Porto" alt="Imagem da Ribeira do Porto" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                     <img src="https://source.unsplash.com/600x400/?ribeira+porto,portugal" alt="[Image of Ribeira]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Ribeira</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Cais histórico à beira do rio Douro, Património Mundial da UNESCO. Casas coloridas, restaurantes, bares e vistas para a Ponte D. Luís I.</p>
                      <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6009.982423357891!2d-8.616039653906248!3d41.1411209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e7f18b977b%3A0xaf01d5132650a99a!2sCais%20da%20Ribeira%2C%20Porto%2C%20Portugal!5e0!3m2!1spt-BR!2sbr!4v1678887265432!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
@@ -234,7 +238,7 @@
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/e2e8f0/2d3748?text=Caves+Vinho+do+Porto" alt="Imagem das Caves do Vinho do Porto" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <img src="https://source.unsplash.com/600x400/?porto+wine+cellars,gaia" alt="[Image of Caves do Vinho do Porto]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Caves do Vinho do Porto (Gaia)</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Atravesse a ponte para Vila Nova de Gaia e visite uma das famosas caves para aprender sobre o Vinho do Porto e fazer uma degustação.</p>
                      <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.082296670085!2d-8.61501168458239!3d41.1389489792878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e67890b32d%3A0x9a755b26677f8d6a!2sCaves%20C%C3%A1lem!5e0!3m2!1spt-BR!2sbr!4v1678887321098!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
@@ -243,7 +247,7 @@
                 </div>
 
                  <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/cbd5e0/4a5568?text=Palácio+da+Bolsa" alt="Imagem do Palácio da Bolsa" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                     <img src="https://source.unsplash.com/600x400/?palacio+da+bolsa,porto" alt="[Image of Palácio da Bolsa]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Palácio da Bolsa</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Edifício histórico com interiores deslumbrantes, com destaque para o Salão Árabe, ricamente decorado em estilo mourisco.</p>
                      <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Visitas guiadas, verificar horários no site oficial.</p>
@@ -253,7 +257,7 @@
                 </div>
 
                  <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/9fa6b2/ffffff?text=Igreja+São+Francisco" alt="Imagem da Igreja de São Francisco" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <img src="https://source.unsplash.com/600x400/?igreja+sao+francisco,porto" alt="[Image of Igreja de São Francisco]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Igreja de São Francisco</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Exterior gótico simples que esconde um interior barroco exuberante, coberto de talha dourada. Uma visita impressionante.</p>
                      <button data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.002375438748!2d-8.61675568458232!3d41.14069097928769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e77f4a246d%3A0x749a0a9e6a05f6d6!2sIgreja%20de%20S%C3%A3o%20Francisco!5e0!3m2!1spt-BR!2sbr!4v1678887432109!5m2!1spt-BR!2sbr" class="open-map-modal mt-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md map-button">
@@ -262,7 +266,7 @@
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/a3bffa/ffffff?text=Torre+dos+Clérigos" alt="Imagem da Torre dos Clérigos" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                    <img src="https://source.unsplash.com/600x400/?clerigos+tower,porto" alt="[Image of Torre dos Clérigos]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Torre dos Clérigos</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Ex-libris do Porto, esta torre barroca oferece vistas panorâmicas de 360º após subir os seus mais de 200 degraus.</p>
                     <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Geralmente 09h–19h (verificar site oficial).</p>
@@ -272,7 +276,7 @@
                 </div>
 
                  <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://placehold.co/600x400/fbd38d/4a5568?text=Casa-Museu+Marta+O.+Sampaio" alt="Imagem da Casa-Museu Marta Ortigão Sampaio" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
+                     <img src="https://source.unsplash.com/600x400/?museum+house,porto" alt="[Image of Casa-Museu Marta Ortigão Sampaio]" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagem+Indisponível';">
                     <h5 class="text-xl font-bold text-gray-900 mb-2">Casa-Museu Marta Ortigão Sampaio</h5>
                     <p class="text-gray-700 mb-3 text-sm flex-grow">Casa de estilo romântico tardio que alberga coleções de pintura naturalista, mobiliário e artes decorativas.</p>
                      <p class="text-gray-600 text-xs mb-4"><strong>Horários:</strong> Ter-Dom 10h–17h30 (verificar site oficial).</p>
@@ -404,6 +408,8 @@
                 console.error('URL do mapa não fornecida.');
                 return; // Não abre se não houver URL
             }
+            // Substitui URLs de placeholder do Google User Content por URLs de embed reais (se necessário)
+            // Exemplo: if (mapUrl.includes('googleusercontent.com')) mapUrl = convertToEmbedUrl(mapUrl);
             mapIframe.src = mapUrl; // Define o src do iframe
             mapModal.classList.remove('hidden', 'visibility-hidden', 'opacity-0'); // Mostra o modal
             document.body.style.overflow = 'hidden'; // Impede scroll do body
