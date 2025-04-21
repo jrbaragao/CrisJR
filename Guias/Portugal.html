@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Dicas de Viagem Portugal - Cris & JR</title>
+    <title>Dicas de Viagem</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet"
@@ -139,7 +139,7 @@
 <body class="antialiased">
     <header class="bg-sky-600 text-white p-4 shadow-md sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl sm:text-2xl font-bold">Cris & JR em Portugal</h1>
+            <h1 id="header-title" class="text-xl sm:text-2xl font-bold"></h1>
             <nav>
                 <ul id="main-nav-links" class="flex space-x-4">
                     </ul>
@@ -149,8 +149,8 @@
 
     <main class="container mx-auto p-6 mt-10">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-sky-800 mb-4">Roteiro inesquecível por Portugal</h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">As melhores dicas de Lisboa e Porto para um casal apaixonado por história, arte e boa comida!</p>
+             <h2 id="main-title" class="text-4xl font-bold text-sky-800 mb-4"></h2>
+        <p id="main-subtitle" class="text-lg text-gray-600 max-w-2xl mx-auto"></p>
         </div>
 
         <div id="city-sections-container">
@@ -200,6 +200,11 @@
 <script>
 
  const locationsData = {
+        "paginaInfo": {
+            "tituloHeader": "Cris & JR em Portugal",
+            "tituloPrincipal": "Roteiro inesquecível por Portugal",
+            "subtituloPrincipal": "As melhores dicas de Lisboa e Porto para um casal apaixonado por história, arte e boa comida!"
+        },
   "lisboa": {
     "nome": "Lisboa — A cidade das sete colinas",
     "corTema": "sky", // Usado para classes Tailwind (text-sky-700, border-sky-200)
@@ -682,6 +687,29 @@
 
         // --- Função Principal para Gerar o Conteúdo Dinâmico ---
         function generatePageContent() {
+ 
+        // Preenche informações globais da página (Título, Subtítulo)
+        const pageInfo = locationsData.paginaInfo;
+        if (pageInfo) {
+            const headerTitleEl = document.getElementById('header-title');
+            const mainTitleEl = document.getElementById('main-title');
+            const mainSubtitleEl = document.getElementById('main-subtitle');
+
+            if (headerTitleEl && pageInfo.tituloHeader) {
+                headerTitleEl.textContent = pageInfo.tituloHeader;
+                // Opcional: Atualizar também o <title> da página
+                document.title = pageInfo.tituloHeader + " - Dicas de Viagem";
+            }
+            if (mainTitleEl && pageInfo.tituloPrincipal) {
+                mainTitleEl.textContent = pageInfo.tituloPrincipal;
+            }
+            if (mainSubtitleEl && pageInfo.subtituloPrincipal) {
+                mainSubtitleEl.textContent = pageInfo.subtituloPrincipal;
+            }
+        } else {
+            console.warn("Dados 'paginaInfo' não encontrados no JSON.");
+        }
+
             const mainContainer = document.getElementById('city-sections-container');
             const navLinksContainer = document.getElementById('main-nav-links');
             if (!mainContainer || !navLinksContainer) {
