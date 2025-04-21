@@ -197,61 +197,379 @@
         </div>
     </div>
 
-    <script>
-        // Objeto com os dados das localizações
-        const locationsData = {
-            "lisboa": {
-                "nome": "Lisboa — A cidade das sete colinas",
-                "corTema": "sky",
-                "atracoes": [ /* ... dados das atrações de Lisboa ... */
-                    { "id": "lis-atr-1", "nome": "Mosteiro dos Jerónimos", /* ... resto dos dados ... */ "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Mosteiro_dos_Jer%C3%B3nimos_%2844651116202%29.jpg", "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Mosteiro", "mapQuery": "Mosteiro dos Jerónimos, Lisboa, Portugal", "mapTitle": "Ver mapa do Mosteiro dos Jerónimos", "aboutTitle": "Mosteiro dos Jerónimos", "visitTime": "1 h 30 – 2 h", "whatToSee": "Igreja Santa Maria de Belém (entrada gratuita); impressionante claustro manuelino (pago); túmulos de Vasco da Gama e Luís de Camões; antigo refeitório dos monges; sacristia; azulejos quinhentistas.", "history": "Construção iniciada em 1501 sob o reinado de D. Manuel I...", "aboutButtonTitle": "Saber mais...", "ticketUrl": "https://bilheteira.patrimoniocultural.gov.pt/monumentos/mosteiro-dos-jeronimos", "ticketTitle": "Comprar bilhetes", "descricaoCurta": "Majestoso mosteiro manuelino..." },
-                    { "id": "lis-atr-2", "nome": "Torre de Belém", /* ... resto dos dados ... */ "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Torre_de_Bel%C3%A9m_front.jpg", "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Belém", "mapQuery": "Torre de Belém, Lisboa, Portugal", "mapTitle": "Ver mapa da Torre de Belém", "aboutTitle": "Torre de Belém", "visitTime": "± 1 h", "whatToSee": "Exterior ricamente decorado...", "history": "Erguida estrategicamente...", "aboutButtonTitle": "Saber mais...", "ticketUrl": "https://bilheteira.patrimoniocultural.gov.pt/monumentos/torre-de-belem", "ticketTitle": "Comprar bilhetes", "descricaoCurta": "Ícone emblemático..." },
-                    // ... mais atrações de Lisboa
-                ],
-                "ondeComer": [ /* ... dados de onde comer em Lisboa ... */
-                    { "id": "lis-comer-1", "nome": "Ao 26 - Vegan Food Project", /* ... */ "endereco": "Rua Vítor Cordon 26", "mapQuery": "Ao 26 - Vegan Food Project, Rua Vítor Cordon 26, Lisboa", "tipo": "restaurante", "descricao": "Aclamado restaurante vegano..." },
-                    // ... mais locais para comer
-                 ],
-                "musicaEventos": [ /* ... dados de música/eventos em Lisboa ... */
-                    { "id": "lis-musica-1", "nome": "Clube de Fado", /* ... */ "endereco": "Rua de São João da Praça 94", "mapQuery": "Clube de Fado, Rua de São João da Praça 94, Lisboa", "descricao": "Casa de fados de renome..." },
-                   // ... mais locais
-                 ],
-                "bateVolta": [ /* ... dados de bate e volta de Lisboa ... */
-                    { "id": "lis-bv-1", "nome": "Sintra", /* ... */ "mapQuery": "Centro Histórico de Sintra, Portugal", "descricao": "Vila mágica e romântica..." },
-                    // ... mais bate e volta
-                 ]
-            },
-            "porto": {
-                "nome": "Porto — A capital do norte",
-                "corTema": "purple",
-                "atracoes": [ /* ... dados das atrações do Porto ... */
-                    { "id": "pto-atr-1", "nome": "Mercado do Bolhão", /* ... resto dos dados ... */ "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Mercado_do_Bolh%C3%A3o_2023-08-08_05.02.56_%2853111822406%29.jpg", "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Bolhão", "mapQuery": "Mercado do Bolhão, Porto, Portugal", "mapTitle": "Ver mapa do Mercado do Bolhão", "aboutTitle": "Mercado do Bolhão", "visitTime": "30 – 60 min", "whatToSee": "Arquitetura neoclássica renovada...", "history": "Este emblemático mercado...", "aboutButtonTitle": "Saber mais...", "ticketUrl": null, "ticketTitle": null, "descricaoCurta": "Vibrante mercado histórico..." },
-                     { "id": "pto-atr-2", "nome": "Livraria Lello", /* ... resto dos dados ... */ "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Livraria_LELLO_Porto.jpg", "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Lello", "mapQuery": "Livraria Lello, Rua das Carmelitas 144, Porto", "mapTitle": "Ver mapa da Livraria Lello", "aboutTitle": "Livraria Lello", "visitTime": "30 – 45 min (pode haver fila)", "whatToSee": "Fachada neogótica...", "history": "Inaugurada em 1906...", "aboutButtonTitle": "Saber mais...", "ticketUrl": "https://tickets.livrarialello.pt/", "ticketTitle": "Comprar voucher", "descricaoCurta": "Considerada uma das livrarias mais belas..." },
-                    // ... mais atrações do Porto
-                 ],
-                "ondeComer": [ /* ... dados de onde comer no Porto ... */
-                     { "id": "pto-comer-1", "nome": "Adega São Nicolau", /* ... */ "endereco": "Rua de São Nicolau 1", "mapQuery": "Adega São Nicolau, Rua de São Nicolau 1, Porto", "tipo": "restaurante", "descricao": "Restaurante tradicional na Ribeira..." },
-                    // ... mais locais
-                 ],
-                "musicaEventos": [ /* ... dados de música/eventos no Porto ... */
-                    { "id": "pto-musica-1", "nome": "Casa da Mariquinhas", /* ... */ "endereco": "Rua de São Sebastião 25", "mapQuery": "Casa da Mariquinhas, Rua de São Sebastião 25, Porto", "descricao": "Casa de fados tradicional..." },
-                    // ... mais locais
-                 ],
-                "bateVolta": [ /* ... dados de bate e volta do Porto ... */
-                     { "id": "pto-bv-1", "nome": "Vale do Douro", /* ... */ "mapQuery": "Pinhão, Portugal", "descricao": "Região vinícola de beleza estonteante..." },
-                    // ... mais bate e volta
-                 ]
-            }
-            // --- Adicione mais cidades aqui como novas chaves ---
-            // "coimbra": {
-            //     "nome": "Coimbra — A cidade dos estudantes",
-            //     "corTema": "orange",
-            //     "atracoes": [ /* ... */ ],
-            //     "ondeComer": [ /* ... */ ],
-            //     "musicaEventos": [ /* ... */ ],
-            //     "bateVolta": [ /* ... */ ]
-            // }
-        };
+<script>
+
+ const locationsData = {
+  "lisboa": {
+    "nome": "Lisboa — A cidade das sete colinas",
+    "corTema": "sky", // Usado para classes Tailwind (text-sky-700, border-sky-200)
+    "atracoes": [
+      {
+        "id": "lis-atr-1",
+        "nome": "Mosteiro dos Jerónimos",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Mosteiro_dos_Jer%C3%B3nimos_%2844651116202%29.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Mosteiro",
+        "mapQuery": "Mosteiro dos Jerónimos, Lisboa, Portugal",
+        "mapTitle": "Ver mapa do Mosteiro dos Jerónimos",
+        "aboutTitle": "Mosteiro dos Jerónimos",
+        "visitTime": "1 h 30 – 2 h",
+        "whatToSee": "Igreja Santa Maria de Belém (entrada gratuita); impressionante claustro manuelino (pago); túmulos de Vasco da Gama e Luís de Camões; antigo refeitório dos monges; sacristia; azulejos quinhentistas.",
+        "history": "Construção iniciada em 1501 sob o reinado de D. Manuel I, financiada em grande parte pelos lucros do comércio de especiarias. É o expoente máximo do estilo manuelino, uma variante portuguesa do gótico final, caracterizado por uma rica decoração naturalista e marítima. Classificado como Património Mundial pela UNESCO em 1983, juntamente com a Torre de Belém.",
+        "aboutButtonTitle": "Saber mais sobre o Mosteiro dos Jerónimos",
+        "ticketUrl": "https://bilheteira.patrimoniocultural.gov.pt/monumentos/mosteiro-dos-jeronimos",
+        "ticketTitle": "Comprar bilhetes para o Mosteiro dos Jerónimos",
+        "descricaoCurta": "Majestoso mosteiro manuelino, Património Mundial da UNESCO, com um impressionante claustro rendilhado e os túmulos de figuras históricas como Vasco da Gama e Luís de Camões."
+      },
+      {
+        "id": "lis-atr-2",
+        "nome": "Torre de Belém",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Torre_de_Bel%C3%A9m_front.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Belém",
+        "mapQuery": "Torre de Belém, Lisboa, Portugal",
+        "mapTitle": "Ver mapa da Torre de Belém",
+        "aboutTitle": "Torre de Belém",
+        "visitTime": "± 1 h",
+        "whatToSee": "Exterior ricamente decorado com motivos manuelinos; terraço da bateria com canhoneiras; sala do governador; sala dos reis; capela; guaritas mouriscas; vista panorâmica do Tejo e da Ponte 25 de Abril.",
+        "history": "Erguida estrategicamente na margem norte do rio Tejo entre 1514 e 1519, por ordem de D. Manuel I, sob a direção do arquiteto Francisco de Arruda. Serviu como fortaleza defensiva, farol e posto de controlo aduaneiro. É um símbolo do poder marítimo português na Era dos Descobrimentos e Património Mundial da UNESCO.",
+        "aboutButtonTitle": "Saber mais sobre a Torre de Belém",
+        "ticketUrl": "https://bilheteira.patrimoniocultural.gov.pt/monumentos/torre-de-belem",
+        "ticketTitle": "Comprar bilhetes para a Torre de Belém",
+        "descricaoCurta": "Ícone emblemático dos Descobrimentos Portugueses, esta fortaleza manuelina elegantemente decorada ergue-se à beira do Tejo, oferecendo vistas históricas e arquitetura única."
+      },
+      {
+        "id": "lis-atr-3",
+        "nome": "Castelo de São Jorge",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/1/15/Castelo_de_Sao_Jorge_%2828482996488%29.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Castelo",
+        "mapQuery": "Castelo de São Jorge, Lisboa, Portugal",
+        "mapTitle": "Ver mapa do Castelo de São Jorge",
+        "aboutTitle": "Castelo de São Jorge",
+        "visitTime": "1 h 30 – 2 h",
+        "whatToSee": "Explorar as muralhas e as 11 torres medievais; vistas panorâmicas espetaculares de Lisboa; Câmara Escura (periscópio com vista 360º); ruínas arqueológicas do antigo Paço Real; jardins com pavões.",
+        "history": "Originalmente uma fortificação muçulmana (alcáçova) conquistada por D. Afonso Henriques em 1147. Foi residência da corte real portuguesa entre os séculos XIII e XVI. Sofreu danos significativos no terramoto de 1755 e foi extensivamente restaurado durante o século XX, tornando-se um monumento nacional e miradouro privilegiado.",
+        "aboutButtonTitle": "Saber mais sobre o Castelo de São Jorge",
+        "ticketUrl": "https://castelodesaojorge.pt/en/plan-your-visit/choose-your-ticket/",
+        "ticketTitle": "Comprar bilhetes para o Castelo de São Jorge",
+        "descricaoCurta": "Imponente fortaleza que coroa a colina mais alta de Lisboa, oferecendo muralhas antigas para explorar, vistas panorâmicas deslumbrantes sobre a cidade e o rio, e séculos de história."
+      },
+      {
+        "id": "lis-atr-4",
+        "nome": "Museu Nacional de Arte Antiga",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/1/13/Lisbon%2C_the_museum_Nacional_de_Arte_Antiga.JPG",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=MNAA",
+        "mapQuery": "Museu Nacional de Arte Antiga, Rua das Janelas Verdes, Lisboa",
+        "mapTitle": "Ver mapa do Museu Nacional de Arte Antiga",
+        "aboutTitle": "Museu Nacional de Arte Antiga",
+        "visitTime": "2 – 3 h",
+        "whatToSee": "Obras-primas da pintura portuguesa (Painéis de S. Vicente de Fora); pintura europeia (Bosch, Dürer); escultura; artes decorativas (ourivesaria, mobiliário, cerâmica); arte Namban (influência japonesa); jardins agradáveis com vista rio.",
+        "history": "Fundado em 1884 e instalado no Palácio Alvor-Pombal (antiga residência do Marquês de Pombal). O seu vasto acervo provém principalmente de conventos e mosteiros extintos após as reformas liberais de 1834, bem como de coleções reais e doações particulares, oferecendo um panorama da arte portuguesa e europeia do século XII ao XIX.",
+        "aboutButtonTitle": "Saber mais sobre o Museu Nacional de Arte Antiga",
+        "ticketUrl": null, // Sem link direto de compra online
+        "ticketTitle": null,
+        "descricaoCurta": "Principal museu de arte de Portugal, alojado num palácio histórico, guardando uma vasta coleção que abrange pintura, escultura e artes decorativas, com destaque para os Painéis de São Vicente (bilhetes apenas na portaria)."
+      },
+      {
+        "id": "lis-atr-5",
+        "nome": "Alfama & Elétrico 28",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/The_Iconic_Tram_28_Lisbon%2C_Portugal.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Alfama",
+        "mapQuery": "Miradouro de Santa Luzia, Alfama, Lisboa",
+        "mapTitle": "Ver mapa de Alfama (Miradouro Sta. Luzia)",
+        "aboutTitle": "Alfama & Elétrico 28",
+        "visitTime": "Elétrico ~40 min (trajeto completo); Alfama 2‑3 h (exploração a pé)",
+        "whatToSee": "Passeio no Elétrico 28 (apanhar cedo para evitar multidões); perder-se nas ruelas de Alfama; Sé de Lisboa; Miradouro de Santa Luzia; Miradouro das Portas do Sol; Panteão Nacional; Feira da Ladra (terças e sábados); ouvir Fado numa casa típica.",
+        "history": "Alfama é o bairro mais antigo e um dos mais típicos de Lisboa, com as suas origens remontando ao período muçulmano. As suas ruas estreitas e sinuosas sobreviveram em grande parte ao devastador terramoto de 1755. A linha 28 do elétrico, inaugurada em 1914, tornou-se um ícone turístico, percorrendo muitos dos pontos históricos da cidade.",
+        "aboutButtonTitle": "Saber mais sobre Alfama e o Elétrico 28",
+        "ticketUrl": null, // Bilhete de transporte público
+        "ticketTitle": null,
+        "descricaoCurta": "Perca-se pelas ruelas labirínticas e cheias de charme de Alfama, o bairro mais antigo de Lisboa, e desfrute de um passeio pitoresco no icónico elétrico amarelo 28, absorvendo a atmosfera tradicional."
+      }
+    ],
+    "ondeComer": [
+      {
+        "id": "lis-comer-1",
+        "nome": "Ao 26 - Vegan Food Project",
+        "descricao": "Aclamado restaurante vegano com pratos criativos, incluindo versões de clássicos portugueses, num ambiente moderno no Chiado.",
+        "endereco": "Rua Vítor Cordon 26",
+        "mapQuery": "Ao 26 - Vegan Food Project, Rua Vítor Cordon 26, Lisboa",
+        "tipo": "restaurante"
+      },
+      {
+        "id": "lis-comer-2",
+        "nome": "The Food Temple",
+        "descricao": "Espaço acolhedor e muito popular em Alfama, conhecido pelas suas deliciosas e criativas tapas vegetarianas e veganas.",
+        "endereco": "Beco do Jasmim 18",
+        "mapQuery": "The Food Temple, Beco do Jasmim 18, Lisboa",
+        "tipo": "restaurante"
+      },
+      {
+        "id": "lis-comer-3",
+        "nome": "D’Bacalhau",
+        "descricao": "Restaurante especializado no fiel amigo da gastronomia portuguesa, oferecendo inúmeras receitas de bacalhau num ambiente moderno no Parque das Nações.",
+        "endereco": "Rua do Bojador 45",
+        "mapQuery": "D'Bacalhau, Rua do Bojador 45, Lisboa",
+        "tipo": "restaurante"
+      },
+      {
+        "id": "lis-comer-4",
+        "nome": "Pastéis de Belém",
+        "descricao": "A casa original e mundialmente famosa dos pastéis de nata, com receita secreta desde 1837. Imperdível!",
+        "endereco": "Rua de Belém 84‑92",
+        "mapQuery": "Pastéis de Belém, Rua de Belém 84, Lisboa",
+        "tipo": "doce"
+      },
+      {
+        "id": "lis-comer-5",
+        "nome": "Manteigaria (Chiado)",
+        "descricao": "Considerada por muitos como tendo um dos melhores pastéis de nata de Lisboa, feitos à vista dos clientes.",
+        "endereco": "Rua do Loreto 2",
+        "mapQuery": "Manteigaria, Rua do Loreto 2, Lisboa",
+        "tipo": "doce"
+      },
+      {
+        "id": "lis-comer-6",
+        "nome": "Pastelaria Alcoa",
+        "descricao": "Premiada pastelaria que oferece uma vasta seleção de doces conventuais tradicionais portugueses, verdadeiras tentações.",
+        "endereco": "Rua Garrett 37",
+        "mapQuery": "Pastelaria Alcoa, Rua Garrett 37, Lisboa",
+        "tipo": "doce"
+      },
+      {
+        "id": "lis-comer-7",
+        "nome": "A Padaria Portuguesa (Rua Augusta)",
+        "descricao": "Rede de padarias moderna com várias localizações, ideal para um pequeno-almoço ou lanche rápido. Experimente o Pão-de-Deus.",
+        "endereco": "Rua Augusta 148",
+        "mapQuery": "A Padaria Portuguesa, Rua Augusta 148, Lisboa",
+        "tipo": "padaria"
+      },
+      {
+        "id": "lis-comer-8",
+        "nome": "Pastelaria Versailles",
+        "descricao": "Pastelaria clássica e elegante com salões em estilo Art Déco, perfeita para um chá da tarde ou uma refeição ligeira num ambiente histórico.",
+        "endereco": "Av. da República 15A",
+        "mapQuery": "Pastelaria Versailles, Av. da República 15A, Lisboa",
+        "tipo": "padaria"
+      }
+    ],
+    "musicaEventos": [
+      {
+        "id": "lis-musica-1",
+        "nome": "Clube de Fado",
+        "descricao": "Casa de fados de renome em Alfama, com ambiente intimista e atuações de fadistas consagrados e novos talentos. Ideal para uma noite tradicional portuguesa.",
+        "endereco": "Rua de São João da Praça 94",
+        "mapQuery": "Clube de Fado, Rua de São João da Praça 94, Lisboa"
+      },
+      {
+        "id": "lis-musica-2",
+        "nome": "Lux Frágil",
+        "descricao": "Discoteca icónica de Lisboa, conhecida pela sua programação de música eletrónica de vanguarda, ambiente sofisticado e terraço com vista para o Tejo.",
+        "endereco": "Av. Infante D. Henrique, Armazém A, Cais da Pedra",
+        "mapQuery": "Lux Frágil, Av. Infante D. Henrique, Lisboa"
+      },
+      {
+        "id": "lis-musica-3",
+        "nome": "Altice Arena",
+        "descricao": "A maior sala de espetáculos de Portugal, localizada no Parque das Nações, recebe grandes concertos de artistas internacionais, eventos desportivos e feiras.",
+        "endereco": "Rossio dos Olivais, Lote 2.13.01A",
+        "mapQuery": "Altice Arena, Rossio dos Olivais, Lisboa"
+      }
+    ],
+    "bateVolta": [
+      {
+        "id": "lis-bv-1",
+        "nome": "Sintra",
+        "descricao": "Vila mágica e romântica aninhada nas colinas perto de Lisboa, famosa pelos seus palácios de conto de fadas como o colorido Palácio da Pena, a misteriosa Quinta da Regaleira com os seus túneis e poço iniciático, e o centro histórico charmoso.",
+        "mapQuery": "Centro Histórico de Sintra, Portugal"
+      },
+      {
+        "id": "lis-bv-2",
+        "nome": "Cascais & Estoril",
+        "descricao": "Elegante linha costeira a oeste de Lisboa. Cascais oferece um centro histórico pitoresco, praias e uma marina animada, enquanto Estoril é conhecida pelo seu famoso casino, jardins e proximidade a praias como a do Tamariz.",
+        "mapQuery": "Cascais, Portugal"
+      },
+      {
+        "id": "lis-bv-3",
+        "nome": "Óbidos",
+        "descricao": "Encantadora vila medieval perfeitamente preservada dentro de muralhas imponentes. Passeie pelas suas ruas floridas e estreitas, visite o castelo (hoje uma pousada) e não deixe de provar a famosa Ginjinha de Óbidos, licor de cereja servido num copinho de chocolate.",
+        "mapQuery": "Óbidos, Portugal"
+      },
+      {
+        "id": "lis-bv-4",
+        "nome": "Mosteiro da Batalha",
+        "descricao": "Impressionante obra-prima da arquitetura gótica e manuelina, classificada como Património Mundial pela UNESCO. Construído para celebrar a vitória portuguesa na Batalha de Aljubarrota, destaca-se pela sua igreja monumental, o Panteão Real, o Claustro Real e as inacabadas Capelas Imperfeitas.",
+        "mapQuery": "Mosteiro da Batalha, Batalha, Portugal"
+      }
+    ]
+  },
+  "porto": {
+    "nome": "Porto — A capital do norte",
+    "corTema": "purple", // Usado para classes Tailwind (text-purple-700, border-purple-200)
+    "atracoes": [
+      {
+        "id": "pto-atr-1",
+        "nome": "Mercado do Bolhão",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Mercado_do_Bolh%C3%A3o_2023-08-08_05.02.56_%2853111822406%29.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Bolhão",
+        "mapQuery": "Mercado do Bolhão, Porto, Portugal",
+        "mapTitle": "Ver mapa do Mercado do Bolhão",
+        "aboutTitle": "Mercado do Bolhão",
+        "visitTime": "30 – 60 min",
+        "whatToSee": "Arquitetura neoclássica renovada; bancas vibrantes de frutas, legumes, peixe fresco, carne, flores e artesanato; restaurantes e cafés no piso superior; sentir a atmosfera autêntica do Porto.",
+        "history": "Este emblemático mercado neoclássico abriu portas em 1914, tornando-se rapidamente um centro vital de comércio e convívio no Porto. Após um período de degradação, foi sujeito a uma profunda renovação entre 2018 e 2022, reabrindo com instalações modernas mas preservando a sua estrutura original e muitos dos vendedores históricos.",
+        "aboutButtonTitle": "Saber mais sobre o Mercado do Bolhão",
+        "ticketUrl": null, // Entrada gratuita
+        "ticketTitle": null,
+        "descricaoCurta": "Vibrante mercado histórico no coração do Porto, recentemente renovado, onde pode encontrar produtos frescos, flores, artesanato e sentir o pulsar autêntico da cidade. Entrada gratuita."
+      },
+      {
+        "id": "pto-atr-2",
+        "nome": "Livraria Lello",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Livraria_LELLO_Porto.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Lello",
+        "mapQuery": "Livraria Lello, Rua das Carmelitas 144, Porto",
+        "mapTitle": "Ver mapa da Livraria Lello",
+        "aboutTitle": "Livraria Lello",
+        "visitTime": "30 – 45 min (pode haver fila)",
+        "whatToSee": "Fachada neogótica; interior deslumbrante com a icónica escadaria carmim central; belíssimo vitral no teto; estantes de madeira trabalhada do chão ao teto; bustos de escritores portugueses.",
+        "history": "Inaugurada em 1906 pelos irmãos José e António Lello, esta livraria destaca-se pela sua fachada neogótica e, sobretudo, pelo seu interior deslumbrante com a icónica escadaria carmim, vitrais e detalhes em madeira trabalhada. Ganhou fama internacional por ser frequentemente associada à inspiração para a série Harry Potter. A taxa de entrada é dedutível na compra de livros.",
+        "aboutButtonTitle": "Saber mais sobre a Livraria Lello",
+        "ticketUrl": "https://tickets.livrarialello.pt/",
+        "ticketTitle": "Comprar voucher para a Livraria Lello",
+        "descricaoCurta": "Considerada uma das livrarias mais belas do mundo, famosa pela sua deslumbrante escadaria vermelha e arquitetura neogótica. Um local mágico, alegadamente inspirador para J.K. Rowling. Compre voucher online."
+      },
+      {
+        "id": "pto-atr-3",
+        "nome": "Ribeira",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/3/33/2013-11-30_-_Porto_Ribeira_-_IMG_0072-Editar_%2814661401688%29.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Ribeira",
+        "mapQuery": "Cais da Ribeira, Porto, Portugal",
+        "mapTitle": "Ver mapa da Ribeira",
+        "aboutTitle": "Ribeira",
+        "visitTime": "1 – 2 h (mais tempo se parar para comer/beber)",
+        "whatToSee": "Passear pelo Cais da Ribeira; admirar as casas coloridas e estreitas; vistas da Ponte Dom Luís I; ver os barcos rabelos (antigos barcos de transporte de vinho); restaurantes e bares com esplanadas; Praça da Ribeira; miradouros nas ruas adjacentes.",
+        "history": "Zona histórica junto ao rio Douro, foi o coração da atividade mercantil do Porto durante séculos. As suas casas coloridas e ruas estreitas mantêm um charme medieval. Juntamente com o centro histórico do Porto e a Ponte Dom Luís I, foi classificada como Património Mundial pela UNESCO em 1996.",
+        "aboutButtonTitle": "Saber mais sobre a Ribeira",
+        "ticketUrl": null,
+        "ticketTitle": null,
+        "descricaoCurta": "Cais pitoresco e vibrante à beira do rio Douro, Património Mundial da UNESCO, com as suas fachadas coloridas, restaurantes animados e vistas icónicas da Ponte Dom Luís I e das caves de Gaia."
+      },
+      {
+        "id": "pto-atr-4",
+        "nome": "Caves do Vinho do Porto (Cálem)",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/9/95/Vila_Nova_de_Gaia-Caves_Calem-20140910.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Caves",
+        "mapQuery": "Caves Cálem, Vila Nova de Gaia, Portugal",
+        "mapTitle": "Ver mapa das Caves Cálem",
+        "aboutTitle": "Caves do Vinho do Porto (Cálem)",
+        "visitTime": "± 1 h (visita + prova)",
+        "whatToSee": "Visita guiada explicando a história do Vinho do Porto e da marca Cálem; passagem pelas adegas com grandes balseiros de carvalho onde o vinho envelhece; museu interativo; prova de diferentes tipos de Vinho do Porto (geralmente Ruby e Tawny).",
+        "history": "Fundada em 1859 por António Alves Cálem, esta é uma das mais conhecidas e visitadas caves de Vinho do Porto em Vila Nova de Gaia. A localização em Gaia é tradicionalmente preferida para o envelhecimento do vinho devido ao seu microclima mais húmido e fresco, ideal para a maturação lenta nos grandes balseiros de carvalho.",
+        "aboutButtonTitle": "Saber mais sobre as Caves Cálem",
+        "ticketUrl": "https://tour.calem.pt/",
+        "ticketTitle": "Comprar bilhetes para as Caves Cálem",
+        "descricaoCurta": "Explore o fascinante mundo do Vinho do Porto numa das caves mais tradicionais de Vila Nova de Gaia. Inclui visita guiada pelas adegas e uma deliciosa degustação dos diferentes tipos de vinho."
+      },
+      {
+        "id": "pto-atr-5",
+        "nome": "Palácio da Bolsa",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Pal%C3%A1cio_da_Bolsa%2C_Bolsa_Palace%2C_Porto%2C_Portugal_%2853973583947%29.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Bolsa",
+        "mapQuery": "Palácio da Bolsa, Rua de Ferreira Borges, Porto",
+        "mapTitle": "Ver mapa do Palácio da Bolsa",
+        "aboutTitle": "Palácio da Bolsa",
+        "visitTime": "45 min (visita guiada obrigatória)",
+        "whatToSee": "Pátio das Nações (coberto por uma claraboia de vidro); Escadaria Nobre em granito; Sala do Tribunal; Sala Dourada; Sala das Assembleias Gerais; o deslumbrante Salão Árabe, ricamente decorado em estilo neo-mourisco.",
+        "history": "Construído entre 1842 e 1910 pela Associação Comercial do Porto sobre as ruínas de um antigo convento franciscano. O edifício, em estilo neoclássico com interiores ricamente decorados em diversos estilos (incluindo o famoso Salão Árabe neo-mourisco), serviu como centro financeiro e de representação da burguesia portuense, embora nunca tenha funcionado como uma bolsa de valores tradicional.",
+        "aboutButtonTitle": "Saber mais sobre o Palácio da Bolsa",
+        "ticketUrl": "https://palaciodabolsa.com/#visite",
+        "ticketTitle": "Comprar bilhetes para o Palácio da Bolsa",
+        "descricaoCurta": "Magnífico edifício neoclássico, sede da Associação Comercial do Porto, cujo interior ricamente decorado deslumbra os visitantes, especialmente o opulento Salão Árabe de inspiração mourisca."
+      },
+      {
+        "id": "pto-atr-6",
+        "nome": "Igreja de São Francisco",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Porto_-_Igreja_da_Ordem_de_S%C3%A3o_Francisco1536.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Francisco",
+        "mapQuery": "Igreja de São Francisco, Rua do Infante D. Henrique, Porto",
+        "mapTitle": "Ver mapa da Igreja de São Francisco",
+        "aboutTitle": "Igreja de São Francisco",
+        "visitTime": "45 min – 1 h (inclui catacumbas)",
+        "whatToSee": "Exterior gótico relativamente austero; interior barroco exuberante, quase totalmente coberto por talha dourada (estima-se 350 kg de ouro); destaque para a Árvore de Jessé (árvore genealógica de Jesus); visita às catacumbas do antigo cemitério.",
+        "history": "Originalmente um convento franciscano cuja igreja foi iniciada no século XIV em estilo gótico. Durante os séculos XVII e XVIII, o seu interior foi completamente revestido com sumptuosa talha dourada barroca, transformando-a num dos exemplos mais impressionantes deste estilo em Portugal. O bilhete inclui acesso ao museu e às catacumbas.",
+        "aboutButtonTitle": "Saber mais sobre a Igreja de São Francisco",
+        "ticketUrl": null, // Compra no local
+        "ticketTitle": null,
+        "descricaoCurta": "Um tesouro barroco escondido atrás de uma fachada gótica relativamente simples. O seu interior é uma explosão de talha dourada que cobre quase todas as superfícies, incluindo a famosa Árvore de Jessé."
+      },
+      {
+        "id": "pto-atr-7",
+        "nome": "Torre dos Clérigos",
+        "imagemUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Vista_da_Torre_dos_Cl%C3%A9rigos_a_partir_do_Jardim_da_Cordoaria.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=Clérigos",
+        "mapQuery": "Torre dos Clérigos, Rua de São Filipe de Nery, Porto",
+        "mapTitle": "Ver mapa da Torre dos Clérigos",
+        "aboutTitle": "Torre dos Clérigos",
+        "visitTime": "± 1 h (inclui subida e tempo no topo)",
+        "whatToSee": "Subida dos 225 degraus por uma escada estreita; miradouro no topo com vistas panorâmicas de 360° sobre o Porto e Gaia; visita à Igreja dos Clérigos (barroca, de planta elíptica); museu da Irmandade dos Clérigos.",
+        "history": "Projetada pelo arquiteto italiano Nicolau Nasoni, a torre foi construída entre 1754 e 1763, integrada no conjunto da Igreja dos Clérigos. Com os seus 76 metros de altura, foi durante muito tempo a estrutura mais alta de Portugal e tornou-se o símbolo incontornável da cidade do Porto, oferecendo vistas incomparáveis.",
+        "aboutButtonTitle": "Saber mais sobre a Torre dos Clérigos",
+        "ticketUrl": "https://www.torredosclerigos.pt/bilheteira/",
+        "ticketTitle": "Comprar bilhetes para a Torre dos Clérigos",
+        "descricaoCurta": "Ex-líbris arquitetónico do Porto, esta torre barroca de 76 metros, obra de Nasoni, oferece, após subir os seus 225 degraus, as mais espetaculares vistas panorâmicas de 360° sobre a cidade."
+      },
+      {
+        "id": "pto-atr-8",
+        "nome": "Casa‑Museu Marta Ortigão Sampaio",
+        "imagemUrl": "https://museudoporto.pt/wp-content/uploads/2020/08/AAF5073-copy-co%CC%81pia.jpg",
+        "imagemPlaceholder": "https://placehold.co/600x400/e2e8f0/334155?text=MOS",
+        "mapQuery": "Casa-Museu Marta Ortigão Sampaio, Rua de Entre Quintas 220, Porto",
+        "mapTitle": "Ver mapa da Casa-Museu Marta Ortigão Sampaio",
+        "aboutTitle": "Casa‑Museu Marta Ortigão Sampaio",
+        "visitTime": "± 1 h",
+        "whatToSee": "Ambiente de uma casa burguesa dos anos 50; coleção de pintura naturalista portuguesa (Silva Porto, Marques de Oliveira); coleção de joias (séculos XVII a XX); mobiliário indo-português e europeu; agradável jardim romântico.",
+        "history": "Esta casa, projetada nos anos 1950, foi a residência de Marta Ortigão Sampaio, sobrinha dos escritores Ramalho Ortigão e Guerra Junqueiro. Apaixonada por arte, legou a casa e as suas coleções (pintura naturalista, joias, mobiliário) à Câmara Municipal do Porto. O museu abriu ao público em 1996, integrando a Rede Museu do Porto.",
+        "aboutButtonTitle": "Saber mais sobre a Casa-Museu Marta Ortigão Sampaio",
+        "ticketUrl": "https://museudoporto.pt/estacao/casa-marta-ortigao-sampaio/", // Link informativo
+        "ticketTitle": "Ver informações sobre bilhetes",
+        "descricaoCurta": "Explore o ambiente requintado de uma casa burguesa dos anos 50, legada pela colecionadora Marta Ortigão Sampaio, e admire a sua coleção de pintura naturalista portuguesa, joias e mobiliário."
+      }
+    ],
+    "ondeComer": [
+      { "id": "pto-comer-1", "nome": "Adega São Nicolau", "descricao": "Restaurante tradicional na zona da Ribeira, conhecido pelos seus pratos de peixe fresco, marisco e petiscos portugueses num ambiente acolhedor e típico.", "endereco": "Rua de São Nicolau 1", "mapQuery": "Adega São Nicolau, Rua de São Nicolau 1, Porto", "tipo": "restaurante" },
+      { "id": "pto-comer-2", "nome": "Meia‑Nau (Matosinhos)", "descricao": "Excelente opção em Matosinhos (cidade vizinha famosa pelo peixe fresco) para saborear peixe e marisco de alta qualidade, grelhados na brasa na perfeição.", "endereco": "Travessa da Conserveira 13, Matosinhos", "mapQuery": "Meia-Nau, Travessa da Conserveira 13, Matosinhos", "tipo": "restaurante" },
+      { "id": "pto-comer-3", "nome": "Bacalhoeiro (Gaia)", "descricao": "Situado em Vila Nova de Gaia, com vista privilegiada para o Douro e a Ribeira do Porto, este restaurante dedica-se a pratos de bacalhau, apresentando receitas tradicionais e inovadoras.", "endereco": "Av. de Diogo Leite 74, Vila Nova de Gaia", "mapQuery": "Bacalhoeiro, Av. de Diogo Leite 74, Vila Nova de Gaia", "tipo": "restaurante" },
+      { "id": "pto-comer-4", "nome": "Café Santiago", "descricao": "Um dos locais mais reputados e tradicionais do Porto para provar a icónica Francesinha, a sanduíche robusta e deliciosa coberta com molho, típica da cidade.", "endereco": "Rua de Passos Manuel 226", "mapQuery": "Café Santiago, Rua de Passos Manuel 226, Porto", "tipo": "restaurante" },
+      { "id": "pto-comer-5", "nome": "O Paparico", "descricao": "Restaurante sofisticado (com estrela Michelin) que oferece uma experiência gastronómica requintada, reinterpretando a cozinha tradicional portuguesa com produtos de alta qualidade e um toque moderno (requer reserva antecipada).", "endereco": "Rua de Costa Cabral 2343", "mapQuery": "O Paparico, Rua de Costa Cabral 2343, Porto", "tipo": "restaurante" },
+      { "id": "pto-comer-6", "nome": "O Gaveto (Matosinhos)", "descricao": "Outra referência incontornável em Matosinhos para marisco e peixe fresco, com viveiros próprios e uma reputação de longa data pela qualidade.", "endereco": "Rua Roberto Ivens 826, Matosinhos", "mapQuery": "O Gaveto, Rua Roberto Ivens 826, Matosinhos", "tipo": "restaurante" },
+      { "id": "pto-comer-7", "nome": "Confeitaria do Bolhão", "descricao": "Pastelaria histórica e charmosa, localizada em frente ao mercado, ideal para provar doçaria tradicional portuguesa, tomar um café e sentir a atmosfera local.", "endereco": "Rua Formosa 339", "mapQuery": "Confeitaria do Bolhão, Rua Formosa 339, Porto", "tipo": "doce" },
+      { "id": "pto-comer-8", "nome": "Manteigaria (Porto)", "descricao": "Tal como em Lisboa, oferece pastéis de nata quentinhos, estaladiços e deliciosos, feitos continuamente ao longo do dia à vista de todos.", "endereco": "Rua de Alexandre Braga 24", "mapQuery": "Manteigaria, Rua de Alexandre Braga 24, Porto", "tipo": "doce" },
+      { "id": "pto-comer-9", "nome": "Padaria Ribeiro", "descricao": "Padaria e pastelaria tradicional e muito conceituada no centro do Porto, com uma grande variedade de pães artesanais, bolos regionais, salgados e refeições ligeiras.", "endereco": "Praça de Guilherme Gomes Fernandes 21", "mapQuery": "Padaria Ribeiro, Praça de Guilherme Gomes Fernandes 21, Porto", "tipo": "padaria" },
+      { "id": "pto-comer-10", "nome": "Confeitaria Tavi", "descricao": "Pastelaria com uma localização privilegiada na Foz do Douro, oferecendo vistas deslumbrantes sobre o mar a partir da sua esplanada e uma seleção variada de doces, salgados e refeições.", "endereco": "Rua da Senhora da Luz 374", "mapQuery": "Confeitaria Tavi, Rua da Senhora da Luz 374, Porto", "tipo": "padaria" }
+    ],
+    "musicaEventos": [
+        { "id": "pto-musica-1", "nome": "Casa da Mariquinhas", "descricao": "Casa de fados tradicional e acolhedora no Porto, localizada perto da Sé, oferecendo noites autênticas com boa música (fado vadio e tradicional) e petiscos.", "endereco": "Rua de São Sebastião 25", "mapQuery": "Casa da Mariquinhas, Rua de São Sebastião 25, Porto" },
+        { "id": "pto-musica-2", "nome": "Casa da Música", "descricao": "Sala de concertos de arquitetura contemporânea arrojada e aclamada internacionalmente, projetada por Rem Koolhaas. Oferece uma programação musical eclética e de alta qualidade, desde música clássica a jazz, pop e world music.", "endereco": "Av. da Boavista 604‑610", "mapQuery": "Casa da Música, Av. da Boavista 604, Porto" },
+        { "id": "pto-musica-3", "nome": "Maus Hábitos", "descricao": "Espaço cultural multifacetado e alternativo no último piso de um edifício-garagem no centro do Porto. Combina bar, restaurante, galeria de arte e sala de concertos com programação regular de música independente, DJ sets e outros eventos.", "endereco": "Rua de Passos Manuel 178, 4º Piso", "mapQuery": "Maus Hábitos, Rua de Passos Manuel 178, Porto" }
+    ],
+    "bateVolta": [
+        { "id": "pto-bv-1", "nome": "Vale do Douro", "descricao": "Região vinícola de beleza estonteante, classificada como Património Mundial pela UNESCO, onde o rio Douro serpenteia por entre colinas cobertas de vinhas em socalcos. Ideal para passeios de barco, comboio, visitas a quintas produtoras de Vinho do Porto e paisagens memoráveis (ex: Pinhão, Peso da Régua).", "mapQuery": "Pinhão, Portugal" },
+        { "id": "pto-bv-2", "nome": "Guimarães", "descricao": "Considerada o 'Berço da Nação' portuguesa, esta cidade histórica possui um centro medieval excecionalmente bem preservado (UNESCO), o imponente Castelo de Guimarães (ligado à fundação de Portugal) e o majestoso Paço dos Duques de Bragança.", "mapQuery": "Centro Histórico de Guimarães, Portugal" },
+        { "id": "pto-bv-3", "nome": "Braga", "descricao": "Importante centro religioso e histórico, conhecida como a 'Roma Portuguesa' pela sua profusão de igrejas. Visite a imponente Sé Catedral (a mais antiga de Portugal), o Santuário do Bom Jesus do Monte com a sua espetacular escadaria barroca e desfrute do ambiente jovem e vibrante da cidade.", "mapQuery": "Braga, Portugal" },
+        { "id": "pto-bv-4", "nome": "Aveiro", "descricao": "Charmosa cidade conhecida como a 'Veneza Portuguesa' pelos seus canais urbanos atravessados por coloridos barcos moliceiros (passeios disponíveis). Prove os deliciosos Ovos Moles (doce típico à base de ovos e açúcar) e admire a arquitetura Arte Nova presente em vários edifícios.", "mapQuery": "Aveiro, Portugal" }
+    ]
+  }
+  // Adicione mais cidades aqui seguindo a mesma estrutura
+  // Exemplo:
+  // ,
+  // "coimbra": {
+  //   "nome": "Coimbra — A cidade dos estudantes",
+  //   "corTema": "orange",
+  //   "atracoes": [ /* ... */ ],
+  //   "ondeComer": [ /* ... */ ],
+  //   "musicaEventos": [ /* ... */ ],
+  //   "bateVolta": [ /* ... */ ]
+  // }
+ };
 
         // --- Funções JavaScript Auxiliares (createAttractionCard, createInfoBox - mantidas como antes) ---
         function createAttractionCard(atracao, cityKey) {
