@@ -197,6 +197,22 @@
         </div>
     </div>
 
+    </div> </div> <div id="tipsModal" class="modal" aria-labelledby="tips-modal-title" role="dialog" aria-modal="true">
+    <div class="modal-content max-w-2xl"> <button id="closeTipsModal" class="modal-close-button" aria-label="Fechar dicas">×</button>
+        <div class="modal-body">
+            <h3 id="tips-modal-title" class="text-2xl font-bold mb-6">Dicas para a cidade</h3>
+            <div id="tips-modal-content" class="flex flex-col gap-4 text-sm text-gray-700">
+                <div id="tips-modal-seguranca"></div>
+                <div id="tips-modal-voltagemTomada"></div>
+                <div id="tips-modal-transporte"></div>
+                <div id="tips-modal-idioma"></div>
+                <div id="tips-modal-extras"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
 <script>
 
         const pageInfoData = {
@@ -208,7 +224,17 @@
  const locationsData = {
   "lisboa": {
     "nome": "Lisboa — A cidade das sete colinas",
-    "corTema": "sky", // Usado para classes Tailwind (text-sky-700, border-sky-200)
+    "corTema": "sky", // Usado para classes Tailwind (text-sky-700, border-sky-200),
+    "resumoHistoria": "Lisboa, uma das cidades mais antigas da Europa Ocidental, tem raízes que remontam aos Fenícios e Romanos (Olisipo). Conquistada aos Mouros em 1147 por D. Afonso Henriques, tornou-se a capital de Portugal no século XIII. Foi o epicentro da Era dos Descobrimentos nos séculos XV e XVI, de onde partiram expedições que mudaram o mundo. O devastador terramoto de 1755 destruiu grande parte da cidade, que foi depois reconstruída sob a visão do Marquês de Pombal, dando origem à Baixa Pombalina. Hoje, é uma capital vibrante que mistura história, cultura e modernidade.",
+    "dataFundacao": "Assentamento pré-romano; Reconquista Cristã em 1147",
+    "populacao": "Aprox. 548.000 habitantes (cidade); ~2.9 milhões (Área Metropolitana) (dados de 2021/2022)",
+    "dicasTurista": {
+        "seguranca": "Lisboa é geralmente segura, mas atenção aos carteiristas (pickpockets) em áreas movimentadas como elétricos (especialmente o 28), metro, estações de comboio e zonas turísticas (Baixa, Belém, Alfama). Mantenha os seus pertences vigiados.",
+        "voltagemTomada": "A voltagem é de 230V, frequência 50Hz. As tomadas são do tipo F (padrão europeu, dois pinos redondos). Leve um adaptador se necessário.",
+        "transporte": "Metro (eficiente e cobre bem a cidade), autocarros (ônibus) da Carris, elétricos (bondes - o 28 é turístico, mas útil), comboios (trens) suburbanos (para Sintra, Cascais), e serviços de transporte por aplicação (Uber, Bolt). O cartão 'Viva Viagem' é recarregável e útil para usar em vários transportes.",
+        "idioma": "Português. Inglês é amplamente falado em zonas turísticas, hotéis e restaurantes. Espanhol também é compreendido por muitos.",
+        "extras": "Gorjetas: Não obrigatórias, mas apreciadas por bom serviço (5-10% em restaurantes). Água da torneira: É segura para beber. Horários: Comércio geralmente abre às 10h e fecha às 19h (shoppings até 23h/00h). Restaurantes almoçam 12h-15h e jantam 19h-23h."
+    },
     "atracoes": [
       {
         "id": "lis-atr-1",
@@ -409,7 +435,17 @@
   },
   "porto": {
     "nome": "Porto — A capital do norte",
-    "corTema": "purple", // Usado para classes Tailwind (text-purple-700, border-purple-200)
+    "corTema": "purple", // Usado para classes Tailwind (text-purple-700, border-purple-200),
+     "resumoHistoria": "O Porto, que deu nome a Portugal (originalmente Portus Cale), tem origens que remontam a um povoado pré-romano. Desenvolveu-se como um importante centro comercial durante a Idade Média. A cidade é mundialmente conhecida pelo Vinho do Porto, cuja produção e exportação moldaram a sua paisagem e economia, especialmente em Vila Nova de Gaia, na margem oposta do rio Douro. A cidade desempenhou um papel crucial nas Guerras Liberais do século XIX. O seu centro histórico, incluindo a Ribeira, a Ponte Dom Luís I e as caves, é Património Mundial da UNESCO.",
+     "dataFundacao": "Povoado pré-romano (Portus Cale); desenvolvimento acentuado na Idade Média",
+     "populacao": "Aprox. 231.000 habitantes (cidade); ~1.7 milhão (Área Metropolitana) (dados de 2021/2022)",
+     "dicasTurista": {
+         "seguranca": "O Porto é considerado uma cidade segura. Tal como em Lisboa, tenha atenção aos carteiristas em zonas de grande afluência turística (Ribeira, Estação de São Bento, Mercado do Bolhão) e nos transportes públicos.",
+         "voltagemTomada": "A voltagem é de 230V, frequência 50Hz. As tomadas são do tipo F (padrão europeu, dois pinos redondos).",
+         "transporte": "Metro (abrangente, incluindo ligação ao aeroporto), autocarros (ônibus) da STCP, elétricos (bondes - linhas mais turísticas), comboios (trens) urbanos e regionais. Caminhar é uma ótima forma de explorar o centro histórico. Serviços de transporte por aplicação também disponíveis.",
+         "idioma": "Português. O Inglês é comum nas áreas turísticas. A hospitalidade nortenha é famosa.",
+         "extras": "Francesinha: Experimente esta sanduíche icónica do Porto. Vinho do Porto: Visitar uma cave em Gaia e fazer uma prova é quase obrigatório. Clima: Pode ser mais chuvoso e fresco que Lisboa, especialmente no inverno. Leve um agasalho e guarda-chuva, por precaução."
+     },
     "atracoes": [
       {
         "id": "pto-atr-1",
@@ -756,6 +792,31 @@
                 cityTitle.textContent = cityData.nome;
                 sectionElement.appendChild(cityTitle);
 
+// --- INÍCIO: Adicionar Resumo, Info e Botão de Dicas ---
+if (cityData.resumoHistoria) {
+              const resumoDiv = document.createElement('div');
+              resumoDiv.className = 'mb-4 text-gray-700 leading-relaxed text-sm'; // Ajuste de classe
+              resumoDiv.innerHTML = cityData.resumoHistoria; // Usar innerHTML caso o resumo contenha tags simples
+              sectionElement.appendChild(resumoDiv);
+          }
+          if (cityData.dataFundacao || cityData.populacao) {
+               const infoLine = document.createElement('p');
+               infoLine.className = 'text-sm text-gray-600 mb-4 italic'; // Ajuste de classe
+               let infoText = [];
+               if(cityData.dataFundacao) infoText.push(`<strong>Fundação:</strong> ${cityData.dataFundacao}`);
+               if(cityData.populacao) infoText.push(`<strong>População:</strong> ${cityData.populacao}`);
+               infoLine.innerHTML = infoText.join(' <span class="font-normal not-italic text-gray-400 mx-1">|</span> '); // Separador estilizado
+               sectionElement.appendChild(infoLine);
+          }
+           if (cityData.dicasTurista) {
+              const tipsButton = document.createElement('button');
+              // Reutiliza base .card-button, adiciona classe específica e cor de tema alternativa (esmeralda)
+              tipsButton.className = `open-tips-modal card-button bg-emerald-600 hover:bg-emerald-700 text-white mb-10 shadow hover:shadow-md transition-all duration-300`; // Adicionado mb-10
+              tipsButton.dataset.city = cityKey;
+              tipsButton.innerHTML = '<i class="fas fa-lightbulb mr-2"></i>Dicas do Local'; // Ícone de lâmpada
+              sectionElement.appendChild(tipsButton);
+          }
+
                 // --- Itera sobre as configurações das subseções ---
                 subsectionsConfig.forEach(subConfig => {
                     // Verifica se existe dados para esta subseção na cidade atual
@@ -808,6 +869,16 @@
         // --- Lógica dos Modais (Mantida como antes) ---
         const mapModal = document.getElementById("mapModal");
         const aboutModal = document.getElementById("aboutModal");
+         const tipsModal = document.getElementById("tipsModal");
+// Elementos internos do modal de dicas
+      const tipsModalTitle = document.getElementById("tips-modal-title");
+      const tipsModalContent = document.getElementById("tips-modal-content"); // Container geral
+      const tipsModalSeguranca = document.getElementById("tips-modal-seguranca");
+      const tipsModalVoltagemTomada = document.getElementById("tips-modal-voltagemTomada");
+      const tipsModalTransporte = document.getElementById("tips-modal-transporte");
+      const tipsModalIdioma = document.getElementById("tips-modal-idioma");
+      const tipsModalExtras = document.getElementById("tips-modal-extras");
+
         let mapIframe = document.getElementById("mapIframe"); // Use let para poder reatribuir se recriado
 
         const Maps_API_KEY = "AIzaSyCJ-J269u9m1-IR8f_dOIo3zvgNzvvQiv4"; // <-- SUA_CHAVE_API_AQUI SUBSTITUA AQUI!
@@ -818,16 +889,27 @@
              document.body.style.overflow = "hidden";
         };
 
-        const closeModal = (modalElement) => { /* ... (inalterada) ... */
-            if (!modalElement) return;
-            modalElement.classList.remove("is-open");
-            if (!mapModal.classList.contains("is-open") && !aboutModal.classList.contains("is-open")) {
-                document.body.style.overflow = "";
-            }
-            if (modalElement === mapModal && mapIframe) {
-                mapIframe.src = "about:blank"; // Limpa src para parar carregamento/som
-            }
-        };
+        const closeModal = (modalElement) => {
+          if (!modalElement) return;
+          modalElement.classList.remove("is-open");
+          // Verifica se NENHUM modal está aberto antes de restaurar o scroll
+          if (!mapModal.classList.contains("is-open") &&
+              !aboutModal.classList.contains("is-open") &&
+              !tipsModal.classList.contains("is-open")) { // <-- ADICIONAR VERIFICAÇÃO
+              document.body.style.overflow = "";
+          }
+          if (modalElement === mapModal && mapIframe) {
+              mapIframe.src = "about:blank"; // Limpa src para parar carregamento/som
+          }
+          // Limpar conteúdo do modal de dicas (opcional, mas boa prática)
+          if (modalElement === tipsModal) {
+              if (tipsModalSeguranca) tipsModalSeguranca.innerHTML = '';
+              if (tipsModalVoltagemTomada) tipsModalVoltagemTomada.innerHTML = '';
+              if (tipsModalTransporte) tipsModalTransporte.innerHTML = '';
+              if (tipsModalIdioma) tipsModalIdioma.innerHTML = '';
+              if (tipsModalExtras) tipsModalExtras.innerHTML = '';
+          }
+      };
 
        // --- Função para Construir URL de Incorporação do Google Maps ---
         const constructEmbedUrlWithApiKey = (query) => {
@@ -858,6 +940,54 @@
 
         // --- Event Listeners (Delegação - Mantidos como antes) ---
          document.body.addEventListener('click', function(event) {
+
+            // --- INÍCIO: Listener para o Botão Abrir Dicas ---
+            const tipsButton = event.target.closest('.open-tips-modal');
+            if (tipsButton) {
+                const cityKey = tipsButton.dataset.city;
+
+                if (!cityKey || !locationsData[cityKey] || !locationsData[cityKey].dicasTurista) {
+                    console.error("Dados de dicas inválidos ou não encontrados para a cidade:", cityKey);
+                    return;
+                }
+
+                const cityData = locationsData[cityKey];
+                const tipsData = cityData.dicasTurista;
+                const cityName = cityData.nome.split('—')[0].trim(); // Pega o nome da cidade antes do '—'
+                const corTema = cityData.corTema || 'sky'; // Pega a cor do tema
+
+                // Define o título do modal
+                if (tipsModalTitle) {
+                    tipsModalTitle.textContent = `Dicas para ${cityName}`;
+                    // Aplica a cor do tema ao título do modal de dicas
+                    tipsModalTitle.classList.remove('text-sky-700', 'text-purple-700', 'text-orange-700'); // Limpa cores antigas
+                    tipsModalTitle.classList.add(`text-${corTema}-700`); // Adiciona a cor da cidade atual
+                }
+
+
+                // Função auxiliar para criar o bloco de dica com título e ícone
+                const createTipSection = (element, title, iconClass, content) => {
+                    if (element && content) {
+                         element.innerHTML = `<h5 class="font-semibold text-gray-800 mb-1 flex items-center"><i class="fas ${iconClass} w-4 mr-2 text-${corTema}-600"></i>${title}</h5><p class="ml-6">${content}</p>`; // Usa cor do tema no ícone
+                    } else if (element) {
+                        element.innerHTML = ''; // Limpa se não houver conteúdo
+                    }
+                };
+
+                // Popula as seções do modal com as dicas do JSON
+                createTipSection(tipsModalSeguranca, 'Segurança', 'fa-shield-alt', tipsData.seguranca);
+                createTipSection(tipsModalVoltagemTomada, 'Voltagem e Tomada', 'fa-plug', tipsData.voltagemTomada);
+                createTipSection(tipsModalTransporte, 'Transporte', 'fa-subway', tipsData.transporte); // Ícone de transporte
+                createTipSection(tipsModalIdioma, 'Idioma', 'fa-language', tipsData.idioma);
+                createTipSection(tipsModalExtras, 'Outras Dicas', 'fa-info-circle', tipsData.extras);
+
+
+                openModal(tipsModal); // Abre o modal de dicas
+
+                return; // Impede que outros listeners de clique sejam acionados
+            }
+           // --- FIM: Listener para o Botão Abrir Dicas ---
+
              // Botão Abrir Mapa
              const mapButton = event.target.closest('.open-map-modal');
              if (mapButton) {
@@ -958,22 +1088,26 @@
              }
          });
 
-        // --- Event Listeners para Fechar Modais ---
-        document.getElementById("closeMapModal")?.addEventListener("click", () => closeModal(mapModal));
-        document.getElementById("closeAboutModal")?.addEventListener("click", () => closeModal(aboutModal));
-        document.addEventListener("keydown", (event) => { /* ... (inalterado) ... */
-            if (event.key === "Escape") {
-                if (mapModal?.classList.contains("is-open")) closeModal(mapModal);
-                if (aboutModal?.classList.contains("is-open")) closeModal(aboutModal);
-            }
-         });
-        [mapModal, aboutModal].forEach(modal => { /* ... (inalterado) ... */
-             modal?.addEventListener("click", (event) => {
-                 if (event.target === modal) {
-                     closeModal(modal);
-                 }
-             });
-         });
+     // --- Event Listeners para Fechar Modais ---
+      document.getElementById("closeMapModal")?.addEventListener("click", () => closeModal(mapModal));
+      document.getElementById("closeAboutModal")?.addEventListener("click", () => closeModal(aboutModal));
+      document.getElementById("closeTipsModal")?.addEventListener("click", () => closeModal(tipsModal)); // <-- ADICIONAR
+
+      document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+              if (mapModal?.classList.contains("is-open")) closeModal(mapModal);
+              if (aboutModal?.classList.contains("is-open")) closeModal(aboutModal);
+              if (tipsModal?.classList.contains("is-open")) closeModal(tipsModal); // <-- ADICIONAR
+          }
+      });
+
+      [mapModal, aboutModal, tipsModal].forEach(modal => { // <-- ADICIONAR tipsModal ao array
+          modal?.addEventListener("click", (event) => {
+              if (event.target === modal) { // Só fecha se clicar no fundo escuro
+                  closeModal(modal);
+              }
+          });
+      });
 
 
         // --- Inicialização ---
