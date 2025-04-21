@@ -404,30 +404,38 @@
         "mapQuery": "Altice Arena, Rossio dos Olivais, Lisboa"
       }
     ],
-    "bateVolta": [
+   "bateVolta": [
       {
         "id": "lis-bv-1",
         "nome": "Sintra",
         "descricao": "Vila mágica e romântica aninhada nas colinas perto de Lisboa, famosa pelos seus palácios de conto de fadas como o colorido Palácio da Pena, a misteriosa Quinta da Regaleira com os seus túneis e poço iniciático, e o centro histórico charmoso.",
-        "mapQuery": "Centro Histórico de Sintra, Portugal"
+        "mapQuery": "Centro Histórico de Sintra, Portugal",
+        "distanciaOrigem": "Aprox. 30 km de Lisboa", // <-- ADICIONADO
+        "duracaoRecomendada": "Dia inteiro" // <-- ADICIONADO
       },
       {
         "id": "lis-bv-2",
         "nome": "Cascais & Estoril",
         "descricao": "Elegante linha costeira a oeste de Lisboa. Cascais oferece um centro histórico pitoresco, praias e uma marina animada, enquanto Estoril é conhecida pelo seu famoso casino, jardins e proximidade a praias como a do Tamariz.",
-        "mapQuery": "Cascais, Portugal"
+        "mapQuery": "Cascais, Portugal",
+        "distanciaOrigem": "Aprox. 30 km de Lisboa", // <-- ADICIONADO
+        "duracaoRecomendada": "Meio dia a dia inteiro" // <-- ADICIONADO
       },
       {
         "id": "lis-bv-3",
         "nome": "Óbidos",
         "descricao": "Encantadora vila medieval perfeitamente preservada dentro de muralhas imponentes. Passeie pelas suas ruas floridas e estreitas, visite o castelo (hoje uma pousada) e não deixe de provar a famosa Ginjinha de Óbidos, licor de cereja servido num copinho de chocolate.",
-        "mapQuery": "Óbidos, Portugal"
+        "mapQuery": "Óbidos, Portugal",
+        "distanciaOrigem": "Aprox. 85 km de Lisboa", // <-- ADICIONADO
+        "duracaoRecomendada": "Meio dia (aprox. 4-6 horas)" // <-- ADICIONADO
       },
       {
         "id": "lis-bv-4",
         "nome": "Mosteiro da Batalha",
         "descricao": "Impressionante obra-prima da arquitetura gótica e manuelina, classificada como Património Mundial pela UNESCO. Construído para celebrar a vitória portuguesa na Batalha de Aljubarrota, destaca-se pela sua igreja monumental, o Panteão Real, o Claustro Real e as inacabadas Capelas Imperfeitas.",
-        "mapQuery": "Mosteiro da Batalha, Batalha, Portugal"
+        "mapQuery": "Mosteiro da Batalha, Batalha, Portugal",
+        "distanciaOrigem": "Aprox. 120 km de Lisboa", // <-- ADICIONADO
+        "duracaoRecomendada": "Dia inteiro (geralmente combinado com Alcobaça/Fátima)" // <-- ADICIONADO (exemplo de combinação)
       }
     ]
   },
@@ -591,11 +599,39 @@
         { "id": "pto-musica-2", "nome": "Casa da Música", "descricao": "Sala de concertos de arquitetura contemporânea arrojada e aclamada internacionalmente, projetada por Rem Koolhaas. Oferece uma programação musical eclética e de alta qualidade, desde música clássica a jazz, pop e world music.", "endereco": "Av. da Boavista 604‑610", "mapQuery": "Casa da Música, Av. da Boavista 604, Porto" },
         { "id": "pto-musica-3", "nome": "Maus Hábitos", "descricao": "Espaço cultural multifacetado e alternativo no último piso de um edifício-garagem no centro do Porto. Combina bar, restaurante, galeria de arte e sala de concertos com programação regular de música independente, DJ sets e outros eventos.", "endereco": "Rua de Passos Manuel 178, 4º Piso", "mapQuery": "Maus Hábitos, Rua de Passos Manuel 178, Porto" }
     ],
-    "bateVolta": [
-        { "id": "pto-bv-1", "nome": "Vale do Douro", "descricao": "Região vinícola de beleza estonteante, classificada como Património Mundial pela UNESCO, onde o rio Douro serpenteia por entre colinas cobertas de vinhas em socalcos. Ideal para passeios de barco, comboio, visitas a quintas produtoras de Vinho do Porto e paisagens memoráveis (ex: Pinhão, Peso da Régua).", "mapQuery": "Pinhão, Portugal" },
-        { "id": "pto-bv-2", "nome": "Guimarães", "descricao": "Considerada o 'Berço da Nação' portuguesa, esta cidade histórica possui um centro medieval excecionalmente bem preservado (UNESCO), o imponente Castelo de Guimarães (ligado à fundação de Portugal) e o majestoso Paço dos Duques de Bragança.", "mapQuery": "Centro Histórico de Guimarães, Portugal" },
-        { "id": "pto-bv-3", "nome": "Braga", "descricao": "Importante centro religioso e histórico, conhecida como a 'Roma Portuguesa' pela sua profusão de igrejas. Visite a imponente Sé Catedral (a mais antiga de Portugal), o Santuário do Bom Jesus do Monte com a sua espetacular escadaria barroca e desfrute do ambiente jovem e vibrante da cidade.", "mapQuery": "Braga, Portugal" },
-        { "id": "pto-bv-4", "nome": "Aveiro", "descricao": "Charmosa cidade conhecida como a 'Veneza Portuguesa' pelos seus canais urbanos atravessados por coloridos barcos moliceiros (passeios disponíveis). Prove os deliciosos Ovos Moles (doce típico à base de ovos e açúcar) e admire a arquitetura Arte Nova presente em vários edifícios.", "mapQuery": "Aveiro, Portugal" }
+   "bateVolta": [
+        {
+            "id": "pto-bv-1",
+            "nome": "Vale do Douro",
+            "descricao": "Região vinícola de beleza estonteante, classificada como Património Mundial pela UNESCO, onde o rio Douro serpenteia por entre colinas cobertas de vinhas em socalcos. Ideal para passeios de barco, comboio, visitas a quintas produtoras de Vinho do Porto e paisagens memoráveis (ex: Pinhão, Peso da Régua).",
+            "mapQuery": "Pinhão, Portugal",
+            "distanciaOrigem": "Aprox. 125 km do Porto (Pinhão)", // <-- ADICIONADO
+            "duracaoRecomendada": "Dia inteiro" // <-- ADICIONADO
+        },
+        {
+            "id": "pto-bv-2",
+            "nome": "Guimarães",
+            "descricao": "Considerada o 'Berço da Nação' portuguesa, esta cidade histórica possui um centro medieval excecionalmente bem preservado (UNESCO), o imponente Castelo de Guimarães (ligado à fundação de Portugal) e o majestoso Paço dos Duques de Bragança.",
+            "mapQuery": "Centro Histórico de Guimarães, Portugal",
+            "distanciaOrigem": "Aprox. 55 km do Porto", // <-- ADICIONADO
+            "duracaoRecomendada": "Meio dia a dia inteiro" // <-- ADICIONADO
+        },
+        {
+            "id": "pto-bv-3",
+            "nome": "Braga",
+            "descricao": "Importante centro religioso e histórico, conhecida como a 'Roma Portuguesa' pela sua profusão de igrejas. Visite a imponente Sé Catedral (a mais antiga de Portugal), o Santuário do Bom Jesus do Monte com a sua espetacular escadaria barroca e desfrute do ambiente jovem e vibrante da cidade.",
+            "mapQuery": "Braga, Portugal",
+            "distanciaOrigem": "Aprox. 55 km do Porto", // <-- ADICIONADO
+            "duracaoRecomendada": "Meio dia a dia inteiro (pode combinar com Guimarães)" // <-- ADICIONADO (exemplo de combinação)
+        },
+        {
+            "id": "pto-bv-4",
+            "nome": "Aveiro",
+            "descricao": "Charmosa cidade conhecida como a 'Veneza Portuguesa' pelos seus canais urbanos atravessados por coloridos barcos moliceiros (passeios disponíveis). Prove os deliciosos Ovos Moles (doce típico à base de ovos e açúcar) e admire a arquitetura Arte Nova presente em vários edifícios.",
+            "mapQuery": "Aveiro, Portugal",
+            "distanciaOrigem": "Aprox. 75 km do Porto", // <-- ADICIONADO
+            "duracaoRecomendada": "Meio dia (aprox. 4-6 horas)" // <-- ADICIONADO
+        }
     ]
   }
   // Adicione mais cidades aqui seguindo a mesma estrutura
@@ -689,36 +725,63 @@
              } else if (tipo === 'musicaEventos') {
                  bgColorClass = 'bg-indigo-50'; textColorClass = 'text-indigo-800'; accentColorClass = 'text-indigo-700';
              } else if (tipo === 'bateVolta') {
-                 bgColorClass = 'bg-emerald-50'; textColorClass = 'text-emerald-800'; accentColorClass = 'text-emerald-700';
-                 mapButtonClass = 'map-button-daytrip self-start';
-                 box.classList.add('flex', 'flex-col');
-             }
+              bgColorClass = 'bg-emerald-50';
+              textColorClass = 'text-emerald-900'; // Um pouco mais escuro para contraste
+              accentColorClass = 'text-emerald-800'; // Um pouco mais escuro
+              mapButtonClass = 'map-button-daytrip self-start';
+              box.classList.add('flex', 'flex-col'); // Mantém layout flexível
+          }
 
-            box.className = `info-box ${bgColorClass} rounded-lg`;
+           box.className = `info-box ${bgColorClass} rounded-lg p-4`; // Garante padding
 
-            const title = document.createElement('h5');
-            title.className = `font-semibold ${textColorClass}` + (tipo === 'bateVolta' ? ' text-xl mb-2' : ' mb-1');
-            title.textContent = item.nome;
-            box.appendChild(title);
+          const title = document.createElement('h5');
+          title.className = `font-semibold ${textColorClass}` + (tipo === 'bateVolta' ? ' text-lg mb-2' : ' mb-1'); // Ajuste tamanho B&V
+          title.textContent = item.nome;
+          box.appendChild(title);
 
-            const description = document.createElement('p');
-            description.className = `text-sm ${accentColorClass}` + (tipo === 'bateVolta' ? ' mb-3 flex-grow' : ' mb-2');
-            description.innerHTML = item.descricao + (item.endereco ? `<br><i class="text-xs opacity-80">${item.endereco}</i>` : '');
-            box.appendChild(description);
+          const description = document.createElement('p');
+          description.className = `text-sm ${accentColorClass}` + (tipo === 'bateVolta' ? ' mb-3 flex-grow' : ' mb-2');
+          // Descrição principal - usar textContent para evitar problemas com HTML injection
+          description.textContent = item.descricao;
+          box.appendChild(description);
 
-            const mapButton = document.createElement('button');
-            mapButton.className = `open-map-modal ${mapButtonClass}`;
-            mapButton.dataset.mapQuery = item.mapQuery;
-            mapButton.dataset.locationId = item.id;
-            mapButton.dataset.locationType = tipo;
-            mapButton.innerHTML = tipo === 'bateVolta'
-                ? '<i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa'
-                : 'Ver no mapa';
-            mapButton.title = `Ver mapa de ${item.nome}`;
-            box.appendChild(mapButton);
 
-            return box;
-        }
+          if (tipo === 'bateVolta' && (item.distanciaOrigem || item.duracaoRecomendada)) {
+              const detailsDiv = document.createElement('div');
+              // Estilos: texto pequeno, cor sutil, margens, ícones alinhados
+              detailsDiv.className = 'text-xs text-emerald-700 mt-1 mb-3 space-y-1 border-t border-emerald-200 pt-2';
+
+              if (item.distanciaOrigem) {
+                  const distanciaP = document.createElement('p');
+                  distanciaP.className = 'flex items-center'; // Alinha ícone e texto
+                  distanciaP.innerHTML = `<i class="fas fa-road fa-fw mr-2 text-emerald-600 opacity-90"></i> ${item.distanciaOrigem}`;
+                  detailsDiv.appendChild(distanciaP);
+              }
+
+              if (item.duracaoRecomendada) {
+                  const duracaoP = document.createElement('p');
+                  duracaoP.className = 'flex items-center'; // Alinha ícone e texto
+                  duracaoP.innerHTML = `<i class="far fa-clock fa-fw mr-2 text-emerald-600 opacity-90"></i> ${item.duracaoRecomendada}`;
+                  detailsDiv.appendChild(duracaoP);
+              }
+              // Adiciona a div de detalhes ao card
+               box.appendChild(detailsDiv); // Adiciona após a descrição
+          }
+  
+
+const mapButton = document.createElement('button');
+          mapButton.className = `open-map-modal ${mapButtonClass}`;
+          mapButton.dataset.mapQuery = item.mapQuery;
+          mapButton.dataset.locationId = item.id;
+          mapButton.dataset.locationType = tipo;
+          mapButton.innerHTML = tipo === 'bateVolta'
+              ? '<i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa'
+              : 'Ver no mapa';
+          mapButton.title = `Ver mapa de ${item.nome}`;
+          box.appendChild(mapButton); // Botão é adicionado no final
+
+          return box;
+      }
 
         // --- Função Principal para Gerar o Conteúdo Dinâmico ---
         function generatePageContent() {
