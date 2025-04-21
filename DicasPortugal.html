@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -18,19 +19,19 @@
         rel="stylesheet" />
 
   <style>
-    html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif}@apply bg-gray-50 text-gray-800;
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif}@apply bg-gray-50 text-gray-800;
     section{scroll-margin-top:80px}
 
-    /* botões principais */
+    /* botões */
     .card-button{display:inline-flex;align-items:center;justify-content:center;padding:.5rem 1rem;font-size:.875rem;font-weight:500;border-radius:.375rem;transition:all .3s;cursor:pointer}
     .map-button-attraction{background:#0284c7;color:#fff}.map-button-attraction:hover{background:#0369a1;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06)}
     .about-button{background:#e5e7eb;color:#374151}.about-button:hover{background:#d1d5db;box-shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06)}
-    /* NOVO: botão ingressos */
-    .ticket-button{background:#f59e0b;color:#fff}.ticket-button:hover{background:#d97706;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06)}
+    .ticket-button{background:#f59e0b;color:#fff;padding:.5rem .75rem}.ticket-button:hover{background:#d97706;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06)}
     .map-button-daytrip{@apply inline-flex items-center justify-center px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-md transition duration-300 ease-in-out hover:bg-emerald-700 hover:shadow-sm}
     .map-button-info-box{@apply text-xs text-sky-600 hover:underline font-medium cursor-pointer bg-transparent border-none p-0 inline}
 
-    /* modais, cards, grid ‑ iguais à versão anterior (omitidos p/ encurtar) … */
+    /* modais, cards, grid */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:60;opacity:0;pointer-events:none;transition:opacity .3s}
     .modal.is-open{opacity:1;pointer-events:auto}
     .modal-content{background:#fff;border-radius:.5rem;box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);width:100%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;transform:scale(.95);transition:transform .3s;max-width:600px;position:relative}
@@ -47,290 +48,488 @@
 </head>
 
 <body>
-<!-- HEADER e INTRO permanecem iguais …  -->
+  <!-- HEADER -->
+  <header class="bg-sky-600 text-white p-4 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl sm:text-2xl font-bold">Cris & JR em Portugal</h1>
+      <nav>
+        <ul class="flex space-x-4">
+          <li><a href="#lisboa" class="text-sm sm:text-base hover:text-sky-100">Lisboa</a></li>
+          <li><a href="#porto"  class="text-sm sm:text-base hover:text-sky-100">Porto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<main class="container mx-auto p-6 mt-10">
-<!-- ==============================================================
-                           LISBOA
-================================================================ -->
-<section id="lisboa" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
-  <h3 class="text-3xl font-semibold mb-8 pb-2 text-sky-700 border-b-2 border-sky-200">
-    Lisboa — A cidade das sete colinas
-  </h3>
+  <main class="container mx-auto p-6 mt-10">
+    <!-- INTRO -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-sky-800 mb-4">Roteiro inesquecível por Portugal</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        As melhores dicas de Lisboa e Porto para um casal apaixonado por história, arte e boa comida!
+      </p>
+    </div>
 
-  <!-- ------------ O que visitar ------------ -->
-  <div class="section-subtitle border-sky-200">
-    <i class="fas fa-map-signs text-sky-700 w-6 text-center"></i><h4 class="text-sky-700">O que visitar</h4>
+    <!-- ==============================================================
+                                LISBOA
+    ============================================================== -->
+    <section id="lisboa" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
+      <h3 class="text-3xl font-semibold mb-8 pb-2 text-sky-700 border-b-2 border-sky-200">
+        Lisboa — A cidade das sete colinas
+      </h3>
+
+      <!-- O que visitar -->
+      <div class="section-subtitle border-sky-200">
+        <i class="fas fa-map-signs text-sky-700 w-6 text-center"></i><h4 class="text-sky-700">O que visitar</h4>
+      </div>
+
+      <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <!-- Jerónimos -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Mosteiro_dos_Jer%C3%B3nimos_%2844651116202%29.jpg"
+               alt="Mosteiro dos Jerónimos" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Mosteiro+Jer%C3%B3nimos';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Mosteiro+dos+Jer%C3%B3nimos+Lisboa&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Mosteiro dos Jerónimos"
+                    data-visit-time="1 h 30 – 2 h"
+                    data-what-to-see="Igreja, claustro, túmulos de Vasco da Gama"
+                    data-history="Iniciado em 1501 por D. Manuel I; auge do manuelino.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <a href="https://bilheteira.patrimoniocultural.gov.pt/monumentos/mosteiro-dos-jeronimos"
+               target="_blank" rel="noopener"
+               class="ticket-button flex-1 card-button">
+              <i class="fas fa-ticket-alt"></i>
+            </a>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Mosteiro dos Jerónimos</h5>
+          <p class="text-gray-700 text-sm flex-grow">Obra‑prima manuelina e Património UNESCO.</p>
+        </div>
+
+        <!-- Torre de Belém -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Torre_de_Bel%C3%A9m_front.jpg"
+               alt="Torre de Belém" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Torre+Bel%C3%A9m';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Torre+de+Bel%C3%A9m+Lisboa&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Torre de Belém"
+                    data-visit-time="~1 h"
+                    data-what-to-see="Terraço, canhoneiras"
+                    data-history="Construída 1514‑19, ícone dos Descobrimentos.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <a href="https://bilheteira.patrimoniocultural.gov.pt/monumentos/torre-de-belem"
+               target="_blank" rel="noopener"
+               class="ticket-button flex-1 card-button">
+              <i class="fas fa-ticket-alt"></i>
+            </a>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Torre de Belém</h5>
+          <p class="text-gray-700 text-sm flex-grow">Elegante torre defensiva à beira do Tejo.</p>
+        </div>
+
+        <!-- Castelo de S. Jorge -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Castelo_de_Sao_Jorge_%2828482996488%29.jpg"
+               alt="Castelo de São Jorge" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Castelo+S.Jorge';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Castelo+de+S%C3%A3o+Jorge+Lisboa&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Castelo de São Jorge"
+                    data-visit-time="1 h 30 – 2 h"
+                    data-what-to-see="Muralhas, miradouros"
+                    data-history="Fortaleza moura conquistada em 1147.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <a href="https://castelodesaojorge.pt/en/plan-your-visit/choose-your-ticket/"
+               target="_blank" rel="noopener"
+               class="ticket-button flex-1 card-button">
+              <i class="fas fa-ticket-alt"></i>
+            </a>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Castelo de São Jorge</h5>
+          <p class="text-gray-700 text-sm flex-grow">Muralhas e vistas panorâmicas de Lisboa.</p>
+        </div>
+
+        <!-- Museu Arte Antiga (sem venda online) -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Lisbon%2C_the_museum_Nacional_de_Arte_Antiga.JPG"
+               alt="Museu Nacional de Arte Antiga" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=MNAA';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Museu+Nacional+de+Arte+Antiga+Lisboa&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Museu Nacional de Arte Antiga"
+                    data-visit-time="2 – 3 h"
+                    data-what-to-see="Painéis de São Vicente, Bosch"
+                    data-history="Fundado 1884 no Palácio Alvor‑Pombal.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Museu Nacional de Arte Antiga</h5>
+          <p class="text-gray-700 text-sm flex-grow">Maior museu de arte de Portugal. Bilhetes só na portaria.</p>
+        </div>
+
+        <!-- Alfama & Eléctrico 28 (sem venda online) -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/The_Iconic_Tram_28_Lisbon%2C_Portugal.jpg"
+               alt="Alfama e Elétrico 28" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Alfama+%26+El%C3%A9trico+28';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Alfama+Lisboa&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Alfama & Elétrico 28"
+                    data-visit-time="Passeio 40 min + Alfama 2‑3h"
+                    data-what-to-see="Sé, miradouros, fado"
+                    data-history="Bairro mais antigo; elétrico histórico de 1914.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Alfama & Elétrico 28</h5>
+          <p class="text-gray-700 text-sm flex-grow">Ruelas medievais e icónico bonde amarelo.</p>
+        </div>
+      </div>
+
+      <!-- (seções Onde Comer, Música, Bate e Volta permanecem iguais) -->
+    </section>
+
+    <!-- ==============================================================
+                                PORTO
+    ============================================================== -->
+    <section id="porto" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
+      <h3 class="text-3xl font-semibold mb-8 pb-2 text-purple-700 border-b-2 border-purple-200">
+        Porto — A capital do norte
+      </h3>
+
+      <!-- O que visitar -->
+      <div class="section-subtitle border-purple-200">
+        <i class="fas fa-map-signs text-purple-700 w-6 text-center"></i><h4 class="text-purple-700">O que visitar</h4>
+      </div>
+
+      <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <!-- Mercado do Bolhão (entrada grátis) -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mercado_do_Bolh%C3%A3o_2023-08-08_05.02.56_%2853111822406%29.jpg"
+               alt="Mercado do Bolhão" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Mercado+Bolh%C3%A3o';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Mercado+do+Bolh%C3%A3o+Porto&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Mercado do Bolhão"
+                    data-visit-time="30 – 60 min"
+                    data-what-to-see="Produtos frescos, flores, restaurantes"
+                    data-history="Mercado de 1914, renovado em 2022.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Mercado do Bolhão</h5>
+          <p class="text-gray-700 text-sm flex-grow">Entrada gratuita, coração gastronômico local.</p>
+        </div>
+
+        <!-- Livraria Lello -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Livraria_LELLO_Porto.jpg"
+               alt="Livraria Lello" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Livraria+Lello';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Livraria+Lello+Porto&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Livraria Lello"
+                    data-visit-time="30–45 min"
+                    data-what-to-see="Escadaria vermelha, vitral"
+                    data-history="Inaugurada em 1906; considerada uma das livrarias mais bonitas do mundo.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <a href="https://tickets.livrarialello.pt/"
+               target="_blank" rel="noopener"
+               class="ticket-button flex-1 card-button">
+              <i class="fas fa-ticket-alt"></i>
+            </a>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Livraria Lello</h5>
+          <p class="text-gray-700 text-sm flex-grow">Escadaria icónica; comprar voucher online.</p>
+        </div>
+
+        <!-- Ribeira (área pública) -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/2013-11-30_-_Porto_Ribeira_-_IMG_0072-Editar_%2814661401688%29.jpg"
+               alt="Ribeira" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Ribeira';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Cais+da+Ribeira+Porto&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Ribeira"
+                    data-visit-time="1‑2 h"
+                    data-what-to-see="Casas coloridas, Ponte D. Luís I"
+                    data-history="Zona medieval classificada pela UNESCO em 1996.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Ribeira</h5>
+          <p class="text-gray-700 text-sm flex-grow">Orla pitoresca à beira do Douro.</p>
+        </div>
+
+        <!-- Caves Cálem -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vila_Nova_de_Gaia-Caves_Calem-20140910.jpg"
+               alt="Caves Cálem" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Caves+Vinho+Porto';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Caves+Calem+Gaia&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Caves do Vinho do Porto (Cálem)"
+                    data-visit-time="~1 h"
+                    data-what-to-see="Armazéns, provas de vinho"
+                    data-history="Vinho envelhece em Gaia desde o séc. XVIII.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <a href="https://tour.calem.pt/"
+               target="_blank" rel="noopener"
+               class="ticket-button flex-1 card-button">
+              <i class="fas fa-ticket-alt"></i>
+            </a>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Caves do Vinho do Porto (Cálem)</h5>
+          <p class="text-gray-700 text-sm flex-grow">Visite e prove Vinhos do Porto em Gaia.</p>
+        </div>
+
+        <!-- Palácio da Bolsa -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Pal%C3%A1cio_da_Bolsa%2C_Bolsa_Palace%2C_Porto%2C_Portugal_%2853973583947%29.jpg"
+               alt="Palácio da Bolsa" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Pal%C3%A1cio+Bolsa';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Pal%C3%A1cio+da+Bolsa+Porto&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Palácio da Bolsa"
+                    data-visit-time="45 min (visita guiada)"
+                    data-what-to-see="Salão Árabe, Escadaria Nobre"
+                    data-history="Edifício neo‑clássico séc. XIX.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <a href="https://palaciodabolsa.com/#visite"
+               target="_blank" rel="noopener"
+               class="ticket-button flex-1 card-button">
+              <i class="fas fa-ticket-alt"></i>
+            </a>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Palácio da Bolsa</h5>
+          <p class="text-gray-700 text-sm flex-grow">Visite o luxuoso Salão Árabe.</p>
+        </div>
+
+        <!-- Igreja de S. Francisco (sem venda online) -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Porto_-_Igreja_da_Ordem_de_S%C3%A3o_Francisco1536.jpg"
+               alt="Igreja de São Francisco" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Igreja+S.Francisco';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Igreja+de+S%C3%A3o+Francisco+Porto&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Igreja de São Francisco"
+                    data-visit-time="45 min"
+                    data-what-to-see="Talha dourada, catacumbas"
+                    data-history="Igreja gótica, interior barroco sécs. XVII‑XVIII.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Igreja de São Francisco</h5>
+          <p class="text-gray-700 text-sm flex-grow">300 kg de ouro revestem o interior barroco.</p>
+        </div>
+
+        <!-- Torre dos Clérigos -->
+        <div class="attraction-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Vista_da_Torre_dos_Cl%C3%A9rigos_a_partir_do_Jardim_da_Cordoaria.jpg"
+               alt="Torre dos Clérigos" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Torre+Cl%C3%A9rigos';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Torre+dos+Cl%C3%A9rigos+Porto&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Torre dos Clérigos"
+                    data-visit-time="~1 h"
+                    data-what-to-see="Vista 360°, igreja"
+                    data-history="Obra de Nasoni, 1750s.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <a href="https://www.torredosclerigos.pt/bilheteira/"
+               target="_blank" rel="noopener"
+               class="ticket-button flex-1 card-button">
+              <i class="fas fa-ticket-alt"></i>
+            </a>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Torre dos Clérigos</h5>
+          <p class="text-gray-700 text-sm flex-grow">Suba 225 degraus e aprecie a vista.</p>
+        </div>
+
+        <!-- Casa‑Museu MOS -->
+        <div class="attraction-card">
+          <img src="https://museudoporto.pt/wp-content/uploads/2020/08/AAF5073-copy-co%CC%81pia.jpg"
+               alt="Casa‑Museu Marta Ortigão Sampaio" class="w-full h-48 object-cover rounded-md mb-4"
+               onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Casa+Museu+MOS';">
+          <div class="flex space-x-2 mb-4">
+            <button class="open-map-modal map-button-attraction flex-1"
+                    data-map-url="https://www.google.com/maps?q=Casa-Museu+Marta+Ortig%C3%A3o+Sampaio+Porto&output=embed">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+            <button class="open-about-modal about-button flex-1"
+                    data-attraction-name="Casa‑Museu Marta Ortigão Sampaio"
+                    data-visit-time="~1 h"
+                    data-what-to-see="Pintura naturalista, joias"
+                    data-history="Casa dos anos 50 legada à cidade.">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <a href="https://museudoporto.pt/estacao/casa-marta-ortigao-sampaio/"
+               target="_blank" rel="noopener"
+               class="ticket-button flex-1 card-button">
+              <i class="fas fa-ticket-alt"></i>
+            </a>
+          </div>
+          <h5 class="text-xl font-bold mb-2">Casa‑Museu Marta Ortigão Sampaio</h5>
+          <p class="text-gray-700 text-sm flex-grow">Arte naturalista portuguesa e coleção de joias.</p>
+        </div>
+      </div>
+
+      <!-- (demais seções Porto iguais) -->
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-200 text-gray-600 text-center p-6 mt-16">
+    <p class="text-sm">© 2025 Dicas de Viagem Cris & JR. Boa viagem!</p>
+  </footer>
+
+  <!-- MODAL MAPA -->
+  <div id="mapModal" class="modal" aria-labelledby="map-modal-title" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button id="closeMapModal" class="modal-close-button" aria-label="Fechar mapa">×</button>
+      <div class="flex justify-between items-center p-4 border-b">
+        <h2 id="map-modal-title" class="text-lg font-semibold text-gray-800">Localização no mapa</h2>
+      </div>
+      <div class="modal-body-map">
+        <iframe id="mapIframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="" title="Mapa"></iframe>
+      </div>
+    </div>
   </div>
 
-  <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-    <!-- === JERÓNIMOS === -->
-    <div class="attraction-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Mosteiro_dos_Jer%C3%B3nimos_%2844651116202%29.jpg"
-           alt="Mosteiro dos Jerónimos" class="w-full h-48 object-cover rounded-md mb-4"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Mosteiro+Jer%C3%B3nimos';">
-      <div class="flex space-x-2 mb-4">
-        <button class="open-map-modal map-button-attraction flex-1"
-                data-map-url="https://www.google.com/maps?q=Mosteiro+dos+Jer%C3%B3nimos+Lisboa&output=embed">
-          <i class="fas fa-map-marker-alt mr-2"></i>Mapa
-        </button>
-        <button class="open-about-modal about-button flex-1"
-                data-attraction-name="Mosteiro dos Jerónimos"
-                data-visit-time="1 h 30 – 2 h"
-                data-what-to-see="Igreja, claustro, túmulos de Vasco da Gama"
-                data-history="Iniciado em 1501 por D. Manuel I; auge do manuelino.">
-          <i class="fas fa-info-circle mr-2"></i>Sobre
-        </button>
-        <a href="https://bilheteira.patrimoniocultural.gov.pt/monumentos/mosteiro-dos-jeronimos"
-           target="_blank" rel="noopener"
-           class="ticket-button flex-1 card-button">
-          <i class="fas fa-ticket-alt mr-2"></i>Ingressos
-        </a>
+  <!-- MODAL SOBRE -->
+  <div id="aboutModal" class="modal" aria-labelledby="about-modal-title" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button id="closeAboutModal" class="modal-close-button" aria-label="Fechar detalhes">×</button>
+      <div class="modal-body">
+        <h3 id="about-modal-title" class="text-2xl font-bold text-sky-700 mb-6">Nome da atração</h3>
+        <div class="flex flex-col gap-5 text-sm text-gray-700">
+          <div>
+            <h5 class="font-semibold text-gray-800 mb-1">Tempo estimado de visita</h5>
+            <p id="about-visit-time">…</p>
+          </div>
+          <div>
+            <h5 class="font-semibold text-gray-800 mb-1">O que ver</h5>
+            <p id="about-what-to-see">…</p>
+          </div>
+          <div>
+            <h5 class="font-semibold text-gray-800 mb-1">Pequena história</h5>
+            <p id="about-history">…</p>
+          </div>
+        </div>
       </div>
-      <h5 class="text-xl font-bold mb-2">Mosteiro dos Jerónimos</h5>
-      <p class="text-gray-700 text-sm flex-grow">Obra‑prima manuelina e Património UNESCO.</p>
     </div>
-
-    <!-- === TORRE DE BELÉM === -->
-    <div class="attraction-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Torre_de_Bel%C3%A9m_front.jpg"
-           alt="Torre de Belém" class="w-full h-48 object-cover rounded-md mb-4"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Torre+Bel%C3%A9m';">
-      <div class="flex space-x-2 mb-4">
-        <button class="open-map-modal map-button-attraction flex-1"
-                data-map-url="https://www.google.com/maps?q=Torre+de+Bel%C3%A9m+Lisboa&output=embed">
-          <i class="fas fa-map-marker-alt mr-2"></i>Mapa
-        </button>
-        <button class="open-about-modal about-button flex-1"
-                data-attraction-name="Torre de Belém"
-                data-visit-time="~1 h"
-                data-what-to-see="Terraço, canhoneiras"
-                data-history="Construída 1514‑19, ícone dos Descobrimentos.">
-          <i class="fas fa-info-circle mr-2"></i>Sobre
-        </button>
-        <a href="https://bilheteira.patrimoniocultural.gov.pt/monumentos/torre-de-belem"
-           target="_blank" rel="noopener"
-           class="ticket-button flex-1 card-button">
-          <i class="fas fa-ticket-alt mr-2"></i>Ingressos
-        </a>
-      </div>
-      <h5 class="text-xl font-bold mb-2">Torre de Belém</h5>
-      <p class="text-gray-700 text-sm flex-grow">Elegante torre defensiva à beira do Tejo.</p>
-    </div>
-
-    <!-- === CASTELO DE S. JORGE === -->
-    <div class="attraction-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Castelo_de_Sao_Jorge_%2828482996488%29.jpg"
-           alt="Castelo de São Jorge" class="w-full h-48 object-cover rounded-md mb-4"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Castelo+S.Jorge';">
-      <div class="flex space-x-2 mb-4">
-        <button class="open-map-modal map-button-attraction flex-1"
-                data-map-url="https://www.google.com/maps?q=Castelo+de+S%C3%A3o+Jorge+Lisboa&output=embed">
-          <i class="fas fa-map-marker-alt mr-2"></i>Mapa
-        </button>
-        <button class="open-about-modal about-button flex-1"
-                data-attraction-name="Castelo de São Jorge"
-                data-visit-time="1 h 30 – 2 h"
-                data-what-to-see="Muralhas, miradouros"
-                data-history="Fortaleza moura conquistada em 1147.">
-          <i class="fas fa-info-circle mr-2"></i>Sobre
-        </button>
-        <a href="https://castelodesaojorge.pt/en/plan-your-visit/choose-your-ticket/"
-           target="_blank" rel="noopener"
-           class="ticket-button flex-1 card-button">
-          <i class="fas fa-ticket-alt mr-2"></i>Ingressos
-        </a>
-      </div>
-      <h5 class="text-xl font-bold mb-2">Castelo de São Jorge</h5>
-      <p class="text-gray-700 text-sm flex-grow">Muralhas e vistas panorâmicas de Lisboa.</p>
-    </div>
-
-    <!-- === MUSEU ARTE ANTIGA (sem venda online – botão omitido) === -->
-    <div class="attraction-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Lisbon%2C_the_museum_Nacional_de_Arte_Antiga.JPG"
-           alt="Museu Nacional de Arte Antiga" class="w-full h-48 object-cover rounded-md mb-4"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=MNAA';">
-      <div class="flex space-x-2 mb-4">
-        <button class="open-map-modal map-button-attraction flex-1"
-                data-map-url="https://www.google.com/maps?q=Museu+Nacional+de+Arte+Antiga+Lisboa&output=embed">
-          <i class="fas fa-map-marker-alt mr-2"></i>Mapa
-        </button>
-        <button class="open-about-modal about-button flex-1"
-                data-attraction-name="Museu Nacional de Arte Antiga"
-                data-visit-time="2 – 3 h"
-                data-what-to-see="Painéis de São Vicente, Bosch"
-                data-history="Fundado 1884 no Palácio Alvor‑Pombal.">
-          <i class="fas fa-info-circle mr-2"></i>Sobre
-        </button>
-      </div>
-      <h5 class="text-xl font-bold mb-2">Museu Nacional de Arte Antiga</h5>
-      <p class="text-gray-700 text-sm flex-grow">Maior museu de arte de Portugal. Bilhetes só na portaria.</p>
-    </div>
-
-    <!-- === Alfama & Elétrico 28 (sem venda online) === -->
-    <!-- … mantém dois botões … -->
-  </div><!-- /grid Lisboa -->
-
-  <!-- ——— (restante da secção Lisboa permanece igual) ——— -->
-</section>
-
-
-<!-- ==============================================================
-                           PORTO
-================================================================ -->
-<section id="porto" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
-  <h3 class="text-3xl font-semibold mb-8 pb-2 text-purple-700 border-b-2 border-purple-200">
-    Porto — A capital do norte
-  </h3>
-
-  <!-- O QUE VISITAR -->
-  <div class="section-subtitle border-purple-200">
-    <i class="fas fa-map-signs text-purple-700 w-6 text-center"></i><h4 class="text-purple-700">O que visitar</h4>
   </div>
 
-  <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+  <!-- SCRIPT -->
+  <script>
+    const mapModal   = document.getElementById("mapModal");
+    const aboutModal = document.getElementById("aboutModal");
+    const mapIframe  = document.getElementById("mapIframe");
 
-    <!-- === LIVRARIA LELLO === -->
-    <div class="attraction-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Livraria_LELLO_Porto.jpg"
-           alt="Livraria Lello" class="w-full h-48 object-cover rounded-md mb-4"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Livraria+Lello';">
-      <div class="flex space-x-2 mb-4">
-        <button class="open-map-modal map-button-attraction flex-1"
-                data-map-url="https://www.google.com/maps?q=Livraria+Lello+Porto&output=embed">
-          <i class="fas fa-map-marker-alt mr-2"></i>Mapa
-        </button>
-        <button class="open-about-modal about-button flex-1"
-                data-attraction-name="Livraria Lello"
-                data-visit-time="30–45 min"
-                data-what-to-see="Escadaria vermelha, vitral"
-                data-history="Inaugurada em 1906; inspira escritores e turistas.">
-          <i class="fas fa-info-circle mr-2"></i>Sobre
-        </button>
-        <a href="https://tickets.livrarialello.pt/"
-           target="_blank" rel="noopener"
-           class="ticket-button flex-1 card-button">
-          <i class="fas fa-ticket-alt mr-2"></i>Ingressos
-        </a>
-      </div>
-      <h5 class="text-xl font-bold mb-2">Livraria Lello</h5>
-      <p class="text-gray-700 text-sm flex-grow">Escadaria icónica; compre o “voucher livro” online.</p>
-    </div>
+    function open(modal){ modal.classList.add("is-open"); document.body.style.overflow="hidden"; }
+    function close(modal){
+      modal.classList.remove("is-open");
+      if(!mapModal.classList.contains("is-open") && !aboutModal.classList.contains("is-open")){
+        document.body.style.overflow="";
+      }
+    }
 
-    <!-- === CAVES CÁLEM === -->
-    <div class="attraction-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vila_Nova_de_Gaia-Caves_Calem-20140910.jpg"
-           alt="Caves Cálem" class="w-full h-48 object-cover rounded-md mb-4"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Caves+Vinho+Porto';">
-      <div class="flex space-x-2 mb-4">
-        <button class="open-map-modal map-button-attraction flex-1"
-                data-map-url="https://www.google.com/maps?q=Caves+Calem+Gaia&output=embed">
-          <i class="fas fa-map-marker-alt mr-2"></i>Mapa
-        </button>
-        <button class="open-about-modal about-button flex-1"
-                data-attraction-name="Caves do Vinho do Porto (Cálem)"
-                data-visit-time="~1 h"
-                data-what-to-see="Armazéns, provas"
-                data-history="Vinho envelhece em Gaia desde o séc. XVIII.">
-          <i class="fas fa-info-circle mr-2"></i>Sobre
-        </button>
-        <a href="https://tour.calem.pt/"
-           target="_blank" rel="noopener"
-           class="ticket-button flex-1 card-button">
-          <i class="fas fa-ticket-alt mr-2"></i>Ingressos
-        </a>
-      </div>
-      <h5 class="text-xl font-bold mb-2">Caves do Vinho do Porto (Cálem)</h5>
-      <p class="text-gray-700 text-sm flex-grow">Visite e prove Vinhos do Porto em Gaia.</p>
-    </div>
+    function toEmbed(url){
+      if(!url) return "";
+      if(url.includes("output=embed") || url.includes("/embed")) return url;
+      const q=url.match(/[?&]query=([^&]+)/); const plc=url.match(/\/maps\/place\/([^/]+)/);
+      if(q)   return `https://www.google.com/maps?q=${q[1]}&output=embed`;
+      if(plc) return `https://www.google.com/maps?q=${plc[1]}&output=embed`;
+      return url+(url.includes("?")?"&":"?")+"output=embed";
+    }
 
-    <!-- === PALÁCIO DA BOLSA === -->
-    <div class="attraction-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Pal%C3%A1cio_da_Bolsa%2C_Bolsa_Palace%2C_Porto%2C_Portugal_%2853973583947%29.jpg"
-           alt="Palácio da Bolsa" class="w-full h-48 object-cover rounded-md mb-4"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Pal%C3%A1cio+Bolsa';">
-      <div class="flex space-x-2 mb-4">
-        <button class="open-map-modal map-button-attraction flex-1"
-                data-map-url="https://www.google.com/maps?q=Pal%C3%A1cio+da+Bolsa+Porto&output=embed">
-          <i class="fas fa-map-marker-alt mr-2"></i>Mapa
-        </button>
-        <button class="open-about-modal about-button flex-1"
-                data-attraction-name="Palácio da Bolsa"
-                data-visit-time="45 min (visita guiada)"
-                data-what-to-see="Salão Árabe, Escadaria Nobre"
-                data-history="Edifício neo‑clássico séc. XIX.">
-          <i class="fas fa-info-circle mr-2"></i>Sobre
-        </button>
-        <a href="https://palaciodabolsa.com/#visite"
-           target="_blank" rel="noopener"
-           class="ticket-button flex-1 card-button">
-          <i class="fas fa-ticket-alt mr-2"></i>Ingressos
-        </a>
-      </div>
-      <h5 class="text-xl font-bold mb-2">Palácio da Bolsa</h5>
-      <p class="text-gray-700 text-sm flex-grow">Visite o luxuoso Salão Árabe.</p>
-    </div>
+    document.querySelectorAll(".open-map-modal").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        const raw=btn.getAttribute("data-map-url"); if(!raw) return;
+        mapIframe.src=toEmbed(raw); open(mapModal);
+      });
+    });
+    document.getElementById("closeMapModal").addEventListener("click",()=>{mapIframe.src=""; close(mapModal);});
 
-    <!-- === TORRE DOS CLÉRIGOS === -->
-    <div class="attraction-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Vista_da_Torre_dos_Cl%C3%A9rigos_a_partir_do_Jardim_da_Cordoaria.jpg"
-           alt="Torre dos Clérigos" class="w-full h-48 object-cover rounded-md mb-4"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Torre+Cl%C3%A9rigos';">
-      <div class="flex space-x-2 mb-4">
-        <button class="open-map-modal map-button-attraction flex-1"
-                data-map-url="https://www.google.com/maps?q=Torre+dos+Cl%C3%A9rigos+Porto&output=embed">
-          <i class="fas fa-map-marker-alt mr-2"></i>Mapa
-        </button>
-        <button class="open-about-modal about-button flex-1"
-                data-attraction-name="Torre dos Clérigos"
-                data-visit-time="~1 h"
-                data-what-to-see="Vista 360°, igreja"
-                data-history="Obra de Nasoni, 1750s.">
-          <i class="fas fa-info-circle mr-2"></i>Sobre
-        </button>
-        <a href="https://www.torredosclerigos.pt/bilheteira/"
-           target="_blank" rel="noopener"
-           class="ticket-button flex-1 card-button">
-          <i class="fas fa-ticket-alt mr-2"></i>Ingressos
-        </a>
-      </div>
-      <h5 class="text-xl font-bold mb-2">Torre dos Clérigos</h5>
-      <p class="text-gray-700 text-sm flex-grow">Suba 225 degraus e aprecie a vista.</p>
-    </div>
+    const aboutTitle=document.getElementById("about-modal-title");
+    const aboutTime=document.getElementById("about-visit-time");
+    const aboutSee=document.getElementById("about-what-to-see");
+    const aboutHist=document.getElementById("about-history");
+    document.querySelectorAll(".open-about-modal").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        aboutTitle.textContent=btn.dataset.attractionName||"Detalhes";
+        aboutTime.textContent =btn.dataset.visitTime||"‑";
+        aboutSee.textContent  =btn.dataset.whatToSee||"‑";
+        aboutHist.textContent =btn.dataset.history||"‑";
+        open(aboutModal);
+      });
+    });
+    document.getElementById("closeAboutModal").addEventListener("click",()=>close(aboutModal));
 
-    <!-- === CASA‑MUSEU MOS === -->
-    <div class="attraction-card">
-      <img src="https://museudoporto.pt/wp-content/uploads/2020/08/AAF5073-copy-co%CC%81pia.jpg"
-           alt="Casa‑Museu Marta Ortigão Sampaio" class="w-full h-48 object-cover rounded-md mb-4"
-           onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Casa+Museu+MOS';">
-      <div class="flex space-x-2 mb-4">
-        <button class="open-map-modal map-button-attraction flex-1"
-                data-map-url="https://www.google.com/maps?q=Casa-Museu+Marta+Ortig%C3%A3o+Sampaio+Porto&output=embed">
-          <i class="fas fa-map-marker-alt mr-2"></i>Mapa
-        </button>
-        <button class="open-about-modal about-button flex-1"
-                data-attraction-name="Casa‑Museu Marta Ortigão Sampaio"
-                data-visit-time="~1 h"
-                data-what-to-see="Pintura, joias, mobiliário"
-                data-history="Casa dos anos 50 legada à cidade.">
-          <i class="fas fa-info-circle mr-2"></i>Sobre
-        </button>
-        <a href="https://museudoporto.pt/estacao/casa-marta-ortigao-sampaio/"
-           target="_blank" rel="noopener"
-           class="ticket-button flex-1 card-button">
-          <i class="fas fa-ticket-alt mr-2"></i>Ingressos
-        </a>
-      </div>
-      <h5 class="text-xl font-bold mb-2">Casa‑Museu Marta Ortigão Sampaio</h5>
-      <p class="text-gray-700 text-sm flex-grow">Arte naturalista portuguesa e coleção de joias.</p>
-    </div>
-
-    <!-- (demais cards sem venda online permanecem com 2 botões) -->
-  </div><!-- /grid Porto -->
-
-  <!-- (restante da secção Porto permanece igual) -->
-</section>
-</main>
-
-<!-- FOOTER + MODAIS + SCRIPT continuam exatamente como na versão anterior -->
-<!-- … (para encurtar, copie-os da resposta anterior) … -->
+    document.addEventListener("keydown",e=>{
+      if(e.key==="Escape"){
+        if(mapModal.classList.contains("is-open")) close(mapModal);
+        if(aboutModal.classList.contains("is-open")) close(aboutModal);
+      }
+    });
+    [mapModal,aboutModal].forEach(m=>m.addEventListener("click",e=>{if(e.target===m) close(m);}));
+  </script>
+</body>
+</html>
+```
