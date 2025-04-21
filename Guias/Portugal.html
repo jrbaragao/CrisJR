@@ -801,24 +801,31 @@
             }
         };
 
-        const constructEmbedUrlWithApiKey = (query) => { /* ... (inalterada, mas com o tratamento de erro visual) ... */
-             if (!query || typeof query !== 'string' || query.trim() === '') {
-                 console.error("Query inválida fornecida:", query);
-                 return "";
-             }
-             if (!Maps_API_KEY || Maps_API_KEY === "SUA_CHAVE_API_AQUI") {
-                 console.error("Chave de API do Google Maps não configurada no script.");
-                 const mapBody = document.querySelector('#mapModal .modal-body-map');
-                 if(mapBody) {
-                     mapBody.innerHTML = '<p class="p-4 text-red-600 text-center">Erro: A configuração do mapa está incompleta. Contacte o administrador.</p>';
-                 }
-                 document.getElementById('map-modal-title').textContent = "Erro no Mapa";
-                 // Não abre o modal aqui, deixa o listener decidir
-                 return ""; // Retorna vazio
-             }
-             const baseUrl = "https://www.google.com/maps/embed/v1/place";
-             const encodedQuery = encodeURIComponent(query);
-             return `${baseUrl}?key=${Maps_API_KEY}&q=${encodedQuery}&hl=pt&language=pt`;
+       // --- Função para Construir URL de Incorporação do Google Maps ---
+        const constructEmbedUrlWithApiKey = (query) => {
+            if (!query || typeof query !== 'string' || query.trim() === '') {
+                console.error("Query inválida fornecida:", query);
+                return "";
+            }
+            if (!Maps_API_KEY || Maps_API_KEY === "SUA_CHAVE_API_AQUI") {
+                console.error("Chave de API do Google Maps não configurada no script.");
+                const mapBody = document.querySelector('#mapModal .modal-body-map');
+                if(mapBody) {
+                    mapBody.innerHTML = '<p class="p-4 text-red-600 text-center">Erro: A configuração do mapa está incompleta. Contacte o administrador.</p>';
+                }
+                document.getElementById('map-modal-title').textContent = "Erro no Mapa";
+                // Não precisa abrir o modal aqui, o listener fará isso se retornar URL vazia E a chave não estiver configurada
+                return ""; // Retorna vazio
+            }
+
+            // URL Base da API Embed (modo 'place' ou 'search')
+             const baseUrl = "https://www.google.com/maps/embed/v1/place"; // Modo Place (bom para nomes específicos)
+            // const baseUrl = "https://www.google.com/maps/embed/v1/search"; // Modo Search (bom para queries mais gerais)
+            const encodedQuery = encodeURIComponent(query);
+
+            // Retorna a URL completa com query, chave e idioma (language=pt)
+            // O parâmetro 'hl' foi removido por ser inválido nesta API.
+            return `${baseUrl}?key=${Maps_API_KEY}&q=${encodedQuery}&language=pt`;
         };
 
         // --- Event Listeners (Delegação - Mantidos como antes) ---
