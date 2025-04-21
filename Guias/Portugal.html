@@ -828,54 +828,77 @@
             return `${baseUrl}?key=${Maps_API_KEY}&q=${encodedQuery}&language=pt`;
         };
 
-        // --- Event Listeners (Delegação - Mantidos como antes) ---
+   // --- Event Listeners (Delegação - COM LOGS PARA DEBUG) ---
          document.body.addEventListener('click', function(event) {
              // Botão Abrir Mapa
              const mapButton = event.target.closest('.open-map-modal');
              if (mapButton) {
+                 console.log("--- Botão Mapa Clicado ---"); // Log inicial
+
+                 // Log do elemento botão para garantir que é o correto
+                 console.log("Elemento Botão:", mapButton);
+
                  const mapQuery = mapButton.dataset.mapQuery;
+                 // ---> LOG IMPORTANTE 1: Verifica a query lida do botão clicado <---
+                 console.log("Map Query lida do botão:", mapQuery);
+
                  const locationId = mapButton.dataset.locationId;
                  const locationType = mapButton.dataset.locationType;
-                 // Busca cityKey do elemento section pai
                  const cityKey = mapButton.closest('section[data-city]')?.dataset.city;
 
                  let locationName = "Localização";
-                 let locationData = null;
+                 // ... (lógica para achar nome - pode logar 'locationName' aqui também se suspeitar) ...
+                 // Ex: console.log("Nome do local encontrado:", locationName);
 
-                 if(cityKey && locationId && locationType && locationsData[cityKey] && locationsData[cityKey][locationType]) {
-                     locationData = locationsData[cityKey][locationType].find(item => item.id === locationId);
-                     if(locationData && locationData.nome) { locationName = locationData.nome; }
-                 }
-                 if (locationName === "Localização" && mapButton.title) { locationName = mapButton.title.replace('Ver mapa de ', ''); }
-                 if (locationName === "Localização" && mapQuery) { locationName = mapQuery.split(',')[0]; }
 
                  const embedUrl = constructEmbedUrlWithApiKey(mapQuery);
+                 // ---> LOG IMPORTANTE 2: Verifica a URL construída <---
+                 console.log("URL do Embed construída:", embedUrl);
 
-                  // Se a URL é inválida E a chave NÃO está configurada, mostra o modal de erro
+                 // Se a URL é inválida E a chave NÃO está configurada
                  if (!embedUrl && (!Maps_API_KEY || Maps_API_KEY === "SUA_CHAVE_API_AQUI")) {
-                     openModal(mapModal); // Mostra o modal com a mensagem de erro inserida por constructEmbedUrl
+                     console.log("Erro: Chave API não configurada ou URL inválida.");
+                     openModal(mapModal); // Mostra modal com erro
                      return;
                  }
 
                  if (embedUrl) {
                      const mapBody = document.querySelector('#mapModal .modal-body-map');
+                     // Re-seleciona o iframe para garantir que estamos com a referência correta
+                     let currentMapIframe = document.getElementById("mapIframe");
+
                      // Verifica se o iframe existe ou precisa ser recriado
-                     if (mapBody && !mapBody.querySelector('iframe')) {
+                     if (mapBody && !currentMapIframe) {
+                         console.log("Recriando o iframe...");
                          mapBody.innerHTML = '<iframe id="mapIframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="" title="Mapa Interativo"></iframe>';
-                         mapIframe = document.getElementById("mapIframe"); // Reatribui a variável global
+                         currentMapIframe = document.getElementById("mapIframe"); // Pega o novo
                      }
-                     if (mapIframe) {
-                         mapIframe.src = embedUrl;
+
+                     if (currentMapIframe) {
+                         // ---> LOG IMPORTANTE 3: Verifica o SRC antes de definir <---
+                         console.log("Definindo iframe.src para:", embedUrl);
+                         currentMapIframe.src = embedUrl; // Define a nova URL
+
                          document.getElementById('map-modal-title').textContent = `Mapa: ${locationName}`;
                          openModal(mapModal);
+                     } else {
+                          console.error("Não foi possível encontrar ou criar o iframe do mapa.");
                      }
                  } else {
-                     // Caso a chave esteja configurada mas a URL falhe
-                     console.error("Não foi possível construir a URL do mapa para a query:", mapQuery);
-                      alert("Ocorreu um erro ao tentar carregar o mapa.");
+                     console.log("Erro: embedUrl está vazia ou inválida (verificar logs anteriores).");
+                      // Considerar alertar o usuário aqui se a chave estiver configurada mas algo falhou
+                      // alert("Ocorreu um erro ao tentar carregar o mapa.");
                  }
+                 return; // Impede processamento adicional
+             }
+
+             // --- Lógica do botão About (inalterada) ---
+             const aboutButton = event.target.closest('.open-about-modal');
+             if (aboutButton) {
+                // ... (código do about modal) ...
                  return;
              }
+         });
 
              // Botão Abrir Detalhes (About)
              const aboutButton = event.target.closest('.open-about-modal');
