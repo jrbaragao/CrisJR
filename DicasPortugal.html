@@ -16,43 +16,111 @@
         rel="stylesheet" />
 
   <style>
-    html{scroll-behavior:smooth}
-    body{font-family:'Inter',sans-serif}@apply bg-gray-50 text-gray-800;
-    section{scroll-margin-top:80px}
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; @apply bg-gray-50 text-gray-800; }
+    section { scroll-margin-top: 80px; } /* Offset for sticky header */
 
-    /* botões */
-    .card-button{display:inline-flex;align-items:center;justify-content:center;padding:.5rem .75rem;font-size:.875rem;font-weight:500;border-radius:.375rem;transition:all .3s;cursor:pointer}
-    .map-button-attraction{background:#0284c7;color:#fff}.map-button-attraction:hover{background:#0369a1;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06)}
-    .about-button{background:#e5e7eb;color:#374151}.about-button:hover{background:#d1d5db;box-shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06)}
-    .ticket-button{background:#f59e0b;color:#fff}.ticket-button:hover{background:#d97706;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06)}
-    .map-button-daytrip{@apply inline-flex items-center justify-center px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-md transition duration-300 ease-in-out hover:bg-emerald-700 hover:shadow-sm}
-    .map-button-info-box{@apply text-xs text-sky-600 hover:underline font-medium cursor-pointer bg-transparent border-none p-0 inline}
+    /* --- Botões --- */
+    .card-button {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.5rem 0.75rem; font-size: 0.875rem; font-weight: 500;
+      border-radius: 0.375rem; /* rounded-md */
+      transition: all 0.3s; cursor: pointer;
+      text-align: center; /* Ensure icon/text is centered */
+    }
+    /* Botão Mapa (Atração) */
+    .map-button-attraction {
+      background-color: #0284c7; /* sky-600 */ color: #fff; /* white */
+    }
+    .map-button-attraction:hover {
+      background-color: #0369a1; /* sky-700 */
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06); /* shadow-md */
+    }
+    /* Botão Sobre (Atração) */
+    .about-button {
+      background-color: #e5e7eb; /* gray-200 */ color: #374151; /* gray-700 */
+    }
+    .about-button:hover {
+      background-color: #d1d5db; /* gray-300 */
+      box-shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06); /* shadow-sm */
+    }
+    /* Botão Bilhete (Atração) */
+    .ticket-button {
+      background-color: #f59e0b; /* amber-500 */ color: #fff; /* white */
+    }
+    .ticket-button:hover {
+      background-color: #d97706; /* amber-600 */
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06); /* shadow-md */
+    }
+    /* Botão Mapa (Bate e Volta) */
+    .map-button-daytrip {
+      @apply inline-flex items-center justify-center px-3 py-1 bg-emerald-600 text-white text-xs font-medium rounded-md transition duration-300 ease-in-out hover:bg-emerald-700 hover:shadow-sm;
+    }
+    /* Botão Mapa (Info Box - Onde Comer/Música) */
+    .map-button-info-box {
+      @apply text-xs text-sky-600 hover:underline font-medium cursor-pointer bg-transparent border-none p-0 inline;
+    }
 
-    /* modais */
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:60;opacity:0;pointer-events:none;transition:opacity .3s}
-    .modal.is-open{opacity:1;pointer-events:auto}
-    .modal-content{background:#fff;border-radius:.5rem;box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);width:100%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;transform:scale(.95);transition:transform .3s;max-width:600px;position:relative}
-    .modal.is-open .modal-content{transform:scale(1)}
-    .modal-body{padding:1.5rem;overflow-y:auto}
-    .modal-close-button{color:#6b7280;font-size:1.875rem;line-height:1;position:absolute;top:.5rem;right:1rem;cursor:pointer}.modal-close-button:hover{color:#1f2937}
-    #mapModal .modal-content{max-width:48rem}#mapModal .modal-body-map{padding:.25rem;flex-grow:1;background:#f3f4f6}#mapModal iframe{width:100%;height:60vh;border:0}
+    /* --- Modais --- */
+    .modal {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem; z-index: 60;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease-in-out;
+    }
+    .modal.is-open { opacity: 1; pointer-events: auto; }
+    .modal-content {
+      background: #fff; border-radius: 0.5rem; /* rounded-lg */
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04); /* shadow-xl */
+      width: 100%; max-height: 90vh; /* Increased max-height slightly */
+      overflow: hidden; display: flex; flex-direction: column;
+      transform: scale(0.95); transition: transform 0.3s ease-in-out;
+      max-width: 600px; /* Default max-width */
+      position: relative; /* For close button positioning */
+    }
+    .modal.is-open .modal-content { transform: scale(1); }
+    .modal-body { padding: 1.5rem; overflow-y: auto; }
+    .modal-close-button {
+      color: #6b7280; /* gray-500 */ font-size: 1.875rem; line-height: 1;
+      position: absolute; top: 0.5rem; right: 1rem; cursor: pointer;
+      background: none; border: none; padding: 0; /* Basic styling */
+    }
+    .modal-close-button:hover { color: #1f2937; /* gray-800 */ }
 
-    /* cartões/layout */
-    .object-cover{object-fit:cover;background:#e2e8f0}
-    .attraction-card{@apply bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.03] flex flex-col h-full}
-    .info-box{@apply p-4 rounded-lg}
-    .section-subtitle{@apply flex items-center gap-3 text-2xl font-bold mb-8 mt-10 pb-2 border-b-2}
-    .attraction-grid{grid-auto-rows:1fr}
+    /* Specific styles for Map Modal */
+    #mapModal .modal-content { max-width: 48rem; /* lg */ }
+    #mapModal .modal-body-map {
+        padding: 0; /* Remove padding around iframe */
+        flex-grow: 1; /* Allow iframe container to grow */
+        background: #f3f4f6; /* gray-100 for loading background */
+        min-height: 60vh; /* Ensure minimum height */
+        display: flex; /* Use flex for iframe */
+    }
+    #mapModal iframe {
+        width: 100%; height: 100%; /* Fill the container */
+        border: 0;
+        min-height: inherit; /* Inherit min-height */
+    }
+
+    /* --- Cartões e Layout --- */
+    .object-cover { object-fit: cover; background: #e2e8f0; /* slate-200 for placeholder bg */ }
+    .attraction-card {
+      @apply bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.03] flex flex-col h-full;
+    }
+    .info-box { @apply p-4 rounded-lg; }
+    .section-subtitle { @apply flex items-center gap-3 text-2xl font-bold mb-8 mt-10 pb-2 border-b-2; }
+    .attraction-grid { grid-auto-rows: 1fr; /* Make grid items equal height */ }
   </style>
 </head>
-<body>
-  <header class="bg-sky-600 text-white p-4 shadow-md sticky top-0 z-50">
+<body class="antialiased"> <header class="bg-sky-600 text-white p-4 shadow-md sticky top-0 z-50">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-xl sm:text-2xl font-bold">Cris & JR em Portugal</h1>
-      <nav><ul class="flex space-x-4">
-        <li><a href="#lisboa" class="text-sm sm:text-base hover:text-sky-100">Lisboa</a></li>
-        <li><a href="#porto"  class="text-sm sm:text-base hover:text-sky-100">Porto</a></li>
-      </ul></nav>
+      <nav>
+        <ul class="flex space-x-4">
+          <li><a href="#lisboa" class="text-sm sm:text-base hover:text-sky-100 transition-colors">Lisboa</a></li>
+          <li><a href="#porto"  class="text-sm sm:text-base hover:text-sky-100 transition-colors">Porto</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
@@ -66,20 +134,21 @@
       <h3 class="text-3xl font-semibold mb-8 pb-2 text-sky-700 border-b-2 border-sky-200">Lisboa — A cidade das sete colinas</h3>
 
       <div class="section-subtitle border-sky-200">
-        <i class="fas fa-map-signs text-sky-700 w-6 text-center"></i><h4 class="text-sky-700">O que visitar</h4>
+        <i class="fas fa-map-signs text-sky-700 w-6 text-center"></i>
+        <h4 class="text-sky-700">O que visitar</h4>
       </div>
 
       <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         <div class="attraction-card">
           <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Mosteiro_dos_Jer%C3%B3nimos_%2844651116202%29.jpg" alt="Mosteiro dos Jerónimos" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Mosteiro';">
           <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.999841754247!2d-9.20858868465549!3d38.6978649796018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb5d4e6f6f1d%3A0x4f7a3a6a3b9e0e1f!2sMosteiro%20dos%20Jer%C3%B3nimos!5e0!3m2!1spt-BR!2sbr!4v1713704866716!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
+            <button class="open-map-modal map-button-attraction flex-1" data-map-query="Mosteiro dos Jerónimos, Lisboa, Portugal" title="Ver mapa do Mosteiro dos Jerónimos"><i class="fas fa-map-marker-alt"></i></button>
             <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Mosteiro dos Jerónimos"
-              data-visit-time="1 h 30 – 2 h"
-              data-what-to-see="Igreja Santa Maria de Belém (entrada gratuita); impressionante claustro manuelino (pago); túmulos de Vasco da Gama e Luís de Camões; antigo refeitório dos monges; sacristia; azulejos quinhentistas."
-              data-history="Construção iniciada em 1501 sob o reinado de D. Manuel I, financiada em grande parte pelos lucros do comércio de especiarias. É o expoente máximo do estilo manuelino, uma variante portuguesa do gótico final, caracterizado por uma rica decoração naturalista e marítima. Classificado como Património Mundial pela UNESCO em 1983, juntamente com a Torre de Belém."><i class="fas fa-info-circle"></i></button>
-            <a href="https://bilheteira.patrimoniocultural.gov.pt/monumentos/mosteiro-dos-jeronimos" target="_blank" rel="noopener" class="ticket-button flex-1 card-button"><i class="fas fa-ticket-alt"></i></a>
+                    data-attraction-name="Mosteiro dos Jerónimos"
+                    data-visit-time="1 h 30 – 2 h"
+                    data-what-to-see="Igreja Santa Maria de Belém (entrada gratuita); impressionante claustro manuelino (pago); túmulos de Vasco da Gama e Luís de Camões; antigo refeitório dos monges; sacristia; azulejos quinhentistas."
+                    data-history="Construção iniciada em 1501 sob o reinado de D. Manuel I, financiada em grande parte pelos lucros do comércio de especiarias. É o expoente máximo do estilo manuelino, uma variante portuguesa do gótico final, caracterizado por uma rica decoração naturalista e marítima. Classificado como Património Mundial pela UNESCO em 1983, juntamente com a Torre de Belém." title="Saber mais sobre o Mosteiro dos Jerónimos"><i class="fas fa-info-circle"></i></button>
+            <a href="https://bilheteira.patrimoniocultural.gov.pt/monumentos/mosteiro-dos-jeronimos" target="_blank" rel="noopener noreferrer" class="ticket-button flex-1 card-button" title="Comprar bilhetes para o Mosteiro dos Jerónimos"><i class="fas fa-ticket-alt"></i></a>
           </div>
           <h5 class="text-xl font-bold mb-2">Mosteiro dos Jerónimos</h5>
           <p class="text-gray-700 text-sm flex-grow">Majestoso mosteiro manuelino, Património Mundial da UNESCO, com um impressionante claustro rendilhado e os túmulos de figuras históricas como Vasco da Gama e Luís de Camões.</p>
@@ -88,243 +157,388 @@
         <div class="attraction-card">
           <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Torre_de_Bel%C3%A9m_front.jpg" alt="Torre de Belém" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Belém';">
           <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3114.382478314507!2d-9.21823968465571!3d38.69158997960266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb62f724a1c5%3A0x34a71a78a1e4c6f0!2sTorre%20de%20Bel%C3%A9m!5e0!3m2!1spt-BR!2sbr!4v1713704925786!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
+            <button class="open-map-modal map-button-attraction flex-1" data-map-query="Torre de Belém, Lisboa, Portugal" title="Ver mapa da Torre de Belém"><i class="fas fa-map-marker-alt"></i></button>
             <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Torre de Belém"
-              data-visit-time="± 1 h"
-              data-what-to-see="Exterior ricamente decorado com motivos manuelinos; terraço da bateria com canhoneiras; sala do governador; sala dos reis; capela; guaritas mouriscas; vista panorâmica do Tejo e da Ponte 25 de Abril."
-              data-history="Erguida estrategicamente na margem norte do rio Tejo entre 1514 e 1519, por ordem de D. Manuel I, sob a direção do arquiteto Francisco de Arruda. Serviu como fortaleza defensiva, farol e posto de controlo aduaneiro. É um símbolo do poder marítimo português na Era dos Descobrimentos e Património Mundial da UNESCO."><i class="fas fa-info-circle"></i></button>
-            <a href="https://bilheteira.patrimoniocultural.gov.pt/monumentos/torre-de-belem" target="_blank" rel="noopener" class="ticket-button flex-1 card-button"><i class="fas fa-ticket-alt"></i></a>
+                    data-attraction-name="Torre de Belém"
+                    data-visit-time="± 1 h"
+                    data-what-to-see="Exterior ricamente decorado com motivos manuelinos; terraço da bateria com canhoneiras; sala do governador; sala dos reis; capela; guaritas mouriscas; vista panorâmica do Tejo e da Ponte 25 de Abril."
+                    data-history="Erguida estrategicamente na margem norte do rio Tejo entre 1514 e 1519, por ordem de D. Manuel I, sob a direção do arquiteto Francisco de Arruda. Serviu como fortaleza defensiva, farol e posto de controlo aduaneiro. É um símbolo do poder marítimo português na Era dos Descobrimentos e Património Mundial da UNESCO." title="Saber mais sobre a Torre de Belém"><i class="fas fa-info-circle"></i></button>
+            <a href="https://bilheteira.patrimoniocultural.gov.pt/monumentos/torre-de-belem" target="_blank" rel="noopener noreferrer" class="ticket-button flex-1 card-button" title="Comprar bilhetes para a Torre de Belém"><i class="fas fa-ticket-alt"></i></a>
           </div>
           <h5 class="text-xl font-bold mb-2">Torre de Belém</h5>
           <p class="text-gray-700 text-sm flex-grow">Ícone emblemático dos Descobrimentos Portugueses, esta fortaleza manuelina elegantemente decorada ergue-se à beira do Tejo, oferecendo vistas históricas e arquitetura única.</p>
         </div>
 
         <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Castelo_de_Sao_Jorge_%2828482996488%29.jpg" alt="Castelo de São Jorge" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Castelo';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.169842885888!2d-9.13578968465501!3d38.71385897959941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd193444c07b3979%3A0x4b6a7775cf947275!2sCastelo%20de%20S%C3%A3o%20Jorge!5e0!3m2!1spt-BR!2sbr!4v1713704971897!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Castelo de São Jorge"
-              data-visit-time="1 h 30 – 2 h"
-              data-what-to-see="Explorar as muralhas e as 11 torres medievais; vistas panorâmicas espetaculares de Lisboa; Câmara Escura (periscópio com vista 360º); ruínas arqueológicas do antigo Paço Real; jardins com pavões."
-              data-history="Originalmente uma fortificação muçulmana (alcáçova) conquistada por D. Afonso Henriques em 1147. Foi residência da corte real portuguesa entre os séculos XIII e XVI. Sofreu danos significativos no terramoto de 1755 e foi extensivamente restaurado durante o século XX, tornando-se um monumento nacional e miradouro privilegiado."><i class="fas fa-info-circle"></i></button>
-            <a href="https://castelodesaojorge.pt/en/plan-your-visit/choose-your-ticket/" target="_blank" rel="noopener" class="ticket-button flex-1 card-button"><i class="fas fa-ticket-alt"></i></a>
-          </div>
-          <h5 class="text-xl font-bold mb-2">Castelo de São Jorge</h5>
-          <p class="text-gray-700 text-sm flex-grow">Imponente fortaleza que coroa a colina mais alta de Lisboa, oferecendo muralhas antigas para explorar, vistas panorâmicas deslumbrantes sobre a cidade e o rio, e séculos de história.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Castelo_de_Sao_Jorge_%2828482996488%29.jpg" alt="Castelo de São Jorge" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Castelo';">
+            <div class="flex space-x-2 mb-4">
+                <button class="open-map-modal map-button-attraction flex-1" data-map-query="Castelo de São Jorge, Lisboa, Portugal" title="Ver mapa do Castelo de São Jorge"><i class="fas fa-map-marker-alt"></i></button>
+                <button class="open-about-modal about-button flex-1"
+                        data-attraction-name="Castelo de São Jorge"
+                        data-visit-time="1 h 30 – 2 h"
+                        data-what-to-see="Explorar as muralhas e as 11 torres medievais; vistas panorâmicas espetaculares de Lisboa; Câmara Escura (periscópio com vista 360º); ruínas arqueológicas do antigo Paço Real; jardins com pavões."
+                        data-history="Originalmente uma fortificação muçulmana (alcáçova) conquistada por D. Afonso Henriques em 1147. Foi residência da corte real portuguesa entre os séculos XIII e XVI. Sofreu danos significativos no terramoto de 1755 e foi extensivamente restaurado durante o século XX, tornando-se um monumento nacional e miradouro privilegiado." title="Saber mais sobre o Castelo de São Jorge"><i class="fas fa-info-circle"></i></button>
+                <a href="https://castelodesaojorge.pt/en/plan-your-visit/choose-your-ticket/" target="_blank" rel="noopener noreferrer" class="ticket-button flex-1 card-button" title="Comprar bilhetes para o Castelo de São Jorge"><i class="fas fa-ticket-alt"></i></a>
+            </div>
+            <h5 class="text-xl font-bold mb-2">Castelo de São Jorge</h5>
+            <p class="text-gray-700 text-sm flex-grow">Imponente fortaleza que coroa a colina mais alta de Lisboa, oferecendo muralhas antigas para explorar, vistas panorâmicas deslumbrantes sobre a cidade e o rio, e séculos de história.</p>
         </div>
 
         <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Lisbon%2C_the_museum_Nacional_de_Arte_Antiga.JPG" alt="Museu Nacional de Arte Antiga" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=MNAA';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.715709369697!2d-9.163010684655307!3d38.70447997960096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934a7b8a80c69%3A0x7f9f68a3648a6c7d!2sMuseu%20Nacional%20de%20Arte%20Antiga!5e0!3m2!1spt-BR!2sbr!4v1713705016164!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Museu Nacional de Arte Antiga"
-              data-visit-time="2 – 3 h"
-              data-what-to-see="Obras-primas da pintura portuguesa (Painéis de S. Vicente de Fora); pintura europeia (Bosch, Dürer); escultura; artes decorativas (ourivesaria, mobiliário, cerâmica); arte Namban (influência japonesa); jardins agradáveis com vista rio."
-              data-history="Fundado em 1884 e instalado no Palácio Alvor-Pombal (antiga residência do Marquês de Pombal). O seu vasto acervo provém principalmente de conventos e mosteiros extintos após as reformas liberais de 1834, bem como de coleções reais e doações particulares, oferecendo um panorama da arte portuguesa e europeia do século XII ao XIX."><i class="fas fa-info-circle"></i></button>
-            </div>
-          <h5 class="text-xl font-bold mb-2">Museu Nacional de Arte Antiga</h5>
-          <p class="text-gray-700 text-sm flex-grow">Principal museu de arte de Portugal, alojado num palácio histórico, guardando uma vasta coleção que abrange pintura, escultura e artes decorativas, com destaque para os Painéis de São Vicente (bilhetes apenas na portaria).</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Lisbon%2C_the_museum_Nacional_de_Arte_Antiga.JPG" alt="Museu Nacional de Arte Antiga" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=MNAA';">
+            <div class="flex space-x-2 mb-4">
+                <button class="open-map-modal map-button-attraction flex-1" data-map-query="Museu Nacional de Arte Antiga, Rua das Janelas Verdes, Lisboa" title="Ver mapa do Museu Nacional de Arte Antiga"><i class="fas fa-map-marker-alt"></i></button>
+                <button class="open-about-modal about-button flex-1"
+                        data-attraction-name="Museu Nacional de Arte Antiga"
+                        data-visit-time="2 – 3 h"
+                        data-what-to-see="Obras-primas da pintura portuguesa (Painéis de S. Vicente de Fora); pintura europeia (Bosch, Dürer); escultura; artes decorativas (ourivesaria, mobiliário, cerâmica); arte Namban (influência japonesa); jardins agradáveis com vista rio."
+                        data-history="Fundado em 1884 e instalado no Palácio Alvor-Pombal (antiga residência do Marquês de Pombal). O seu vasto acervo provém principalmente de conventos e mosteiros extintos após as reformas liberais de 1834, bem como de coleções reais e doações particulares, oferecendo um panorama da arte portuguesa e europeia do século XII ao XIX." title="Saber mais sobre o Museu Nacional de Arte Antiga"><i class="fas fa-info-circle"></i></button>
+                </div>
+            <h5 class="text-xl font-bold mb-2">Museu Nacional de Arte Antiga</h5>
+            <p class="text-gray-700 text-sm flex-grow">Principal museu de arte de Portugal, alojado num palácio histórico, guardando uma vasta coleção que abrange pintura, escultura e artes decorativas, com destaque para os Painéis de São Vicente (bilhetes apenas na portaria).</p>
         </div>
 
         <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/The_Iconic_Tram_28_Lisbon%2C_Portugal.jpg" alt="Alfama & Elétrico 28" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Alfama';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12452.46744742711!2d-9.13814214494018!3d38.71309455901254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19344395a68f7b%3A0x1977633b93a161d1!2sAlfama%2C%20Lisboa!5e0!3m2!1spt-BR!2sbr!4v1713705065504!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button> <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Alfama & Elétrico 28"
-              data-visit-time="Elétrico ~40 min (trajeto completo); Alfama 2‑3 h (exploração a pé)"
-              data-what-to-see="Passeio no Elétrico 28 (apanhar cedo para evitar multidões); perder-se nas ruelas de Alfama; Sé de Lisboa; Miradouro de Santa Luzia; Miradouro das Portas do Sol; Panteão Nacional; Feira da Ladra (terças e sábados); ouvir Fado numa casa típica."
-              data-history="Alfama é o bairro mais antigo e um dos mais típicos de Lisboa, com as suas origens remontando ao período muçulmano. As suas ruas estreitas e sinuosas sobreviveram em grande parte ao devastador terramoto de 1755. A linha 28 do elétrico, inaugurada em 1914, tornou-se um ícone turístico, percorrendo muitos dos pontos históricos da cidade."><i class="fas fa-info-circle"></i></button>
-            </div>
-          <h5 class="text-xl font-bold mb-2">Alfama & Elétrico 28</h5>
-          <p class="text-gray-700 text-sm flex-grow">Perca-se pelas ruelas labirínticas e cheias de charme de Alfama, o bairro mais antigo de Lisboa, e desfrute de um passeio pitoresco no icónico elétrico amarelo 28, absorvendo a atmosfera tradicional.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/The_Iconic_Tram_28_Lisbon%2C_Portugal.jpg" alt="Alfama & Elétrico 28" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Alfama';">
+            <div class="flex space-x-2 mb-4">
+                <button class="open-map-modal map-button-attraction flex-1" data-map-query="Miradouro de Santa Luzia, Alfama, Lisboa" title="Ver mapa de Alfama (Miradouro Sta. Luzia)"><i class="fas fa-map-marker-alt"></i></button>
+                <button class="open-about-modal about-button flex-1"
+                        data-attraction-name="Alfama & Elétrico 28"
+                        data-visit-time="Elétrico ~40 min (trajeto completo); Alfama 2‑3 h (exploração a pé)"
+                        data-what-to-see="Passeio no Elétrico 28 (apanhar cedo para evitar multidões); perder-se nas ruelas de Alfama; Sé de Lisboa; Miradouro de Santa Luzia; Miradouro das Portas do Sol; Panteão Nacional; Feira da Ladra (terças e sábados); ouvir Fado numa casa típica."
+                        data-history="Alfama é o bairro mais antigo e um dos mais típicos de Lisboa, com as suas origens remontando ao período muçulmano. As suas ruas estreitas e sinuosas sobreviveram em grande parte ao devastador terramoto de 1755. A linha 28 do elétrico, inaugurada em 1914, tornou-se um ícone turístico, percorrendo muitos dos pontos históricos da cidade." title="Saber mais sobre Alfama e o Elétrico 28"><i class="fas fa-info-circle"></i></button>
+                </div>
+            <h5 class="text-xl font-bold mb-2">Alfama & Elétrico 28</h5>
+            <p class="text-gray-700 text-sm flex-grow">Perca-se pelas ruelas labirínticas e cheias de charme de Alfama, o bairro mais antigo de Lisboa, e desfrute de um passeio pitoresco no icónico elétrico amarelo 28, absorvendo a atmosfera tradicional.</p>
         </div>
-      </div><div class="section-subtitle border-sky-200">
-        <i class="fas fa-utensils text-sky-700 w-6 text-center"></i><h4 class="text-sky-700">Onde comer</h4>
-      </div>
-      <div class="space-y-4 mb-12">
-        <div class="info-box bg-amber-50"><h5 class="font-semibold text-amber-800">Bonjardim (Rei dos Frangos)</h5><p class="text-sm text-amber-700">Famoso pelo seu delicioso frango assado com molho piri-piri, um clássico lisboeta.<br><i>Travessa de Santo Antão 11</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.169842885888!2d-9.14341568465501!3d38.71385897959941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19347d1a749577%3A0x7b7b0a355c1e0c7d!2sBonjardim!5e0!3m2!1spt-BR!2sbr!4v1713705164165!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-amber-50"><h5 class="font-semibold text-amber-800">O Trevo</h5><p class="text-sm text-amber-700">Local popular e simples, conhecido pelas suas autênticas e saborosas bifanas (sanduíches de porco).<br><i>Praça Luís de Camões 48</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.31298545098!2d-9.14487868465511!3d38.71067397960004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19347e6611545d%3A0x68a51a357c080850!2sO%20Trevo!5e0!3m2!1spt-BR!2sbr!4v1713705201200!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-amber-50"><h5 class="font-semibold text-amber-800">D’Bacalhau</h5><p class="text-sm text-amber-700">Restaurante especializado no fiel amigo da gastronomia portuguesa, oferecendo inúmeras receitas de bacalhau num ambiente moderno no Parque das Nações.<br><i>Rua do Bojador 45</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3110.871758458887!2d-9.098481684653448!3d38.76673097959138!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19318a94d9f37b%3A0x884b8e1316b867f8!2sD&#39;Bacalhau!5e0!3m2!1spt-BR!2sbr!4v1713705241733!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-rose-50"><h5 class="font-semibold text-rose-800">Pastéis de Belém</h5><p class="text-sm text-rose-700">A casa original e mundialmente famosa dos pastéis de nata, com receita secreta desde 1837. Imperdível!<br><i>Rua de Belém 84‑92</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3114.050788239996!2d-9.20551568465553!3d38.69683497960195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecb5a7b5f8f1b%3A0x1f37336aa987a9a7!2sPast%C3%A9is%20de%20Bel%C3%A9m!5e0!3m2!1spt-BR!2sbr!4v1713705290106!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-rose-50"><h5 class="font-semibold text-rose-800">Manteigaria (Chiado)</h5><p class="text-sm text-rose-700">Considerada por muitos como tendo um dos melhores pastéis de nata de Lisboa, feitos à vista dos clientes.<br><i>Rua do Loreto 2</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.319022924937!2d-9.14516468465511!3d38.71051897960009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19347e6d3c338b%3A0x66a588b9826f6d19!2sManteigaria!5e0!3m2!1spt-BR!2sbr!4v1713705332549!5m2!1spt-BR!2sbr">Ver no mapa</button></div> <div class="info-box bg-rose-50"><h5 class="font-semibold text-rose-800">Pastelaria Alcoa</h5><p class="text-sm text-rose-700">Premiada pastelaria que oferece uma vasta seleção de doces conventuais tradicionais portugueses, verdadeiras tentações.<br><i>Rua Garrett 37</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.342348712756!2d-9.14213968465513!3d38.71000897960017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934796686c741%3A0x121d3a7f3a962773!2sPastelaria%20Alcoa!5e0!3m2!1spt-BR!2sbr!4v1713705370877!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-orange-50"><h5 class="font-semibold text-orange-800">A Padaria Portuguesa (Rua Augusta)</h5><p class="text-sm text-orange-700">Rede de padarias moderna com várias localizações, ideal para um pequeno-almoço ou lanche rápido. Experimente o Pão-de-Deus.<br><i>Rua Augusta 148</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.271338600605!2d-9.13909168465507!3d38.71161497959983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd193479b8d9708b%3A0x8d77f575d079896f!2sA%20Padaria%20Portuguesa!5e0!3m2!1spt-BR!2sbr!4v1713705424987!5m2!1spt-BR!2sbr">Ver no mapa</button></div> <div class="info-box bg-orange-50"><h5 class="font-semibold text-orange-800">Pastelaria Versailles</h5><p class="text-sm text-orange-700">Pastelaria clássica e elegante com salões em estilo Art Déco, perfeita para um chá da tarde ou uma refeição ligeira num ambiente histórico.<br><i>Av. da República 15A</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.183619379328!2d-9.14801568465432!3d38.73608997959569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd193376a8f73a73%3A0x50b30805a21f3e6a!2sPastelaria%20Versailles!5e0!3m2!1spt-BR!2sbr!4v1713705465053!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
       </div>
 
       <div class="section-subtitle border-sky-200">
-        <i class="fas fa-music text-sky-700 w-6 text-center"></i><h4 class="text-sky-700">Música e eventos</h4>
+        <i class="fas fa-utensils text-sky-700 w-6 text-center"></i>
+        <h4 class="text-sky-700">Onde comer</h4>
       </div>
       <div class="space-y-4 mb-12">
-        <div class="info-box bg-indigo-50"><h5 class="font-semibold text-indigo-800">Clube de Fado</h5><p class="text-sm text-indigo-700">Casa de fados de renome em Alfama, com ambiente intimista e atuações de fadistas consagrados e novos talentos. Ideal para uma noite tradicional portuguesa.<br><i>Rua de São João da Praça 94</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.324176126229!2d-9.13140468465511!3d38.7103959796001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19344191211773%3A0x7f4b535c2e5a02e6!2sClube%20de%20Fado!5e0!3m2!1spt-BR!2sbr!4v1713705536222!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-indigo-50"><h5 class="font-semibold text-indigo-800">Lux Frágil</h5><p class="text-sm text-indigo-700">Discoteca icónica de Lisboa, conhecida pela sua programação de música eletrónica de vanguarda, ambiente sofisticado e terraço com vista para o Tejo.<br><i>Av. Infante D. Henrique, Armazém A, Cais da Pedra</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.994138249545!2d-9.1214066846549!3d38.71786797959863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1931d8f451d89d%3A0x8f650a5b3d0f0e3a!2sLuxFr%C3%A1gil!5e0!3m2!1spt-BR!2sbr!4v1713705574142!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-indigo-50"><h5 class="font-semibold text-indigo-800">Altice Arena</h5><p class="text-sm text-indigo-700">A maior sala de espetáculos de Portugal, localizada no Parque das Nações, recebe grandes concertos de artistas internacionais, eventos desportivos e feiras.<br><i>Rossio dos Olivais, Lote 2.13.01A</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3110.707990344852!2d-9.09654968465334!3d38.7704799795907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19318f783017a5%3A0x6e973c4ad6e14568!2sAltice%20Arena!5e0!3m2!1spt-BR!2sbr!4v1713705610296!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
+        <div class="info-box bg-amber-50">
+            <h5 class="font-semibold text-amber-800">Bonjardim (Rei dos Frangos)</h5>
+            <p class="text-sm text-amber-700">Famoso pelo seu delicioso frango assado com molho piri-piri, um clássico lisboeta.<br><i>Travessa de Santo Antão 11</i></p>
+            <button class="open-map-modal map-button-info-box" data-map-query="Bonjardim Rei dos Frangos, Travessa de Santo Antão 11, Lisboa">Ver no mapa</button>
+        </div>
+        <div class="info-box bg-amber-50">
+            <h5 class="font-semibold text-amber-800">O Trevo</h5>
+            <p class="text-sm text-amber-700">Local popular e simples, conhecido pelas suas autênticas e saborosas bifanas (sanduíches de porco).<br><i>Praça Luís de Camões 48</i></p>
+            <button class="open-map-modal map-button-info-box" data-map-query="O Trevo, Praça Luís de Camões 48, Lisboa">Ver no mapa</button>
+        </div>
+        <div class="info-box bg-amber-50">
+             <h5 class="font-semibold text-amber-800">D’Bacalhau</h5>
+             <p class="text-sm text-amber-700">Restaurante especializado no fiel amigo da gastronomia portuguesa, oferecendo inúmeras receitas de bacalhau num ambiente moderno no Parque das Nações.<br><i>Rua do Bojador 45</i></p>
+             <button class="open-map-modal map-button-info-box" data-map-query="D'Bacalhau, Rua do Bojador 45, Lisboa">Ver no mapa</button>
+         </div>
+         <div class="info-box bg-rose-50">
+             <h5 class="font-semibold text-rose-800">Pastéis de Belém</h5>
+             <p class="text-sm text-rose-700">A casa original e mundialmente famosa dos pastéis de nata, com receita secreta desde 1837. Imperdível!<br><i>Rua de Belém 84‑92</i></p>
+             <button class="open-map-modal map-button-info-box" data-map-query="Pastéis de Belém, Rua de Belém 84, Lisboa">Ver no mapa</button>
+         </div>
+         <div class="info-box bg-rose-50">
+             <h5 class="font-semibold text-rose-800">Manteigaria (Chiado)</h5>
+             <p class="text-sm text-rose-700">Considerada por muitos como tendo um dos melhores pastéis de nata de Lisboa, feitos à vista dos clientes.<br><i>Rua do Loreto 2</i></p>
+             <button class="open-map-modal map-button-info-box" data-map-query="Manteigaria, Rua do Loreto 2, Lisboa">Ver no mapa</button>
+         </div>
+         <div class="info-box bg-rose-50">
+             <h5 class="font-semibold text-rose-800">Pastelaria Alcoa</h5>
+             <p class="text-sm text-rose-700">Premiada pastelaria que oferece uma vasta seleção de doces conventuais tradicionais portugueses, verdadeiras tentações.<br><i>Rua Garrett 37</i></p>
+             <button class="open-map-modal map-button-info-box" data-map-query="Pastelaria Alcoa, Rua Garrett 37, Lisboa">Ver no mapa</button>
+         </div>
+         <div class="info-box bg-orange-50">
+             <h5 class="font-semibold text-orange-800">A Padaria Portuguesa (Rua Augusta)</h5>
+             <p class="text-sm text-orange-700">Rede de padarias moderna com várias localizações, ideal para um pequeno-almoço ou lanche rápido. Experimente o Pão-de-Deus.<br><i>Rua Augusta 148</i></p>
+             <button class="open-map-modal map-button-info-box" data-map-query="A Padaria Portuguesa, Rua Augusta 148, Lisboa">Ver no mapa</button>
+         </div>
+         <div class="info-box bg-orange-50">
+             <h5 class="font-semibold text-orange-800">Pastelaria Versailles</h5>
+             <p class="text-sm text-orange-700">Pastelaria clássica e elegante com salões em estilo Art Déco, perfeita para um chá da tarde ou uma refeição ligeira num ambiente histórico.<br><i>Av. da República 15A</i></p>
+             <button class="open-map-modal map-button-info-box" data-map-query="Pastelaria Versailles, Av. da República 15A, Lisboa">Ver no mapa</button>
+         </div>
       </div>
 
       <div class="section-subtitle border-sky-200">
-        <i class="fas fa-route text-sky-700 w-6 text-center"></i><h4 class="text-sky-700">Sugestões de bate e volta</h4>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="info-box bg-emerald-50 flex flex-col"><h5 class="text-xl font-semibold text-emerald-800 mb-2">Sintra</h5><p class="text-emerald-700 mb-3 flex-grow">Vila mágica e romântica aninhada nas colinas perto de Lisboa, famosa pelos seus palácios de conto de fadas como o colorido Palácio da Pena, a misteriosa Quinta da Regaleira com os seus túneis e poço iniciático, e o centro histórico charmoso.</p><button class="open-map-modal map-button-daytrip self-start" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50062.89703249383!2d-9.421419648632814!3d38.79863500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1edab1d315eaf5%3A0x546a77f2f0f61ff!2sSintra!5e0!3m2!1spt-BR!2sbr!4v1713705684091!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button></div>
-        <div class="info-box bg-emerald-50 flex flex-col"><h5 class="text-xl font-semibold text-emerald-800 mb-2">Cascais & Estoril</h5><p class="text-emerald-700 mb-3 flex-grow">Elegante linha costeira a oeste de Lisboa. Cascais oferece um centro histórico pitoresco, praias e uma marina animada, enquanto Estoril é conhecida pelo seu famoso casino, jardins e proximidade a praias como a do Tamariz.</p><button class="open-map-modal map-button-daytrip self-start" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24922.18618986994!2d-9.43894034863281!3d38.70341530000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ec4450016e09d%3A0x534a3a49d6b8997d!2sCascais!5e0!3m2!1spt-BR!2sbr!4v1713705727696!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button></div> <div class="info-box bg-emerald-50 flex flex-col"><h5 class="text-xl font-semibold text-emerald-800 mb-2">Óbidos</h5><p class="text-emerald-700 mb-3 flex-grow">Encantadora vila medieval perfeitamente preservada dentro de muralhas imponentes. Passeie pelas suas ruas floridas e estreitas, visite o castelo (hoje uma pousada) e não deixe de provar a famosa Ginjinha de Óbidos, licor de cereja servido num copinho de chocolate.</p><button class="open-map-modal map-button-daytrip self-start" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24711.96052603505!2d-9.174075048632814!3d39.3610158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd18b416186bd75d%3A0x59d73a14e1561f0b!2zw5NiaWRvcw!5e0!3m2!1spt-BR!2sbr!4v1713705768553!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button></div>
-        <div class="info-box bg-emerald-50 flex flex-col"><h5 class="text-xl font-semibold text-emerald-800 mb-2">Mosteiro da Batalha</h5><p class="text-emerald-700 mb-3 flex-grow">Impressionante obra-prima da arquitetura gótica e manuelina, classificada como Património Mundial pela UNESCO. Construído para celebrar a vitória portuguesa na Batalha de Aljubarrota, destaca-se pela sua igreja monumental, o Panteão Real, o Claustro Real e as inacabadas Capelas Imperfeitas.</p><button class="open-map-modal map-button-daytrip self-start" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3080.188763019608!2d-8.82754468463268!3d39.6585699794601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2275a313271751%3A0x4e9a4f679545f0e5!2sMosteiro%20da%20Batalha!5e0!3m2!1spt-BR!2sbr!4v1713705814967!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button></div>
-      </div>
-    </section><section id="porto" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
-      <h3 class="text-3xl font-semibold mb-8 pb-2 text-purple-700 border-b-2 border-purple-200">Porto — A capital do norte</h3>
-
-      <div class="section-subtitle border-purple-200">
-        <i class="fas fa-map-signs text-purple-700 w-6 text-center"></i><h4 class="text-purple-700">O que visitar</h4>
-      </div>
-
-      <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mercado_do_Bolh%C3%A3o_2023-08-08_05.02.56_%2853111822406%29.jpg" alt="Mercado do Bolhão" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Bolhão';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.521331855552!2d-8.60879468458259!3d41.1455889792872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e1f79a38b9%3A0x756a0a0e3121e4e!2sMercado%20do%20Bolh%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1713705935361!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Mercado do Bolhão"
-              data-visit-time="30 – 60 min"
-              data-what-to-see="Arquitetura neoclássica renovada; bancas vibrantes de frutas, legumes, peixe fresco, carne, flores e artesanato; restaurantes e cafés no piso superior; sentir a atmosfera autêntica do Porto."
-              data-history="Este emblemático mercado neoclássico abriu portas em 1914, tornando-se rapidamente um centro vital de comércio e convívio no Porto. Após um período de degradação, foi sujeito a uma profunda renovação entre 2018 e 2022, reabrindo com instalações modernas mas preservando a sua estrutura original e muitos dos vendedores históricos."><i class="fas fa-info-circle"></i></button>
-            </div>
-          <h5 class="text-xl font-bold mb-2">Mercado do Bolhão</h5>
-          <p class="text-gray-700 text-sm flex-grow">Vibrante mercado histórico no coração do Porto, recentemente renovado, onde pode encontrar produtos frescos, flores, artesanato e sentir o pulsar autêntico da cidade. Entrada gratuita.</p>
-        </div>
-
-        <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Livraria_LELLO_Porto.jpg" alt="Livraria Lello" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Lello';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.608629417319!2d-8.61529068458266!3d41.14397497928738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e1c9f9b683%3A0x7190f3870d1b1a01!2sLivraria%20Lello!5e0!3m2!1spt-BR!2sbr!4v1713705976186!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Livraria Lello"
-              data-visit-time="30 – 45 min (pode haver fila)"
-              data-what-to-see="Fachada neogótica; interior deslumbrante com a icónica escadaria carmim central; belíssimo vitral no teto; estantes de madeira trabalhada do chão ao teto; bustos de escritores portugueses."
-              data-history="Inaugurada em 1906 pelos irmãos José e António Lello, esta livraria destaca-se pela sua fachada neogótica e, sobretudo, pelo seu interior deslumbrante com a icónica escadaria carmim, vitrais e detalhes em madeira trabalhada. Ganhou fama internacional por ser frequentemente associada à inspiração para a série Harry Potter. A taxa de entrada é dedutível na compra de livros."><i class="fas fa-info-circle"></i></button>
-            <a href="https://tickets.livrarialello.pt/" target="_blank" rel="noopener" class="ticket-button flex-1 card-button"><i class="fas fa-ticket-alt"></i></a>
-          </div>
-          <h5 class="text-xl font-bold mb-2">Livraria Lello</h5>
-          <p class="text-gray-700 text-sm flex-grow">Considerada uma das livrarias mais belas do mundo, famosa pela sua deslumbrante escadaria vermelha e arquitetura neogótica. Um local mágico, alegadamente inspirador para J.K. Rowling. Compre voucher online.</p>
-        </div>
-
-        <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/2013-11-30_-_Porto_Ribeira_-_IMG_0072-Editar_%2814661401688%29.jpg" alt="Ribeira" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Ribeira';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6009.73616219996!2d-8.61692175458282!3d41.14074187928765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e6764f06c9%3A0x36993c20086a895c!2sCais%20da%20Ribeira!5e0!3m2!1spt-BR!2sbr!4v1713706026311!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Ribeira"
-              data-visit-time="1 – 2 h (mais tempo se parar para comer/beber)"
-              data-what-to-see="Passear pelo Cais da Ribeira; admirar as casas coloridas e estreitas; vistas da Ponte Dom Luís I; ver os barcos rabelos (antigos barcos de transporte de vinho); restaurantes e bares com esplanadas; Praça da Ribeira; miradouros nas ruas adjacentes."
-              data-history="Zona histórica junto ao rio Douro, foi o coração da atividade mercantil do Porto durante séculos. As suas casas coloridas e ruas estreitas mantêm um charme medieval. Juntamente com o centro histórico do Porto e a Ponte Dom Luís I, foi classificada como Património Mundial pela UNESCO em 1996."><i class="fas fa-info-circle"></i></button>
-            </div>
-          <h5 class="text-xl font-bold mb-2">Ribeira</h5>
-          <p class="text-gray-700 text-sm flex-grow">Cais pitoresco e vibrante à beira do rio Douro, Património Mundial da UNESCO, com as suas fachadas coloridas, restaurantes animados e vistas icónicas da Ponte Dom Luís I e das caves de Gaia.</p>
-        </div>
-
-        <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vila_Nova_de_Gaia-Caves_Calem-20140910.jpg" alt="Caves Cálem" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Caves';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.886581985114!2d-8.61585868458284!3d41.13864997928785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e6f1782711%3A0x5f055e11e7d07f0f!2sCaves%20C%C3%A1lem!5e0!3m2!1spt-BR!2sbr!4v1713706074758!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Caves do Vinho do Porto (Cálem)"
-              data-visit-time="± 1 h (visita + prova)"
-              data-what-to-see="Visita guiada explicando a história do Vinho do Porto e da marca Cálem; passagem pelas adegas com grandes balseiros de carvalho onde o vinho envelhece; museu interativo; prova de diferentes tipos de Vinho do Porto (geralmente Ruby e Tawny)."
-              data-history="Fundada em 1859 por António Alves Cálem, esta é uma das mais conhecidas e visitadas caves de Vinho do Porto em Vila Nova de Gaia. A localização em Gaia é tradicionalmente preferida para o envelhecimento do vinho devido ao seu microclima mais húmido e fresco, ideal para a maturação lenta nos grandes balseiros de carvalho."><i class="fas fa-info-circle"></i></button>
-            <a href="https://tour.calem.pt/" target="_blank" rel="noopener" class="ticket-button flex-1 card-button"><i class="fas fa-ticket-alt"></i></a>
-          </div>
-          <h5 class="text-xl font-bold mb-2">Caves do Vinho do Porto (Cálem)</h5>
-          <p class="text-gray-700 text-sm flex-grow">Explore o fascinante mundo do Vinho do Porto numa das caves mais tradicionais de Vila Nova de Gaia. Inclui visita guiada pelas adegas e uma deliciosa degustação dos diferentes tipos de vinho.</p>
-        </div>
-
-        <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Pal%C3%A1cio_da_Bolsa%2C_Bolsa_Palace%2C_Porto%2C_Portugal_%2853973583947%29.jpg" alt="Palácio da Bolsa" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Bolsa';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.844853732118!2d-8.6159946845828!3d41.13942297928779!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e6a9d9a1a7%3A0x7f8d7c1e6a05e68d!2sPal%C3%A1cio%20da%20Bolsa!5e0!3m2!1spt-BR!2sbr!4v1713706118641!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Palácio da Bolsa"
-              data-visit-time="45 min (visita guiada obrigatória)"
-              data-what-to-see="Pátio das Nações (coberto por uma claraboia de vidro); Escadaria Nobre em granito; Sala do Tribunal; Sala Dourada; Sala das Assembleias Gerais; o deslumbrante Salão Árabe, ricamente decorado em estilo neo-mourisco."
-              data-history="Construído entre 1842 e 1910 pela Associação Comercial do Porto sobre as ruínas de um antigo convento franciscano. O edifício, em estilo neoclássico com interiores ricamente decorados em diversos estilos (incluindo o famoso Salão Árabe neo-mourisco), serviu como centro financeiro e de representação da burguesia portuense, embora nunca tenha funcionado como uma bolsa de valores tradicional."><i class="fas fa-info-circle"></i></button>
-            <a href="https://palaciodabolsa.com/#visite" target="_blank" rel="noopener" class="ticket-button flex-1 card-button"><i class="fas fa-ticket-alt"></i></a>
-          </div>
-          <h5 class="text-xl font-bold mb-2">Palácio da Bolsa</h5>
-          <p class="text-gray-700 text-sm flex-grow">Magnífico edifício neoclássico, sede da Associação Comercial do Porto, cujo interior ricamente decorado deslumbra os visitantes, especialmente o opulento Salão Árabe de inspiração mourisca.</p>
-        </div>
-
-        <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Porto_-_Igreja_da_Ordem_de_S%C3%A3o_Francisco1536.jpg" alt="Igreja de São Francisco" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Francisco';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.853893856437!2d-8.61643468458281!3d41.1392559792878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e6a89f170f%3A0x10a22a479c34d4e2!2sIgreja%20de%20S%C3%A3o%20Francisco!5e0!3m2!1spt-BR!2sbr!4v1713706165243!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Igreja de São Francisco"
-              data-visit-time="45 min – 1 h (inclui catacumbas)"
-              data-what-to-see="Exterior gótico relativamente austero; interior barroco exuberante, quase totalmente coberto por talha dourada (estima-se 350 kg de ouro); destaque para a Árvore de Jessé (árvore genealógica de Jesus); visita às catacumbas do antigo cemitério."
-              data-history="Originalmente um convento franciscano cuja igreja foi iniciada no século XIV em estilo gótico. Durante os séculos XVII e XVIII, o seu interior foi completamente revestido com sumptuosa talha dourada barroca, transformando-a num dos exemplos mais impressionantes deste estilo em Portugal. O bilhete inclui acesso ao museu e às catacumbas."><i class="fas fa-info-circle"></i></button>
-            </div>
-          <h5 class="text-xl font-bold mb-2">Igreja de São Francisco</h5>
-          <p class="text-gray-700 text-sm flex-grow">Um tesouro barroco escondido atrás de uma fachada gótica relativamente simples. O seu interior é uma explosão de talha dourada que cobre quase todas as superfícies, incluindo a famosa Árvore de Jessé.</p>
-        </div>
-
-        <div class="attraction-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Vista_da_Torre_dos_Cl%C3%A9rigos_a_partir_do_Jardim_da_Cordoaria.jpg" alt="Torre dos Clérigos" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Clérigos';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.629138194971!2d-8.61690568458267!3d41.1435949792874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e1b052444b%3A0x88327e4b249a0627!2sTorre%20dos%20Cl%C3%A9rigos!5e0!3m2!1spt-BR!2sbr!4v1713706211080!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Torre dos Clérigos"
-              data-visit-time="± 1 h (inclui subida e tempo no topo)"
-              data-what-to-see="Subida dos 225 degraus por uma escada estreita; miradouro no topo com vistas panorâmicas de 360° sobre o Porto e Gaia; visita à Igreja dos Clérigos (barroca, de planta elíptica); museu da Irmandade dos Clérigos."
-              data-history="Projetada pelo arquiteto italiano Nicolau Nasoni, a torre foi construída entre 1754 e 1763, integrada no conjunto da Igreja dos Clérigos. Com os seus 76 metros de altura, foi durante muito tempo a estrutura mais alta de Portugal e tornou-se o símbolo incontornável da cidade do Porto, oferecendo vistas incomparáveis."><i class="fas fa-info-circle"></i></button>
-            <a href="https://www.torredosclerigos.pt/bilheteira/" target="_blank" rel="noopener" class="ticket-button flex-1 card-button"><i class="fas fa-ticket-alt"></i></a>
-          </div>
-          <h5 class="text-xl font-bold mb-2">Torre dos Clérigos</h5>
-          <p class="text-gray-700 text-sm flex-grow">Ex-líbris arquitetónico do Porto, esta torre barroca de 76 metros, obra de Nasoni, oferece, após subir os seus 225 degraus, as mais espetaculares vistas panorâmicas de 360° sobre a cidade.</p>
-        </div>
-
-        <div class="attraction-card">
-          <img src="https://museudoporto.pt/wp-content/uploads/2020/08/AAF5073-copy-co%CC%81pia.jpg" alt="Casa‑Museu Marta Ortigão Sampaio" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=MOS';">
-          <div class="flex space-x-2 mb-4">
-            <button class="open-map-modal map-button-attraction flex-1" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3003.876487094418!2d-8.63064268458219!3d41.15781997928598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2465b4991f2c61%3A0x308b0f6f5e5a54c4!2sCasa%20Museu%20Marta%20Ortig%C3%A3o%20Sampaio!5e0!3m2!1spt-BR!2sbr!4v1713706257171!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="open-about-modal about-button flex-1"
-              data-attraction-name="Casa‑Museu Marta Ortigão Sampaio"
-              data-visit-time="± 1 h"
-              data-what-to-see="Ambiente de uma casa burguesa dos anos 50; coleção de pintura naturalista portuguesa (Silva Porto, Marques de Oliveira); coleção de joias (séculos XVII a XX); mobiliário indo-português e europeu; agradável jardim romântico."
-              data-history="Esta casa, projetada nos anos 1950, foi a residência de Marta Ortigão Sampaio, sobrinha dos escritores Ramalho Ortigão e Guerra Junqueiro. Apaixonada por arte, legou a casa e as suas coleções (pintura naturalista, joias, mobiliário) à Câmara Municipal do Porto. O museu abriu ao público em 1996, integrando a Rede Museu do Porto."><i class="fas fa-info-circle"></i></button>
-            <a href="https://museudoporto.pt/estacao/casa-marta-ortigao-sampaio/" target="_blank" rel="noopener" class="ticket-button flex-1 card-button"><i class="fas fa-ticket-alt"></i></a>
-          </div>
-          <h5 class="text-xl font-bold mb-2">Casa‑Museu Marta Ortigão Sampaio</h5>
-          <p class="text-gray-700 text-sm flex-grow">Explore o ambiente requintado de uma casa burguesa dos anos 50, legada pela colecionadora Marta Ortigão Sampaio, e admire a sua coleção de pintura naturalista portuguesa, joias e mobiliário.</p>
-        </div>
-      </div><div class="section-subtitle border-purple-200">
-        <i class="fas fa-utensils text-purple-700 w-6 text-center"></i><h4 class="text-purple-700">Onde comer</h4>
+        <i class="fas fa-music text-sky-700 w-6 text-center"></i>
+        <h4 class="text-sky-700">Música e eventos</h4>
       </div>
       <div class="space-y-4 mb-12">
-        <div class="info-box bg-amber-50"><h5 class="font-semibold text-amber-800">Adega São Nicolau</h5><p class="text-sm text-amber-700">Restaurante tradicional na zona da Ribeira, conhecido pelos seus pratos de peixe fresco, marisco e petiscos portugueses num ambiente acolhedor e típico.<br><i>Rua de São Nicolau 1</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.865901604849!2d-8.61599468458281!3d41.13903197928783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e6a6751555%3A0x475e9db115a6e6a9!2sAdega%20S%C3%A3o%20Nicolau!5e0!3m2!1spt-BR!2sbr!4v1713706347268!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-amber-50"><h5 class="font-semibold text-amber-800">Meia‑Nau (Matosinhos)</h5><p class="text-sm text-amber-700">Excelente opção em Matosinhos (cidade vizinha famosa pelo peixe fresco) para saborear peixe e marisco de alta qualidade, grelhados na brasa na perfeição.<br><i>Travessa da Conserveira 13, Matosinhos</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3002.441174895248!2d-8.69153868458129!3d41.18903997928295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd246f10b6e3a609%3A0x1945244873461007!2sRestaurante%20Meia-Nau!5e0!3m2!1spt-BR!2sbr!4v1713706402283!5m2!1spt-BR!2sbr">Ver no mapa</button></div> <div class="info-box bg-amber-50"><h5 class="font-semibold text-amber-800">Bacalhoeiro (Gaia)</h5><p class="text-sm text-amber-700">Situado em Vila Nova de Gaia, com vista privilegiada para o Douro e a Ribeira do Porto, este restaurante dedica-se a pratos de bacalhau, apresentando receitas tradicionais e inovadoras.<br><i>Av. de Diogo Leite 74, Vila Nova de Gaia</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.886581985114!2d-8.61585868458284!3d41.13864997928785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e6f1782711%3A0x5f055e11e7d07f0f!2sCaves%20C%C3%A1lem!5e0!3m2!1spt-BR!2sbr!4v1713706074758!5m2!1spt-BR!2sbr">Ver no mapa</button></div> <div class="info-box bg-amber-50"><h5 class="font-semibold text-amber-800">Café Santiago</h5><p class="text-sm text-amber-700">Um dos locais mais reputados e tradicionais do Porto para provar a icónica Francesinha, a sanduíche robusta e deliciosa coberta com molho, típica da cidade.<br><i>Rua de Passos Manuel 226</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.505424155418!2d-8.60648368458257!3d41.14587597928719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e173752007%3A0x332a34de5c7f2041!2sCaf%C3%A9%20Santiago!5e0!3m2!1spt-BR!2sbr!4v1713706491727!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-amber-50"><h5 class="font-semibold text-amber-800">O Paparico</h5><p class="text-sm text-amber-700">Restaurante sofisticado (com estrela Michelin) que oferece uma experiência gastronómica requintada, reinterpretando a cozinha tradicional portuguesa com produtos de alta qualidade e um toque moderno (requer reserva antecipada).<br><i>Rua de Costa Cabral 2343</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3003.394560194325!2d-8.58699168458189!3d41.16702997928507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2465b0b4850001%3A0x9a37e0b6b8d3a836!2sO%20Paparico!5e0!3m2!1spt-BR!2sbr!4v1713706530721!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-amber-50"><h5 class="font-semibold text-amber-800">O Gaveto (Matosinhos)</h5><p class="text-sm text-amber-700">Outra referência incontornável em Matosinhos para marisco e peixe fresco, com viveiros próprios e uma reputação de longa data pela qualidade.<br><i>Rua Roberto Ivens 826, Matosinhos</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3002.513937956385!2d-8.69065968458134!3d41.18766997928309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd246f100c08a58b%3A0x816a769526059b23!2sO%20Gaveto!5e0!3m2!1spt-BR!2sbr!4v1713706607840!5m2!1spt-BR!2sbr">Ver no mapa</button></div> <div class="info-box bg-rose-50"><h5 class="font-semibold text-rose-800">Confeitaria do Bolhão</h5><p class="text-sm text-rose-700">Pastelaria histórica e charmosa, localizada em frente ao mercado, ideal para provar doçaria tradicional portuguesa, tomar um café e sentir a atmosfera local.<br><i>Rua Formosa 339</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.518850000941!2d-8.60795868458259!3d41.14563497928719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e1f0644339%3A0x6fdf6d2c1a7e4e4f!2sConfeitaria%20do%20Bolh%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1713706648077!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-rose-50"><h5 class="font-semibold text-rose-800">Manteigaria (Porto)</h5><p class="text-sm text-rose-700">Tal como em Lisboa, oferece pastéis de nata quentinhos, estaladiços e deliciosos, feitos continuamente ao longo do dia à vista de todos.<br><i>Rua de Alexandre Braga 24</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.530457436407!2d-8.6084256845826!3d41.14540497928723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e1e9182861%3A0x8c10c1a3b0a058e6!2sManteigaria%20-%20F%C3%A1brica%20de%20Past%C3%A9is%20de%20Nata!5e0!3m2!1spt-BR!2sbr!4v1713706685188!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-orange-50"><h5 class="font-semibold text-orange-800">Padaria Ribeiro</h5><p class="text-sm text-orange-700">Padaria e pastelaria tradicional e muito conceituada no centro do Porto, com uma grande variedade de pães artesanais, bolos regionais, salgados e refeições ligeiras.<br><i>Praça de Guilherme Gomes Fernandes 21</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.607690031628!2d-8.61496168458266!3d41.14399497928738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e1c6851787%3A0x75c2f0518c7b5209!2sPadaria%20Ribeiro!5e0!3m2!1spt-BR!2sbr!4v1713706723217!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-orange-50"><h5 class="font-semibold text-orange-800">Confeitaria Tavi</h5><p class="text-sm text-orange-700">Pastelaria com uma localização privilegiada na Foz do Douro, oferecendo vistas deslumbrantes sobre o mar a partir da sua esplanada e uma seleção variada de doces, salgados e refeições.<br><i>Rua da Senhora da Luz 374</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.112653002475!2d-8.675449684583!3d41.15336997928645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd246f60e7d03795%3A0x8a84128858a74720!2sConfeitaria%20Tavi!5e0!3m2!1spt-BR!2sbr!4v1713706760950!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
+        <div class="info-box bg-indigo-50">
+            <h5 class="font-semibold text-indigo-800">Clube de Fado</h5>
+            <p class="text-sm text-indigo-700">Casa de fados de renome em Alfama, com ambiente intimista e atuações de fadistas consagrados e novos talentos. Ideal para uma noite tradicional portuguesa.<br><i>Rua de São João da Praça 94</i></p>
+            <button class="open-map-modal map-button-info-box" data-map-query="Clube de Fado, Rua de São João da Praça 94, Lisboa">Ver no mapa</button>
+        </div>
+        <div class="info-box bg-indigo-50">
+            <h5 class="font-semibold text-indigo-800">Lux Frágil</h5>
+            <p class="text-sm text-indigo-700">Discoteca icónica de Lisboa, conhecida pela sua programação de música eletrónica de vanguarda, ambiente sofisticado e terraço com vista para o Tejo.<br><i>Av. Infante D. Henrique, Armazém A, Cais da Pedra</i></p>
+            <button class="open-map-modal map-button-info-box" data-map-query="Lux Frágil, Av. Infante D. Henrique, Lisboa">Ver no mapa</button>
+        </div>
+        <div class="info-box bg-indigo-50">
+            <h5 class="font-semibold text-indigo-800">Altice Arena</h5>
+            <p class="text-sm text-indigo-700">A maior sala de espetáculos de Portugal, localizada no Parque das Nações, recebe grandes concertos de artistas internacionais, eventos desportivos e feiras.<br><i>Rossio dos Olivais, Lote 2.13.01A</i></p>
+            <button class="open-map-modal map-button-info-box" data-map-query="Altice Arena, Rossio dos Olivais, Lisboa">Ver no mapa</button>
+        </div>
       </div>
 
-      <div class="section-subtitle border-purple-200">
-        <i class="fas fa-music text-purple-700 w-6 text-center"></i><h4 class="text-purple-700">Música e eventos</h4>
-      </div>
-      <div class="space-y-4 mb-12">
-        <div class="info-box bg-indigo-50"><h5 class="font-semibold text-indigo-800">Casa da Mariquinhas</h5><p class="text-sm text-indigo-700">Casa de fados tradicional e acolhedora no Porto, localizada perto da Sé, oferecendo noites autênticas com boa música (fado vadio e tradicional) e petiscos.<br><i>Rua de São Sebastião 25</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.726395289564!2d-8.61091868458272!3d41.14179497928758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e0e0b8d937%3A0x1b15747f651710d0!2sCasa%20da%20Mariquinhas!5e0!3m2!1spt-BR!2sbr!4v1713706825366!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-indigo-50"><h5 class="font-semibold text-indigo-800">Casa da Música</h5><p class="text-sm text-indigo-700">Sala de concertos de arquitetura contemporânea arrojada e aclamada internacionalmente, projetada por Rem Koolhaas. Oferece uma programação musical eclética e de alta qualidade, desde música clássica a jazz, pop e world music.<br><i>Av. da Boavista 604‑610</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.087611743014!2d-8.6307396845823!3d41.15382997928638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2465a47a514721%3A0x830a114f47c12bd1!2sCasa%20da%20M%C3%BAsica!5e0!3m2!1spt-BR!2sbr!4v1713706863150!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-        <div class="info-box bg-indigo-50"><h5 class="font-semibold text-indigo-800">Maus Hábitos</h5><p class="text-sm text-indigo-700">Espaço cultural multifacetado e alternativo no último piso de um edifício-garagem no centro do Porto. Combina bar, restaurante, galeria de arte e sala de concertos com programação regular de música independente, DJ sets e outros eventos.<br><i>Rua de Passos Manuel 178, 4º Piso</i></p><button class="open-map-modal map-button-info-box" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.504485067965!2d-8.60634868458257!3d41.14589497928719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e175547c85%3A0xda04a10a60a89641!2sMaus%20H%C3%A1bitos%20-%20Espa%C3%A7o%20de%20Interven%C3%A7%C3%A3o%20Cultural!5e0!3m2!1spt-BR!2sbr!4v1713706900405!5m2!1spt-BR!2sbr">Ver no mapa</button></div>
-      </div>
-
-      <div class="section-subtitle border-purple-200">
-        <i class="fas fa-route text-purple-700 w-6 text-center"></i><h4 class="text-purple-700">Sugestões de bate e volta</h4>
+      <div class="section-subtitle border-sky-200">
+        <i class="fas fa-route text-sky-700 w-6 text-center"></i>
+        <h4 class="text-sky-700">Sugestões de bate e volta</h4>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="info-box bg-emerald-50 flex flex-col"><h5 class="text-xl font-semibold text-emerald-800 mb-2">Vale do Douro</h5><p class="text-emerald-700 mb-3 flex-grow">Região vinícola de beleza estonteante, classificada como Património Mundial pela UNESCO, onde o rio Douro serpenteia por entre colinas cobertas de vinhas em socalcos. Ideal para passeios de barco, comboio, visitas a quintas produtoras de Vinho do Porto e paisagens memoráveis (ex: Pinhão, Peso da Régua).</p><button class="open-map-modal map-button-daytrip self-start" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48064.10366919095!2d-7.821260648632812!3d41.1622925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3b1a3bbf6a6097%3A0x50a4dbe7b05e3cc0!2sPinh%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1713706978737!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button></div> <div class="info-box bg-emerald-50 flex flex-col"><h5 class="text-xl font-semibold text-emerald-800 mb-2">Guimarães</h5><p class="text-emerald-700 mb-3 flex-grow">Considerada o 'Berço da Nação' portuguesa, esta cidade histórica possui um centro medieval excecionalmente bem preservado (UNESCO), o imponente Castelo de Guimarães (ligado à fundação de Portugal) e o majestoso Paço dos Duques de Bragança.</p><button class="open-map-modal map-button-daytrip self-start" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47917.27702732265!2d-8.330075848632814!3d41.4445496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24506457f16c6d%3A0x7a8a88e85fe131d1!2sGuimar%C3%A3es!5e0!3m2!1spt-BR!2sbr!4v1713707018108!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button></div>
-        <div class="info-box bg-emerald-50 flex flex-col"><h5 class="text-xl font-semibold text-emerald-800 mb-2">Braga</h5><p class="text-emerald-700 mb-3 flex-grow">Importante centro religioso e histórico, conhecida como a 'Roma Portuguesa' pela sua profusão de igrejas. Visite a imponente Sé Catedral (a mais antiga de Portugal), o Santuário do Bom Jesus do Monte com a sua espetacular escadaria barroca e desfrute do ambiente jovem e vibrante da cidade.</p><button class="open-map-modal map-button-daytrip self-start" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47827.79688638375!2d-8.460349448632814!3d41.5518304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24f608d16c8735%3A0x500ebbde49189f0!2sBraga!5e0!3m2!1spt-BR!2sbr!4v1713707057739!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button></div>
-        <div class="info-box bg-emerald-50 flex flex-col"><h5 class="text-xl font-semibold text-emerald-800 mb-2">Aveiro</h5><p class="text-emerald-700 mb-3 flex-grow">Charmosa cidade conhecida como a 'Veneza Portuguesa' pelos seus canais urbanos atravessados por coloridos barcos moliceiros (passeios disponíveis). Prove os deliciosos Ovos Moles (doce típico à base de ovos e açúcar) e admire a arquitetura Arte Nova presente em vários edifícios.</p><button class="open-map-modal map-button-daytrip self-start" data-map-url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48523.71559994551!2d-8.693898048632814!3d40.64049599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd239807459a4797%3A0x71a14537ac16858a!2sAveiro!5e0!3m2!1spt-BR!2sbr!4v1713707100109!5m2!1spt-BR!2sbr"><i class="fas fa-map-marker-alt"></i></button></div>
+        <div class="info-box bg-emerald-50 flex flex-col">
+            <h5 class="text-xl font-semibold text-emerald-800 mb-2">Sintra</h5>
+            <p class="text-emerald-700 mb-3 flex-grow">Vila mágica e romântica aninhada nas colinas perto de Lisboa, famosa pelos seus palácios de conto de fadas como o colorido Palácio da Pena, a misteriosa Quinta da Regaleira com os seus túneis e poço iniciático, e o centro histórico charmoso.</p>
+            <button class="open-map-modal map-button-daytrip self-start" data-map-query="Centro Histórico de Sintra, Portugal"><i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa</button>
+        </div>
+        <div class="info-box bg-emerald-50 flex flex-col">
+            <h5 class="text-xl font-semibold text-emerald-800 mb-2">Cascais & Estoril</h5>
+            <p class="text-emerald-700 mb-3 flex-grow">Elegante linha costeira a oeste de Lisboa. Cascais oferece um centro histórico pitoresco, praias e uma marina animada, enquanto Estoril é conhecida pelo seu famoso casino, jardins e proximidade a praias como a do Tamariz.</p>
+            <button class="open-map-modal map-button-daytrip self-start" data-map-query="Cascais, Portugal"><i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa</button>
+        </div>
+        <div class="info-box bg-emerald-50 flex flex-col">
+            <h5 class="text-xl font-semibold text-emerald-800 mb-2">Óbidos</h5>
+            <p class="text-emerald-700 mb-3 flex-grow">Encantadora vila medieval perfeitamente preservada dentro de muralhas imponentes. Passeie pelas suas ruas floridas e estreitas, visite o castelo (hoje uma pousada) e não deixe de provar a famosa Ginjinha de Óbidos, licor de cereja servido num copinho de chocolate.</p>
+            <button class="open-map-modal map-button-daytrip self-start" data-map-query="Óbidos, Portugal"><i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa</button>
+        </div>
+        <div class="info-box bg-emerald-50 flex flex-col">
+            <h5 class="text-xl font-semibold text-emerald-800 mb-2">Mosteiro da Batalha</h5>
+            <p class="text-emerald-700 mb-3 flex-grow">Impressionante obra-prima da arquitetura gótica e manuelina, classificada como Património Mundial pela UNESCO. Construído para celebrar a vitória portuguesa na Batalha de Aljubarrota, destaca-se pela sua igreja monumental, o Panteão Real, o Claustro Real e as inacabadas Capelas Imperfeitas.</p>
+            <button class="open-map-modal map-button-daytrip self-start" data-map-query="Mosteiro da Batalha, Batalha, Portugal"><i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa</button>
+        </div>
       </div>
-    </section></main>
+    </section>
+
+    <section id="porto" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
+        <h3 class="text-3xl font-semibold mb-8 pb-2 text-purple-700 border-b-2 border-purple-200">Porto — A capital do norte</h3>
+
+        <div class="section-subtitle border-purple-200">
+            <i class="fas fa-map-signs text-purple-700 w-6 text-center"></i>
+            <h4 class="text-purple-700">O que visitar</h4>
+        </div>
+
+        <div class="attraction-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <div class="attraction-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mercado_do_Bolh%C3%A3o_2023-08-08_05.02.56_%2853111822406%29.jpg" alt="Mercado do Bolhão" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Bolhão';">
+                <div class="flex space-x-2 mb-4">
+                    <button class="open-map-modal map-button-attraction flex-1" data-map-query="Mercado do Bolhão, Porto, Portugal" title="Ver mapa do Mercado do Bolhão"><i class="fas fa-map-marker-alt"></i></button>
+                    <button class="open-about-modal about-button flex-1"
+                            data-attraction-name="Mercado do Bolhão"
+                            data-visit-time="30 – 60 min"
+                            data-what-to-see="Arquitetura neoclássica renovada; bancas vibrantes de frutas, legumes, peixe fresco, carne, flores e artesanato; restaurantes e cafés no piso superior; sentir a atmosfera autêntica do Porto."
+                            data-history="Este emblemático mercado neoclássico abriu portas em 1914, tornando-se rapidamente um centro vital de comércio e convívio no Porto. Após um período de degradação, foi sujeito a uma profunda renovação entre 2018 e 2022, reabrindo com instalações modernas mas preservando a sua estrutura original e muitos dos vendedores históricos." title="Saber mais sobre o Mercado do Bolhão"><i class="fas fa-info-circle"></i></button>
+                    </div>
+                <h5 class="text-xl font-bold mb-2">Mercado do Bolhão</h5>
+                <p class="text-gray-700 text-sm flex-grow">Vibrante mercado histórico no coração do Porto, recentemente renovado, onde pode encontrar produtos frescos, flores, artesanato e sentir o pulsar autêntico da cidade. Entrada gratuita.</p>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Livraria_LELLO_Porto.jpg" alt="Livraria Lello" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Lello';">
+                <div class="flex space-x-2 mb-4">
+                    <button class="open-map-modal map-button-attraction flex-1" data-map-query="Livraria Lello, Rua das Carmelitas 144, Porto" title="Ver mapa da Livraria Lello"><i class="fas fa-map-marker-alt"></i></button>
+                    <button class="open-about-modal about-button flex-1"
+                            data-attraction-name="Livraria Lello"
+                            data-visit-time="30 – 45 min (pode haver fila)"
+                            data-what-to-see="Fachada neogótica; interior deslumbrante com a icónica escadaria carmim central; belíssimo vitral no teto; estantes de madeira trabalhada do chão ao teto; bustos de escritores portugueses."
+                            data-history="Inaugurada em 1906 pelos irmãos José e António Lello, esta livraria destaca-se pela sua fachada neogótica e, sobretudo, pelo seu interior deslumbrante com a icónica escadaria carmim, vitrais e detalhes em madeira trabalhada. Ganhou fama internacional por ser frequentemente associada à inspiração para a série Harry Potter. A taxa de entrada é dedutível na compra de livros." title="Saber mais sobre a Livraria Lello"><i class="fas fa-info-circle"></i></button>
+                    <a href="https://tickets.livrarialello.pt/" target="_blank" rel="noopener noreferrer" class="ticket-button flex-1 card-button" title="Comprar voucher para a Livraria Lello"><i class="fas fa-ticket-alt"></i></a>
+                </div>
+                <h5 class="text-xl font-bold mb-2">Livraria Lello</h5>
+                <p class="text-gray-700 text-sm flex-grow">Considerada uma das livrarias mais belas do mundo, famosa pela sua deslumbrante escadaria vermelha e arquitetura neogótica. Um local mágico, alegadamente inspirador para J.K. Rowling. Compre voucher online.</p>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/2013-11-30_-_Porto_Ribeira_-_IMG_0072-Editar_%2814661401688%29.jpg" alt="Ribeira" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Ribeira';">
+                <div class="flex space-x-2 mb-4">
+                    <button class="open-map-modal map-button-attraction flex-1" data-map-query="Cais da Ribeira, Porto, Portugal" title="Ver mapa da Ribeira"><i class="fas fa-map-marker-alt"></i></button>
+                    <button class="open-about-modal about-button flex-1"
+                            data-attraction-name="Ribeira"
+                            data-visit-time="1 – 2 h (mais tempo se parar para comer/beber)"
+                            data-what-to-see="Passear pelo Cais da Ribeira; admirar as casas coloridas e estreitas; vistas da Ponte Dom Luís I; ver os barcos rabelos (antigos barcos de transporte de vinho); restaurantes e bares com esplanadas; Praça da Ribeira; miradouros nas ruas adjacentes."
+                            data-history="Zona histórica junto ao rio Douro, foi o coração da atividade mercantil do Porto durante séculos. As suas casas coloridas e ruas estreitas mantêm um charme medieval. Juntamente com o centro histórico do Porto e a Ponte Dom Luís I, foi classificada como Património Mundial pela UNESCO em 1996." title="Saber mais sobre a Ribeira"><i class="fas fa-info-circle"></i></button>
+                    </div>
+                <h5 class="text-xl font-bold mb-2">Ribeira</h5>
+                <p class="text-gray-700 text-sm flex-grow">Cais pitoresco e vibrante à beira do rio Douro, Património Mundial da UNESCO, com as suas fachadas coloridas, restaurantes animados e vistas icónicas da Ponte Dom Luís I e das caves de Gaia.</p>
+            </div>
+            <div class="attraction-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vila_Nova_de_Gaia-Caves_Calem-20140910.jpg" alt="Caves Cálem" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Caves';">
+                <div class="flex space-x-2 mb-4">
+                    <button class="open-map-modal map-button-attraction flex-1" data-map-query="Caves Cálem, Vila Nova de Gaia, Portugal" title="Ver mapa das Caves Cálem"><i class="fas fa-map-marker-alt"></i></button>
+                    <button class="open-about-modal about-button flex-1"
+                            data-attraction-name="Caves do Vinho do Porto (Cálem)"
+                            data-visit-time="± 1 h (visita + prova)"
+                            data-what-to-see="Visita guiada explicando a história do Vinho do Porto e da marca Cálem; passagem pelas adegas com grandes balseiros de carvalho onde o vinho envelhece; museu interativo; prova de diferentes tipos de Vinho do Porto (geralmente Ruby e Tawny)."
+                            data-history="Fundada em 1859 por António Alves Cálem, esta é uma das mais conhecidas e visitadas caves de Vinho do Porto em Vila Nova de Gaia. A localização em Gaia é tradicionalmente preferida para o envelhecimento do vinho devido ao seu microclima mais húmido e fresco, ideal para a maturação lenta nos grandes balseiros de carvalho." title="Saber mais sobre as Caves Cálem"><i class="fas fa-info-circle"></i></button>
+                    <a href="https://tour.calem.pt/" target="_blank" rel="noopener noreferrer" class="ticket-button flex-1 card-button" title="Comprar bilhetes para as Caves Cálem"><i class="fas fa-ticket-alt"></i></a>
+                </div>
+                <h5 class="text-xl font-bold mb-2">Caves do Vinho do Porto (Cálem)</h5>
+                <p class="text-gray-700 text-sm flex-grow">Explore o fascinante mundo do Vinho do Porto numa das caves mais tradicionais de Vila Nova de Gaia. Inclui visita guiada pelas adegas e uma deliciosa degustação dos diferentes tipos de vinho.</p>
+            </div>
+            <div class="attraction-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Pal%C3%A1cio_da_Bolsa%2C_Bolsa_Palace%2C_Porto%2C_Portugal_%2853973583947%29.jpg" alt="Palácio da Bolsa" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Bolsa';">
+                <div class="flex space-x-2 mb-4">
+                    <button class="open-map-modal map-button-attraction flex-1" data-map-query="Palácio da Bolsa, Rua de Ferreira Borges, Porto" title="Ver mapa do Palácio da Bolsa"><i class="fas fa-map-marker-alt"></i></button>
+                    <button class="open-about-modal about-button flex-1"
+                            data-attraction-name="Palácio da Bolsa"
+                            data-visit-time="45 min (visita guiada obrigatória)"
+                            data-what-to-see="Pátio das Nações (coberto por uma claraboia de vidro); Escadaria Nobre em granito; Sala do Tribunal; Sala Dourada; Sala das Assembleias Gerais; o deslumbrante Salão Árabe, ricamente decorado em estilo neo-mourisco."
+                            data-history="Construído entre 1842 e 1910 pela Associação Comercial do Porto sobre as ruínas de um antigo convento franciscano. O edifício, em estilo neoclássico com interiores ricamente decorados em diversos estilos (incluindo o famoso Salão Árabe neo-mourisco), serviu como centro financeiro e de representação da burguesia portuense, embora nunca tenha funcionado como uma bolsa de valores tradicional." title="Saber mais sobre o Palácio da Bolsa"><i class="fas fa-info-circle"></i></button>
+                    <a href="https://palaciodabolsa.com/#visite" target="_blank" rel="noopener noreferrer" class="ticket-button flex-1 card-button" title="Comprar bilhetes para o Palácio da Bolsa"><i class="fas fa-ticket-alt"></i></a>
+                </div>
+                <h5 class="text-xl font-bold mb-2">Palácio da Bolsa</h5>
+                <p class="text-gray-700 text-sm flex-grow">Magnífico edifício neoclássico, sede da Associação Comercial do Porto, cujo interior ricamente decorado deslumbra os visitantes, especialmente o opulento Salão Árabe de inspiração mourisca.</p>
+            </div>
+            <div class="attraction-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Porto_-_Igreja_da_Ordem_de_S%C3%A3o_Francisco1536.jpg" alt="Igreja de São Francisco" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Francisco';">
+                <div class="flex space-x-2 mb-4">
+                    <button class="open-map-modal map-button-attraction flex-1" data-map-query="Igreja de São Francisco, Rua do Infante D. Henrique, Porto" title="Ver mapa da Igreja de São Francisco"><i class="fas fa-map-marker-alt"></i></button>
+                    <button class="open-about-modal about-button flex-1"
+                            data-attraction-name="Igreja de São Francisco"
+                            data-visit-time="45 min – 1 h (inclui catacumbas)"
+                            data-what-to-see="Exterior gótico relativamente austero; interior barroco exuberante, quase totalmente coberto por talha dourada (estima-se 350 kg de ouro); destaque para a Árvore de Jessé (árvore genealógica de Jesus); visita às catacumbas do antigo cemitério."
+                            data-history="Originalmente um convento franciscano cuja igreja foi iniciada no século XIV em estilo gótico. Durante os séculos XVII e XVIII, o seu interior foi completamente revestido com sumptuosa talha dourada barroca, transformando-a num dos exemplos mais impressionantes deste estilo em Portugal. O bilhete inclui acesso ao museu e às catacumbas." title="Saber mais sobre a Igreja de São Francisco"><i class="fas fa-info-circle"></i></button>
+                    </div>
+                <h5 class="text-xl font-bold mb-2">Igreja de São Francisco</h5>
+                <p class="text-gray-700 text-sm flex-grow">Um tesouro barroco escondido atrás de uma fachada gótica relativamente simples. O seu interior é uma explosão de talha dourada que cobre quase todas as superfícies, incluindo a famosa Árvore de Jessé.</p>
+            </div>
+            <div class="attraction-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Vista_da_Torre_dos_Cl%C3%A9rigos_a_partir_do_Jardim_da_Cordoaria.jpg" alt="Torre dos Clérigos" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=Clérigos';">
+                <div class="flex space-x-2 mb-4">
+                    <button class="open-map-modal map-button-attraction flex-1" data-map-query="Torre dos Clérigos, Rua de São Filipe de Nery, Porto" title="Ver mapa da Torre dos Clérigos"><i class="fas fa-map-marker-alt"></i></button>
+                    <button class="open-about-modal about-button flex-1"
+                            data-attraction-name="Torre dos Clérigos"
+                            data-visit-time="± 1 h (inclui subida e tempo no topo)"
+                            data-what-to-see="Subida dos 225 degraus por uma escada estreita; miradouro no topo com vistas panorâmicas de 360° sobre o Porto e Gaia; visita à Igreja dos Clérigos (barroca, de planta elíptica); museu da Irmandade dos Clérigos."
+                            data-history="Projetada pelo arquiteto italiano Nicolau Nasoni, a torre foi construída entre 1754 e 1763, integrada no conjunto da Igreja dos Clérigos. Com os seus 76 metros de altura, foi durante muito tempo a estrutura mais alta de Portugal e tornou-se o símbolo incontornável da cidade do Porto, oferecendo vistas incomparáveis." title="Saber mais sobre a Torre dos Clérigos"><i class="fas fa-info-circle"></i></button>
+                    <a href="https://www.torredosclerigos.pt/bilheteira/" target="_blank" rel="noopener noreferrer" class="ticket-button flex-1 card-button" title="Comprar bilhetes para a Torre dos Clérigos"><i class="fas fa-ticket-alt"></i></a>
+                </div>
+                <h5 class="text-xl font-bold mb-2">Torre dos Clérigos</h5>
+                <p class="text-gray-700 text-sm flex-grow">Ex-líbris arquitetónico do Porto, esta torre barroca de 76 metros, obra de Nasoni, oferece, após subir os seus 225 degraus, as mais espetaculares vistas panorâmicas de 360° sobre a cidade.</p>
+            </div>
+            <div class="attraction-card">
+                <img src="https://museudoporto.pt/wp-content/uploads/2020/08/AAF5073-copy-co%CC%81pia.jpg" alt="Casa‑Museu Marta Ortigão Sampaio" class="w-full h-48 object-cover rounded-md mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/334155?text=MOS';">
+                <div class="flex space-x-2 mb-4">
+                    <button class="open-map-modal map-button-attraction flex-1" data-map-query="Casa-Museu Marta Ortigão Sampaio, Rua de Entre Quintas 220, Porto" title="Ver mapa da Casa-Museu Marta Ortigão Sampaio"><i class="fas fa-map-marker-alt"></i></button>
+                    <button class="open-about-modal about-button flex-1"
+                            data-attraction-name="Casa‑Museu Marta Ortigão Sampaio"
+                            data-visit-time="± 1 h"
+                            data-what-to-see="Ambiente de uma casa burguesa dos anos 50; coleção de pintura naturalista portuguesa (Silva Porto, Marques de Oliveira); coleção de joias (séculos XVII a XX); mobiliário indo-português e europeu; agradável jardim romântico."
+                            data-history="Esta casa, projetada nos anos 1950, foi a residência de Marta Ortigão Sampaio, sobrinha dos escritores Ramalho Ortigão e Guerra Junqueiro. Apaixonada por arte, legou a casa e as suas coleções (pintura naturalista, joias, mobiliário) à Câmara Municipal do Porto. O museu abriu ao público em 1996, integrando a Rede Museu do Porto." title="Saber mais sobre a Casa-Museu Marta Ortigão Sampaio"><i class="fas fa-info-circle"></i></button>
+                    <a href="https://museudoporto.pt/estacao/casa-marta-ortigao-sampaio/" target="_blank" rel="noopener noreferrer" class="ticket-button flex-1 card-button" title="Ver informações sobre bilhetes"><i class="fas fa-ticket-alt"></i></a>
+                </div>
+                <h5 class="text-xl font-bold mb-2">Casa‑Museu Marta Ortigão Sampaio</h5>
+                <p class="text-gray-700 text-sm flex-grow">Explore o ambiente requintado de uma casa burguesa dos anos 50, legada pela colecionadora Marta Ortigão Sampaio, e admire a sua coleção de pintura naturalista portuguesa, joias e mobiliário.</p>
+            </div>
+        </div>
+
+        <div class="section-subtitle border-purple-200">
+            <i class="fas fa-utensils text-purple-700 w-6 text-center"></i>
+            <h4 class="text-purple-700">Onde comer</h4>
+        </div>
+        <div class="space-y-4 mb-12">
+            <div class="info-box bg-amber-50">
+                <h5 class="font-semibold text-amber-800">Adega São Nicolau</h5>
+                <p class="text-sm text-amber-700">Restaurante tradicional na zona da Ribeira, conhecido pelos seus pratos de peixe fresco, marisco e petiscos portugueses num ambiente acolhedor e típico.<br><i>Rua de São Nicolau 1</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Adega São Nicolau, Rua de São Nicolau 1, Porto">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-amber-50">
+                <h5 class="font-semibold text-amber-800">Meia‑Nau (Matosinhos)</h5>
+                <p class="text-sm text-amber-700">Excelente opção em Matosinhos (cidade vizinha famosa pelo peixe fresco) para saborear peixe e marisco de alta qualidade, grelhados na brasa na perfeição.<br><i>Travessa da Conserveira 13, Matosinhos</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Meia-Nau, Travessa da Conserveira 13, Matosinhos">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-amber-50">
+                <h5 class="font-semibold text-amber-800">Bacalhoeiro (Gaia)</h5>
+                <p class="text-sm text-amber-700">Situado em Vila Nova de Gaia, com vista privilegiada para o Douro e a Ribeira do Porto, este restaurante dedica-se a pratos de bacalhau, apresentando receitas tradicionais e inovadoras.<br><i>Av. de Diogo Leite 74, Vila Nova de Gaia</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Bacalhoeiro, Av. de Diogo Leite 74, Vila Nova de Gaia">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-amber-50">
+                <h5 class="font-semibold text-amber-800">Café Santiago</h5>
+                <p class="text-sm text-amber-700">Um dos locais mais reputados e tradicionais do Porto para provar a icónica Francesinha, a sanduíche robusta e deliciosa coberta com molho, típica da cidade.<br><i>Rua de Passos Manuel 226</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Café Santiago, Rua de Passos Manuel 226, Porto">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-amber-50">
+                <h5 class="font-semibold text-amber-800">O Paparico</h5>
+                <p class="text-sm text-amber-700">Restaurante sofisticado (com estrela Michelin) que oferece uma experiência gastronómica requintada, reinterpretando a cozinha tradicional portuguesa com produtos de alta qualidade e um toque moderno (requer reserva antecipada).<br><i>Rua de Costa Cabral 2343</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="O Paparico, Rua de Costa Cabral 2343, Porto">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-amber-50">
+                <h5 class="font-semibold text-amber-800">O Gaveto (Matosinhos)</h5>
+                <p class="text-sm text-amber-700">Outra referência incontornável em Matosinhos para marisco e peixe fresco, com viveiros próprios e uma reputação de longa data pela qualidade.<br><i>Rua Roberto Ivens 826, Matosinhos</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="O Gaveto, Rua Roberto Ivens 826, Matosinhos">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-rose-50">
+                <h5 class="font-semibold text-rose-800">Confeitaria do Bolhão</h5>
+                <p class="text-sm text-rose-700">Pastelaria histórica e charmosa, localizada em frente ao mercado, ideal para provar doçaria tradicional portuguesa, tomar um café e sentir a atmosfera local.<br><i>Rua Formosa 339</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Confeitaria do Bolhão, Rua Formosa 339, Porto">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-rose-50">
+                <h5 class="font-semibold text-rose-800">Manteigaria (Porto)</h5>
+                <p class="text-sm text-rose-700">Tal como em Lisboa, oferece pastéis de nata quentinhos, estaladiços e deliciosos, feitos continuamente ao longo do dia à vista de todos.<br><i>Rua de Alexandre Braga 24</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Manteigaria, Rua de Alexandre Braga 24, Porto">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-orange-50">
+                <h5 class="font-semibold text-orange-800">Padaria Ribeiro</h5>
+                <p class="text-sm text-orange-700">Padaria e pastelaria tradicional e muito conceituada no centro do Porto, com uma grande variedade de pães artesanais, bolos regionais, salgados e refeições ligeiras.<br><i>Praça de Guilherme Gomes Fernandes 21</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Padaria Ribeiro, Praça de Guilherme Gomes Fernandes 21, Porto">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-orange-50">
+                <h5 class="font-semibold text-orange-800">Confeitaria Tavi</h5>
+                <p class="text-sm text-orange-700">Pastelaria com uma localização privilegiada na Foz do Douro, oferecendo vistas deslumbrantes sobre o mar a partir da sua esplanada e uma seleção variada de doces, salgados e refeições.<br><i>Rua da Senhora da Luz 374</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Confeitaria Tavi, Rua da Senhora da Luz 374, Porto">Ver no mapa</button>
+            </div>
+        </div>
+
+        <div class="section-subtitle border-purple-200">
+            <i class="fas fa-music text-purple-700 w-6 text-center"></i>
+            <h4 class="text-purple-700">Música e eventos</h4>
+        </div>
+        <div class="space-y-4 mb-12">
+            <div class="info-box bg-indigo-50">
+                <h5 class="font-semibold text-indigo-800">Casa da Mariquinhas</h5>
+                <p class="text-sm text-indigo-700">Casa de fados tradicional e acolhedora no Porto, localizada perto da Sé, oferecendo noites autênticas com boa música (fado vadio e tradicional) e petiscos.<br><i>Rua de São Sebastião 25</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Casa da Mariquinhas, Rua de São Sebastião 25, Porto">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-indigo-50">
+                <h5 class="font-semibold text-indigo-800">Casa da Música</h5>
+                <p class="text-sm text-indigo-700">Sala de concertos de arquitetura contemporânea arrojada e aclamada internacionalmente, projetada por Rem Koolhaas. Oferece uma programação musical eclética e de alta qualidade, desde música clássica a jazz, pop e world music.<br><i>Av. da Boavista 604‑610</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Casa da Música, Av. da Boavista 604, Porto">Ver no mapa</button>
+            </div>
+            <div class="info-box bg-indigo-50">
+                <h5 class="font-semibold text-indigo-800">Maus Hábitos</h5>
+                <p class="text-sm text-indigo-700">Espaço cultural multifacetado e alternativo no último piso de um edifício-garagem no centro do Porto. Combina bar, restaurante, galeria de arte e sala de concertos com programação regular de música independente, DJ sets e outros eventos.<br><i>Rua de Passos Manuel 178, 4º Piso</i></p>
+                <button class="open-map-modal map-button-info-box" data-map-query="Maus Hábitos, Rua de Passos Manuel 178, Porto">Ver no mapa</button>
+            </div>
+        </div>
+
+        <div class="section-subtitle border-purple-200">
+            <i class="fas fa-route text-purple-700 w-6 text-center"></i>
+            <h4 class="text-purple-700">Sugestões de bate e volta</h4>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="info-box bg-emerald-50 flex flex-col">
+                <h5 class="text-xl font-semibold text-emerald-800 mb-2">Vale do Douro</h5>
+                <p class="text-emerald-700 mb-3 flex-grow">Região vinícola de beleza estonteante, classificada como Património Mundial pela UNESCO, onde o rio Douro serpenteia por entre colinas cobertas de vinhas em socalcos. Ideal para passeios de barco, comboio, visitas a quintas produtoras de Vinho do Porto e paisagens memoráveis (ex: Pinhão, Peso da Régua).</p>
+                <button class="open-map-modal map-button-daytrip self-start" data-map-query="Pinhão, Portugal"><i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa</button>
+            </div>
+            <div class="info-box bg-emerald-50 flex flex-col">
+                <h5 class="text-xl font-semibold text-emerald-800 mb-2">Guimarães</h5>
+                <p class="text-emerald-700 mb-3 flex-grow">Considerada o 'Berço da Nação' portuguesa, esta cidade histórica possui um centro medieval excecionalmente bem preservado (UNESCO), o imponente Castelo de Guimarães (ligado à fundação de Portugal) e o majestoso Paço dos Duques de Bragança.</p>
+                <button class="open-map-modal map-button-daytrip self-start" data-map-query="Centro Histórico de Guimarães, Portugal"><i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa</button>
+            </div>
+            <div class="info-box bg-emerald-50 flex flex-col">
+                <h5 class="text-xl font-semibold text-emerald-800 mb-2">Braga</h5>
+                <p class="text-emerald-700 mb-3 flex-grow">Importante centro religioso e histórico, conhecida como a 'Roma Portuguesa' pela sua profusão de igrejas. Visite a imponente Sé Catedral (a mais antiga de Portugal), o Santuário do Bom Jesus do Monte com a sua espetacular escadaria barroca e desfrute do ambiente jovem e vibrante da cidade.</p>
+                <button class="open-map-modal map-button-daytrip self-start" data-map-query="Braga, Portugal"><i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa</button>
+            </div>
+            <div class="info-box bg-emerald-50 flex flex-col">
+                <h5 class="text-xl font-semibold text-emerald-800 mb-2">Aveiro</h5>
+                <p class="text-emerald-700 mb-3 flex-grow">Charmosa cidade conhecida como a 'Veneza Portuguesa' pelos seus canais urbanos atravessados por coloridos barcos moliceiros (passeios disponíveis). Prove os deliciosos Ovos Moles (doce típico à base de ovos e açúcar) e admire a arquitetura Arte Nova presente em vários edifícios.</p>
+                <button class="open-map-modal map-button-daytrip self-start" data-map-query="Aveiro, Portugal"><i class="fas fa-map-marker-alt mr-1"></i> Ver no mapa</button>
+            </div>
+        </div>
+    </section>
+  </main>
 
   <footer class="bg-gray-200 text-gray-600 text-center p-6 mt-16">
     <p class="text-sm">© 2025 Dicas de Viagem Cris & JR. Boa viagem!</p>
@@ -333,11 +547,11 @@
   <div id="mapModal" class="modal" aria-labelledby="map-modal-title" role="dialog" aria-modal="true">
     <div class="modal-content">
       <button id="closeMapModal" class="modal-close-button" aria-label="Fechar mapa">×</button>
-      <div class="flex justify-between items-center p-4 border-b">
+      <div class="flex justify-between items-center p-4 border-b border-gray-200">
         <h2 id="map-modal-title" class="text-lg font-semibold text-gray-800">Localização no mapa</h2>
       </div>
       <div class="modal-body-map">
-        <iframe id="mapIframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="" title="Mapa"></iframe>
+        <iframe id="mapIframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="" title="Mapa Interativo"></iframe>
       </div>
     </div>
   </div>
@@ -348,99 +562,169 @@
       <div class="modal-body">
         <h3 id="about-modal-title" class="text-2xl font-bold text-sky-700 mb-6">Nome da atração</h3>
         <div class="flex flex-col gap-5 text-sm text-gray-700">
-          <div><h5 class="font-semibold text-gray-800 mb-1">Tempo estimado de visita</h5><p id="about-visit-time">…</p></div>
-          <div><h5 class="font-semibold text-gray-800 mb-1">O que ver</h5><p id="about-what-to-see">…</p></div>
-          <div><h5 class="font-semibold text-gray-800 mb-1">Um pouco de história</h5><p id="about-history">…</p></div> </div>
+          <div>
+            <h5 class="font-semibold text-gray-800 mb-1 flex items-center"><i class="far fa-clock w-4 mr-2 text-gray-500"></i>Tempo estimado de visita</h5>
+            <p id="about-visit-time" class="ml-6">…</p>
+          </div>
+          <div>
+            <h5 class="font-semibold text-gray-800 mb-1 flex items-center"><i class="far fa-eye w-4 mr-2 text-gray-500"></i>O que ver</h5>
+            <div id="about-what-to-see" class="ml-6">…</div> </div>
+          <div>
+            <h5 class="font-semibold text-gray-800 mb-1 flex items-center"><i class="fas fa-landmark w-4 mr-2 text-gray-500"></i>Um pouco de história</h5>
+            <p id="about-history" class="ml-6">…</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    const mapModal=document.getElementById("mapModal"),
-          aboutModal=document.getElementById("aboutModal"),
-          mapIframe=document.getElementById("mapIframe");
+    const mapModal = document.getElementById("mapModal");
+    const aboutModal = document.getElementById("aboutModal");
+    const mapIframe = document.getElementById("mapIframe");
 
-    // Função para abrir um modal
-    const openModal=m=>{
-      m.classList.add("is-open");
-      document.body.style.overflow="hidden"; // Impede scroll do body
-    }
-    // Função para fechar um modal
-    const closeModal=m=>{
-      m.classList.remove("is-open");
-      // Só restaura o scroll do body se ambos os modais estiverem fechados
-      if(!mapModal.classList.contains("is-open")&&!aboutModal.classList.contains("is-open"))
-        document.body.style.overflow="";
+    // ========================================================================
+    // ATENÇÃO: Chave de API do Google Maps
+    // SUBSTITUA 'SUA_CHAVE_API_AQUI' PELA SUA CHAVE REAL.
+    // IMPORTANTE: NÃO COLOQUE SUA CHAVE DIRETAMENTE AQUI EM UM SITE PÚBLICO!
+    //             Isto é apenas para TESTES LOCAIS. Para produção, use um
+    //             backend para proteger sua chave.
+    // ========================================================================
+    const GOOGLE_MAPS_API_KEY = "AIzaSyCJ-J269u9m1-IR8f_dOIo3zvgNzvvQiv4"; // <-- SUBSTITUA AQUI!
+
+    // --- Funções do Modal ---
+    const openModal = (modalElement) => {
+      if (!modalElement) return;
+      modalElement.classList.add("is-open");
+      document.body.style.overflow = "hidden"; // Impede scroll do body
     };
 
-    // Converte URL do Google Maps para formato embed, se necessário
-    const toEmbed = u => {
-        if (!u) return "";
-        // Verifica se já é um link de embed
-        if (u.includes("/embed") || u.includes("output=embed")) {
-            return u;
-        }
-        // Tenta extrair o PB de um link normal
-        const pbMatch = u.match(/!1m18!1m12!1m3!1d[0-9\.]+!2d[-0-9\.]+!3d[-0-9\.]+!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13\.1!3m3!1m2!1s[^!]+!5e0!3m2!1s[a-z]{2}-[A-Z]{2}!2s[a-z]{2}!4v[0-9]+!5m2!1s[a-z]{2}-[A-Z]{2}!2s[a-z]{2}/);
-        if (pbMatch) {
-            return `https://www.google.com/maps/embed?pb=${encodeURIComponent(pbMatch[0])}`;
-        }
-        // Fallback: se não conseguir extrair, retorna o link original (pode não funcionar)
-        console.warn("Não foi possível converter a URL do mapa para embed:", u);
-        return u;
+    const closeModal = (modalElement) => {
+      if (!modalElement) return;
+      modalElement.classList.remove("is-open");
+      // Só restaura o scroll do body se NENHUM modal estiver aberto
+      if (!mapModal.classList.contains("is-open") && !aboutModal.classList.contains("is-open")) {
+        document.body.style.overflow = "";
+      }
+      // Limpa o src do iframe do mapa ao fechar para parar o carregamento
+      if (modalElement === mapModal) {
+          mapIframe.src = "";
+      }
     };
 
+    // --- Função para Construir URL de Incorporação do Google Maps (com API Key) ---
+    /**
+     * Constrói uma URL de incorporação do Google Maps usando os parâmetros 'q' e 'key'.
+     * @param {string} query A string de busca (ex: "Nome do Local, Cidade, País").
+     * @returns {string} A URL de incorporação construída, ou string vazia se a query ou a chave forem inválidas.
+     */
+    const constructEmbedUrlWithApiKey = (query) => {
+      if (!query || typeof query !== 'string' || query.trim() === '') {
+        console.error("Query inválida fornecida:", query);
+        return "";
+      }
+      if (!GOOGLE_MAPS_API_KEY || GOOGLE_MAPS_API_KEY === "SUA_CHAVE_API_AQUI") {
+          console.error("Chave de API do Google Maps não configurada no script.");
+          alert("Erro: Chave de API do Google Maps não configurada."); // Alerta para o usuário
+          return "";
+      }
 
-    // Event listeners para botões de abrir mapa
-    document.querySelectorAll(".open-map-modal").forEach(btn=>{
-      btn.addEventListener("click",()=>{
-        const u=btn.dataset.mapUrl;
-        if(!u)return; // Não faz nada se não houver URL
-        mapIframe.src=toEmbed(u); // Define o src do iframe com a URL de embed
-        openModal(mapModal); // Abre o modal do mapa
+      // Base da URL de incorporação da API Embed
+      const baseUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.342348712756!2d-9.14213968465513!3d38.71000897960017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934796686c741%3A0x121d3a7f3a962773!2sPastelaria%20Alcoa!5e0!3m2!1spt-BR!2sbr!4v1713705370877!5m2!1spt-BR!2sbr2";
+      // Codifica a query para ser usada na URL
+      const encodedQuery = encodeURIComponent(query);
+
+      // Retorna a URL completa com a query e a chave de API
+      return `${baseUrl}${encodedQuery}&key=${GOOGLE_MAPS_API_KEY}`;
+    };
+
+    // --- Event Listeners para Abrir Modais ---
+
+    // Botões de Abrir Mapa
+    document.querySelectorAll(".open-map-modal").forEach(button => {
+      button.addEventListener("click", () => {
+        const mapQuery = button.dataset.mapQuery; // Pega a query do atributo data-map-query
+        const embedUrl = constructEmbedUrlWithApiKey(mapQuery); // Constrói a URL com API Key
+
+        if (embedUrl) { // Só abre o modal se a URL foi construída
+          mapIframe.src = embedUrl; // Define o src do iframe
+
+          // Tenta pegar o nome do local para o título do modal
+          const locationName = button.title || button.closest('.info-box')?.querySelector('h5')?.textContent || button.closest('.attraction-card')?.querySelector('h5')?.textContent || mapQuery; // Usa a query como fallback
+          document.getElementById('map-modal-title').textContent = `Mapa: ${locationName}`;
+          openModal(mapModal); // Abre o modal do mapa
+        } else {
+          // Mensagem caso a query no botão esteja vazia ou a chave API não esteja configurada
+          console.error("Não foi possível construir a URL do mapa para a query:", mapQuery);
+          // O alerta de chave não configurada já está na função constructEmbedUrlWithApiKey
+        }
       });
     });
-    // Event listener para botão de fechar mapa
-    document.getElementById("closeMapModal").addEventListener("click",()=>{
-      mapIframe.src=""; // Limpa o src do iframe para parar o carregamento
-      closeModal(mapModal); // Fecha o modal do mapa
-    });
 
-    // Elementos do modal de detalhes (about)
-    const aboutTitle=document.getElementById("about-modal-title"),
-          aboutTime=document.getElementById("about-visit-time"),
-          aboutSee=document.getElementById("about-what-to-see"),
-          aboutHist=document.getElementById("about-history");
+    // Botões de Abrir Detalhes (About)
+    const aboutTitle = document.getElementById("about-modal-title");
+    const aboutTime = document.getElementById("about-visit-time");
+    const aboutSee = document.getElementById("about-what-to-see");
+    const aboutHist = document.getElementById("about-history");
 
-    // Event listeners para botões de abrir detalhes
-    document.querySelectorAll(".open-about-modal").forEach(btn=>{
-      btn.addEventListener("click",()=>{
+    document.querySelectorAll(".open-about-modal").forEach(button => {
+      button.addEventListener("click", () => {
         // Preenche o conteúdo do modal com os dados do botão clicado
-        aboutTitle.textContent=btn.dataset.attractionName||"Detalhes";
-        aboutTime.textContent=btn.dataset.visitTime||"‑";
-        aboutSee.innerHTML= (btn.dataset.whatToSee || "‑").replace(/;/g, '<br>• '); // Usa innerHTML para permitir <br> e adiciona bullet points
-        if (aboutSee.innerHTML !== '‑') aboutSee.innerHTML = '• ' + aboutSee.innerHTML; // Adiciona primeiro bullet point se houver conteúdo
-        aboutHist.textContent=btn.dataset.history||"‑";
+        aboutTitle.textContent = button.dataset.attractionName || "Detalhes";
+        aboutTime.textContent = button.dataset.visitTime || "Não especificado";
+
+        // Limpa e preenche "O que ver" como lista
+        aboutSee.innerHTML = ''; // Limpa conteúdo anterior
+        const whatToSeeData = button.dataset.whatToSee;
+        if (whatToSeeData) {
+            const items = whatToSeeData.split(';').map(item => item.trim()).filter(item => item); // Divide por ';', remove espaços e itens vazios
+            if (items.length > 0) {
+                const ul = document.createElement('ul');
+                ul.className = 'list-disc list-inside'; // Estilo de lista com marcadores
+                items.forEach(itemText => {
+                    const li = document.createElement('li');
+                    li.textContent = itemText;
+                    ul.appendChild(li);
+                });
+                aboutSee.appendChild(ul);
+            } else {
+                aboutSee.textContent = "Não especificado";
+            }
+        } else {
+            aboutSee.textContent = "Não especificado";
+        }
+
+        aboutHist.textContent = button.dataset.history || "Não especificado";
         openModal(aboutModal); // Abre o modal de detalhes
       });
     });
-    // Event listener para botão de fechar detalhes
-    document.getElementById("closeAboutModal").addEventListener("click",()=>closeModal(aboutModal));
 
-    // Event listener para fechar modais com a tecla Escape
-    document.addEventListener("keydown",e=>{
-      if(e.key==="Escape"){
-        if(mapModal.classList.contains("is-open"))closeModal(mapModal);
-        if(aboutModal.classList.contains("is-open"))closeModal(aboutModal);
+    // --- Event Listeners para Fechar Modais ---
+
+    // Botão de Fechar Mapa
+    document.getElementById("closeMapModal").addEventListener("click", () => closeModal(mapModal));
+
+    // Botão de Fechar Detalhes
+    document.getElementById("closeAboutModal").addEventListener("click", () => closeModal(aboutModal));
+
+    // Tecla Escape
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (mapModal.classList.contains("is-open")) closeModal(mapModal);
+        if (aboutModal.classList.contains("is-open")) closeModal(aboutModal);
       }
     });
-    // Event listener para fechar modais clicando fora do conteúdo
-    [mapModal,aboutModal].forEach(m=>{
-      m.addEventListener("click",e=>{
+
+    // Clique fora do conteúdo do modal
+    [mapModal, aboutModal].forEach(modal => {
+      modal.addEventListener("click", (event) => {
         // Fecha o modal apenas se o clique for no fundo escuro (o próprio modal)
-        if(e.target===m)closeModal(m);
+        if (event.target === modal) {
+          closeModal(modal);
+        }
       });
     });
+
   </script>
 </body>
 </html>
