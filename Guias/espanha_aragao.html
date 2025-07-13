@@ -3,256 +3,681 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aragão: Uma Viagem Pelas Suas Raízes e História</title>
+    <title>Aragão: Uma Jornada Através da História e Beleza</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Estilos personalizados e configurações do Tailwind -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --text-dark: #2C1810;
+            --text-light: #6B5B73;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
+            line-height: 1.6;
         }
-        /* Efeito de scroll suave */
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
         html {
             scroll-behavior: smooth;
         }
-        /* Estilo para a imagem de fundo do cabeçalho */
+        
         .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1604012425983-36e8a04a3d42?q=80&w=2070&auto=format&fit=crop');
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.8), rgba(210, 105, 30, 0.6)), url('images/zaragoza_pilar.webp');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
-        /* Animação de entrada */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--secondary-color);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% - 1rem);
+            background: linear-gradient(to bottom, var(--secondary-color), transparent);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
         .fade-in {
-            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 69, 19, 0.3);
+        }
+        
+        .section-divider {
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            height: 2px;
+            margin: 3rem auto;
+            width: 100px;
+        }
+        
+        .image-overlay {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(139, 69, 19, 0.1), rgba(210, 105, 30, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .image-overlay:hover::before {
+            opacity: 1;
+        }
+        
+        .destination-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .destination-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2;
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
     <!-- Navegação -->
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-md">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-gray-900">Aragão</a>
-            <div class="hidden md:flex space-x-6">
-                <a href="#historia" class="text-gray-600 hover:text-red-700 transition duration-300">História</a>
-                <a href="#destinos" class="text-gray-600 hover:text-red-700 transition duration-300">Destinos</a>
-                <a href="#roteiro" class="text-gray-600 hover:text-red-700 transition duration-300">Roteiro</a>
-                <a href="#hospedagem" class="text-gray-600 hover:text-red-700 transition duration-300">Hospedagem</a>
-            </div>
-            <div class="md:hidden">
-                <button id="menu-btn" class="text-gray-900 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+    <header class="nav-glass fixed top-0 w-full z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="font-display text-3xl font-bold text-amber-800">
+                    <i class="fas fa-crown mr-2"></i>Aragão
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-gray-700 hover:text-amber-700 transition duration-300 font-medium">Início</a>
+                    <a href="#historia" class="text-gray-700 hover:text-amber-700 transition duration-300 font-medium">História</a>
+                    <a href="#destinos" class="text-gray-700 hover:text-amber-700 transition duration-300 font-medium">Destinos</a>
+                    <a href="#roteiro" class="text-gray-700 hover:text-amber-700 transition duration-300 font-medium">Roteiro</a>
+                    <a href="#hospedagem" class="text-gray-700 hover:text-amber-700 transition duration-300 font-medium">Hospedagem</a>
+                </div>
+                <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
+            <!-- Menu Móvel -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <a href="#inicio" class="block py-2 text-gray-700 hover:text-amber-700 transition">Início</a>
+                <a href="#historia" class="block py-2 text-gray-700 hover:text-amber-700 transition">História</a>
+                <a href="#destinos" class="block py-2 text-gray-700 hover:text-amber-700 transition">Destinos</a>
+                <a href="#roteiro" class="block py-2 text-gray-700 hover:text-amber-700 transition">Roteiro</a>
+                <a href="#hospedagem" class="block py-2 text-gray-700 hover:text-amber-700 transition">Hospedagem</a>
+            </div>
         </nav>
-        <!-- Menu Móvel -->
-        <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#historia" class="block py-2 px-4 text-sm hover:bg-gray-200">História</a>
-            <a href="#destinos" class="block py-2 px-4 text-sm hover:bg-gray-200">Destinos</a>
-            <a href="#roteiro" class="block py-2 px-4 text-sm hover:bg-gray-200">Roteiro</a>
-            <a href="#hospedagem" class="block py-2 px-4 text-sm hover:bg-gray-200">Hospedagem</a>
-        </div>
     </header>
 
     <!-- Secção Principal (Hero) -->
-    <section class="hero-bg text-white h-[60vh] flex items-center justify-center">
-        <div class="text-center fade-in">
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Bem-vindo a Aragão</h1>
-            <p class="text-lg md:text-2xl font-light">Onde a História Encontra a Sua Alma</p>
+    <section id="inicio" class="hero-bg text-white min-h-screen flex items-center justify-center relative">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="text-center z-10 max-w-4xl mx-auto px-6">
+            <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight mb-6 fade-in">
+                Bem-vindo a Aragão
+            </h1>
+            <p class="text-xl md:text-3xl font-light mb-8 fade-in" style="animation-delay: 0.3s;">
+                Onde a História Encontra a Sua Alma
+            </p>
+            <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto fade-in" style="animation-delay: 0.6s;">
+                Descubra uma terra de castelos medievais, arquitetura mudéjar e paisagens de tirar o fôlego nos Pirineus espanhóis
+            </p>
+            <a href="#historia" class="btn-primary text-white px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center fade-in" style="animation-delay: 0.9s;">
+                <i class="fas fa-compass mr-2"></i>
+                Iniciar Jornada
+            </a>
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl"></i>
         </div>
     </section>
 
-    <main class="container mx-auto px-6 py-12">
+    <main class="container mx-auto px-6">
         
         <!-- Secção História -->
-        <section id="historia" class="my-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-2 text-gray-900">A História de Aragão</h2>
-            <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Uma das regiões mais emblemáticas da Península Ibérica, com uma história rica que mistura influências romanas, muçulmanas e cristãs, crucial para a formação da Espanha.</p>
+        <section id="historia" class="py-20">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-amber-800">A História de Aragão</h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Uma jornada através dos séculos, desde as origens pré-históricas até a formação de um dos reinos mais poderosos da Europa medieval
+                </p>
+            </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card História -->
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="font-bold text-xl mb-2 text-red-800">Antiguidade e Domínio Muçulmano</h3>
-                    <p class="text-gray-700">Habitada por celtas e romanos, a região mais tarde integrou o al-Ándalus, absorvendo uma profunda influência islâmica visível até hoje na sua arquitetura.</p>
+            <!-- Timeline Histórica -->
+            <div class="max-w-4xl mx-auto">
+                <div class="timeline-item mb-12 fade-in">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Origens Antigas (Pré-história - 711 d.C.)</h3>
+                        <p class="text-gray-700 mb-4">
+                            Desde as primeiras ocupações paleolíticas nos Pirineus até a dominação romana com a fundação de Caesaraugusta (Zaragoza), 
+                            passando pelo período visigótico que estabeleceu as bases cristãs da região.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-landmark mr-2"></i>
+                            <span class="font-semibold">Destaque: Teatro Romano de Zaragoza</span>
+                        </div>
+                    </div>
                 </div>
-                <!-- Card História -->
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="font-bold text-xl mb-2 text-red-800">Reconquista e a Coroa de Aragão</h3>
-                    <p class="text-gray-700">Nascido no século XI, o Reino de Aragão expandiu-se e, com a união ao Condado de Barcelona, formou a poderosa Coroa de Aragão, um império no Mediterrâneo.</p>
+                
+                <div class="timeline-item mb-12 fade-in">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Domínio Islâmico (711-1118)</h3>
+                        <p class="text-gray-700 mb-4">
+                            Quatro séculos de al-Ándalus que deixaram uma marca indelével na arquitetura, cultura e arte aragonesas. 
+                            O florescimento cultural islâmico criou as bases da famosa arquitetura mudéjar.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-mosque mr-2"></i>
+                            <span class="font-semibold">Destaque: Palácio da Aljafería em Zaragoza</span>
+                        </div>
+                    </div>
                 </div>
-                <!-- Card História -->
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="font-bold text-xl mb-2 text-red-800">União com Castela e Presente</h3>
-                    <p class="text-gray-700">O casamento dos Reis Católicos marcou o início da Espanha moderna. Hoje, Aragão preserva com orgulho as suas tradições, dialetos e hospitalidade única.</p>
+                
+                <div class="timeline-item mb-12 fade-in">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Reino de Aragão (1035-1137)</h3>
+                        <p class="text-gray-700 mb-4">
+                            Nascimento do reino independente com Ramiro I, expansão territorial e Reconquista cristã. 
+                            A conquista de Huesca e Zaragoza marcaram a consolidação do poder aragonês.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-crown mr-2"></i>
+                            <span class="font-semibold">Destaque: Castelo de Loarre</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item mb-12 fade-in">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Coroa de Aragão (1137-1469)</h3>
+                        <p class="text-gray-700 mb-4">
+                            A união dinástica com Barcelona criou um império mediterrâneo que se estendeu até Nápoles e Sicília. 
+                            Idade de ouro da cultura, comércio e instituições políticas avançadas.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-ship mr-2"></i>
+                            <span class="font-semibold">Destaque: Expansão Mediterrânea</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item mb-12 fade-in">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">União com Castela (1469-presente)</h3>
+                        <p class="text-gray-700 mb-4">
+                            O casamento dos Reis Católicos marcou o início da Espanha moderna. Aragão manteve suas tradições 
+                            e recuperou sua autonomia em 1982, preservando sua identidade única.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-heart mr-2"></i>
+                            <span class="font-semibold">Destaque: Basílica del Pilar</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Secção Destinos -->
-        <section id="destinos" class="my-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">Destinos Imperdíveis</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card Destino -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                    <img src="https://images.unsplash.com/photo-1523531294919-427425db6e5a?q=80&w=1974&auto=format&fit=crop" alt="Vista de Barcelona com a Sagrada Família" class="w-full h-48 object-cover">
+        <section id="destinos" class="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-amber-800">Destinos Imperdíveis</h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Uma seleção cuidadosa dos lugares mais emblemáticos que contam a história viva de Aragão
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- Barcelona -->
+                <div class="destination-card card-hover fade-in relative">
+                    <div class="destination-number">1</div>
+                    <div class="image-overlay">
+                        <img src="images/sagrada_familia.jpg" alt="Sagrada Família em Barcelona" class="w-full h-64 object-cover">
+                    </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">1. Barcelona</h3>
-                        <p class="text-gray-700 text-sm">Ponto de partida ideal, combina o Bairro Gótico medieval com a genialidade modernista de Gaudí.</p>
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Barcelona</h3>
+                        <p class="text-gray-700 mb-4">
+                            Ponto de partida ideal que combina o Bairro Gótico medieval com a genialidade modernista de Gaudí. 
+                            A antiga capital da Coroa de Aragão oferece uma introdução perfeita à história catalano-aragonesa.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-star mr-2"></i>
+                            <span class="font-semibold">Sagrada Família, Bairro Gótico</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Card Destino -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                    <img src="https://images.unsplash.com/photo-1587879819438-2623a6427559?q=80&w=1935&auto=format&fit=crop" alt="Basílica del Pilar em Zaragoza" class="w-full h-48 object-cover">
+
+                <!-- Zaragoza -->
+                <div class="destination-card card-hover fade-in relative">
+                    <div class="destination-number">2</div>
+                    <div class="image-overlay">
+                        <img src="images/zaragoza_pilar.webp" alt="Basílica del Pilar em Zaragoza" class="w-full h-64 object-cover">
+                    </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">2. Zaragoza</h3>
-                        <p class="text-gray-700 text-sm">O coração de Aragão, com monumentos espetaculares como a Basílica del Pilar e o Palácio da Aljafería.</p>
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Zaragoza</h3>
+                        <p class="text-gray-700 mb-4">
+                            O coração pulsante de Aragão, onde a majestosa Basílica del Pilar se ergue às margens do Ebro. 
+                            A cidade preserva 2000 anos de história, desde as ruínas romanas até a arquitetura contemporânea.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-church mr-2"></i>
+                            <span class="font-semibold">Basílica del Pilar, Aljafería</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Card Destino -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                    <img src="https://images.unsplash.com/photo-1664539169045-43a4989590ca?q=80&w=1974&auto=format&fit=crop" alt="Castelo de Loarre" class="w-full h-48 object-cover">
+
+                <!-- Huesca e Loarre -->
+                <div class="destination-card card-hover fade-in relative">
+                    <div class="destination-number">3</div>
+                    <div class="image-overlay">
+                        <img src="images/castelo_loarre.jpg" alt="Castelo de Loarre" class="w-full h-64 object-cover">
+                    </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">3. Huesca e Castelo de Loarre</h3>
-                        <p class="text-gray-700 text-sm">Primeira capital do reino e um dos castelos românicos mais bem preservados da Europa.</p>
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Huesca e Castelo de Loarre</h3>
+                        <p class="text-gray-700 mb-4">
+                            A primeira capital do reino abriga um dos castelos românicos mais bem preservados da Europa. 
+                            Loarre é uma fortaleza espetacular que parece emergir das próprias rochas dos Pirineus.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-chess-rook mr-2"></i>
+                            <span class="font-semibold">Castelo Românico, Catedral</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Card Destino -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                    <img src="https://images.unsplash.com/photo-1604012425997-087a59104141?q=80&w=1974&auto=format&fit=crop" alt="Cascata no Parque Nacional de Ordesa" class="w-full h-48 object-cover">
+
+                <!-- Pirineus e Ordesa -->
+                <div class="destination-card card-hover fade-in relative">
+                    <div class="destination-number">4</div>
+                    <div class="image-overlay">
+                        <img src="images/ordesa.jpg" alt="Parque Nacional de Ordesa" class="w-full h-64 object-cover">
+                    </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">4. Pirineus e Ordesa</h3>
-                        <p class="text-gray-700 text-sm">O berço da identidade aragonesa, com paisagens de montanha e vilarejos de pedra deslumbrantes.</p>
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Pirineus e Ordesa</h3>
+                        <p class="text-gray-700 mb-4">
+                            O berço da identidade aragonesa, onde picos majestosos e vales glaciares criam paisagens de sonho. 
+                            O Parque Nacional de Ordesa é um santuário natural de beleza incomparável.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-mountain mr-2"></i>
+                            <span class="font-semibold">Monte Perdido, Cascatas</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Card Destino -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                    <img src="https://images.unsplash.com/photo-1664778131641-c16743c48d44?q=80&w=1974&auto=format&fit=crop" alt="Vilarejo de Alquézar" class="w-full h-48 object-cover">
+
+                <!-- Alquézar -->
+                <div class="destination-card card-hover fade-in relative">
+                    <div class="destination-number">5</div>
+                    <div class="image-overlay">
+                        <img src="images/alquezar.jpg" alt="Vilarejo de Alquézar" class="w-full h-64 object-cover">
+                    </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">5. Alquézar</h3>
-                        <p class="text-gray-700 text-sm">Um vilarejo medieval de tirar o fôlego, famoso por seu castelo e passarelas sobre o cânion do rio Vero.</p>
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Alquézar</h3>
+                        <p class="text-gray-700 mb-4">
+                            Um vilarejo medieval de tirar o fôlego, suspenso sobre o cânion do rio Vero. 
+                            As passarelas sobre o desfiladeiro oferecem vistas espetaculares desta joia arquitetônica.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-bridge mr-2"></i>
+                            <span class="font-semibold">Passarelas, Castelo Medieval</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Card Destino -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-                    <img src="https://images.unsplash.com/photo-1626296222421-4a25a0a3733a?q=80&w=1974&auto=format&fit=crop" alt="Casas coloridas de Albarracín" class="w-full h-48 object-cover">
+
+                <!-- Albarracín -->
+                <div class="destination-card card-hover fade-in relative">
+                    <div class="destination-number">6</div>
+                    <div class="image-overlay">
+                        <img src="images/albarracin.jpg" alt="Casas coloridas de Albarracín" class="w-full h-64 object-cover">
+                    </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">8. Albarracín</h3>
-                        <p class="text-gray-700 text-sm">Considerada uma das vilas mais bonitas da Espanha, com muralhas medievais e ruas de conto de fadas.</p>
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Albarracín</h3>
+                        <p class="text-gray-700 mb-4">
+                            Considerada uma das vilas mais bonitas da Espanha, com suas casas cor de terracota e muralhas medievais. 
+                            Um labirinto de ruas estreitas que preserva a atmosfera de um conto de fadas.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-palette mr-2"></i>
+                            <span class="font-semibold">Arquitetura Medieval, Muralhas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teruel -->
+                <div class="destination-card card-hover fade-in relative">
+                    <div class="destination-number">7</div>
+                    <div class="image-overlay">
+                        <img src="images/teruel_torre.jpg" alt="Torre Mudéjar de Teruel" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Teruel</h3>
+                        <p class="text-gray-700 mb-4">
+                            Capital mundial da arquitetura mudéjar, Património da Humanidade pela UNESCO. 
+                            As torres de San Martín e El Salvador são obras-primas da fusão entre arte cristã e islâmica.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-award mr-2"></i>
+                            <span class="font-semibold">Património UNESCO, Arte Mudéjar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Montserrat -->
+                <div class="destination-card card-hover fade-in relative">
+                    <div class="destination-number">8</div>
+                    <div class="image-overlay">
+                        <img src="images/montserrat.jpg" alt="Mosteiro de Montserrat" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-2xl font-bold mb-3 text-amber-800">Montserrat</h3>
+                        <p class="text-gray-700 mb-4">
+                            O mosteiro beneditino encravado nas montanhas serradas oferece uma experiência espiritual única. 
+                            Um bate-volta perfeito desde Barcelona para contemplar paisagens místicas e arte sacra.
+                        </p>
+                        <div class="flex items-center text-amber-600">
+                            <i class="fas fa-praying-hands mr-2"></i>
+                            <span class="font-semibold">Mosteiro, Montanha Sagrada</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Secção Roteiro -->
-        <section id="roteiro" class="my-16 bg-white p-8 rounded-lg shadow-lg">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900">Roteiro Sugerido: 12 Dias Inesquecíveis</h2>
-            <p class="text-center text-gray-600 mb-10">Otimizado para minimizar trocas de hotel e maximizar a sua experiência.</p>
-            
-            <h3 class="font-bold text-2xl mb-6 text-center text-red-800">Estratégia: 4 Cidades-Base</h3>
-            
-            <div class="overflow-x-auto rounded-lg border border-gray-200 mb-12">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cidade-Base</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Noites</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bate-voltas Possíveis</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap font-medium">Barcelona</td>
-                            <td class="px-6 py-4 whitespace-nowrap">4</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Montserrat, Sitges, Girona, Tarragona</td>
-                        </tr>
-                        <tr class="bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap font-medium">Zaragoza</td>
-                            <td class="px-6 py-4 whitespace-nowrap">4</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Huesca, Loarre, Tarazona, Alquézar</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap font-medium">Torla/Aínsa (Pirineus)</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Parque Nacional de Ordesa, Broto</td>
-                        </tr>
-                        <tr class="bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap font-medium">Teruel/Albarracín</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Albarracín, Dinópolis</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <section id="roteiro" class="py-20">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-amber-800">Roteiro Sugerido</h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    12 dias inesquecíveis otimizados para minimizar trocas de hotel e maximizar sua experiência
+                </p>
             </div>
+            
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl max-w-6xl mx-auto">
+                <h3 class="font-display text-3xl font-bold text-center mb-8 text-amber-800">
+                    <i class="fas fa-route mr-3"></i>
+                    Estratégia: 4 Cidades-Base
+                </h3>
+                
+                <div class="overflow-x-auto rounded-2xl border border-gray-200 mb-12">
+                    <table class="min-w-full">
+                        <thead class="bg-gradient-to-r from-amber-100 to-orange-100">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-sm font-bold text-amber-800 uppercase tracking-wider">
+                                    <i class="fas fa-map-marker-alt mr-2"></i>Cidade-Base
+                                </th>
+                                <th class="px-6 py-4 text-left text-sm font-bold text-amber-800 uppercase tracking-wider">
+                                    <i class="fas fa-bed mr-2"></i>Noites
+                                </th>
+                                <th class="px-6 py-4 text-left text-sm font-bold text-amber-800 uppercase tracking-wider">
+                                    <i class="fas fa-compass mr-2"></i>Bate-voltas Possíveis
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr class="hover:bg-amber-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-amber-800">Barcelona</td>
+                                <td class="px-6 py-4 text-gray-700">4</td>
+                                <td class="px-6 py-4 text-gray-700">Montserrat, Sitges, Girona, Tarragona</td>
+                            </tr>
+                            <tr class="hover:bg-amber-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-amber-800">Zaragoza</td>
+                                <td class="px-6 py-4 text-gray-700">4</td>
+                                <td class="px-6 py-4 text-gray-700">Huesca, Loarre, Tarazona, Alquézar</td>
+                            </tr>
+                            <tr class="hover:bg-amber-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-amber-800">Torla/Aínsa (Pirineus)</td>
+                                <td class="px-6 py-4 text-gray-700">2</td>
+                                <td class="px-6 py-4 text-gray-700">Parque Nacional de Ordesa, Broto</td>
+                            </tr>
+                            <tr class="hover:bg-amber-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-amber-800">Teruel/Albarracín</td>
+                                <td class="px-6 py-4 text-gray-700">2</td>
+                                <td class="px-6 py-4 text-gray-700">Albarracín, Dinópolis, Arte Mudéjar</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <div class="space-y-8">
-                <div>
-                    <h4 class="font-bold text-xl mb-2">Dias 1-4: Barcelona (Base 1)</h4>
-                    <p class="text-gray-700">Chegada e exploração da cidade, incluindo o Bairro Gótico, as obras de Gaudí e um bate-volta a Montserrat.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-xl mb-2">Dias 5-8: Zaragoza (Base 2)</h4>
-                    <p class="text-gray-700">Explore a capital aragonesa e use-a como base para visitar Huesca, o Castelo de Loarre, Tarazona e o vilarejo de Alquézar.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-xl mb-2">Dias 9-10: Pirineus (Base 3)</h4>
-                    <p class="text-gray-700">Mergulhe na natureza espetacular do Parque Nacional de Ordesa e desfrute da tranquilidade dos vilarejos de montanha.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-xl mb-2">Dias 11-12: Teruel e Albarracín (Base 4)</h4>
-                    <p class="text-gray-700">Descubra a arquitetura Mudéjar de Teruel, Património da Humanidade, e perca-se nas ruas medievais de Albarracín.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-2xl">
+                            <h4 class="font-display text-xl font-bold mb-3 text-amber-800">
+                                <i class="fas fa-calendar-day mr-2"></i>Dias 1-4: Barcelona
+                            </h4>
+                            <p class="text-gray-700">
+                                Chegada e exploração da cidade, incluindo o Bairro Gótico, as obras de Gaudí, 
+                                e um bate-volta essencial ao místico Montserrat.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-2xl">
+                            <h4 class="font-display text-xl font-bold mb-3 text-amber-800">
+                                <i class="fas fa-calendar-day mr-2"></i>Dias 5-8: Zaragoza
+                            </h4>
+                            <p class="text-gray-700">
+                                Explore a capital aragonesa e use-a como base para visitar Huesca, 
+                                o espetacular Castelo de Loarre e o encantador vilarejo de Alquézar.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-2xl">
+                            <h4 class="font-display text-xl font-bold mb-3 text-amber-800">
+                                <i class="fas fa-calendar-day mr-2"></i>Dias 9-10: Pirineus
+                            </h4>
+                            <p class="text-gray-700">
+                                Mergulhe na natureza espetacular do Parque Nacional de Ordesa 
+                                e desfrute da tranquilidade dos vilarejos de montanha.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-2xl">
+                            <h4 class="font-display text-xl font-bold mb-3 text-amber-800">
+                                <i class="fas fa-calendar-day mr-2"></i>Dias 11-12: Teruel e Albarracín
+                            </h4>
+                            <p class="text-gray-700">
+                                Descubra a arquitetura Mudéjar de Teruel, Património da Humanidade, 
+                                e perca-se nas ruas medievais de Albarracín.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Secção Hospedagem -->
-        <section id="hospedagem" class="my-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">Dicas de Hospedagem</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Card Hospedagem -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="font-bold text-xl mb-3 text-red-800">Em Barcelona</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Hotel 1898</li>
-                        <li>H10 Casa Mimosa</li>
-                        <li>Catalonia Passeig de Gràcia</li>
+        <section id="hospedagem" class="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-amber-800">Dicas de Hospedagem</h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Seleção cuidadosa de hotéis que combinam conforto, localização e charme local
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                <!-- Barcelona -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-building text-4xl text-amber-600 mb-3"></i>
+                        <h3 class="font-display text-xl font-bold text-amber-800">Em Barcelona</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Hotel 1898 (Luxo)
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            H10 Casa Mimosa (Boutique)
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Catalonia Passeig de Gràcia
+                        </li>
                     </ul>
                 </div>
-                <!-- Card Hospedagem -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="font-bold text-xl mb-3 text-red-800">Em Zaragoza</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Hotel Reina Petronila</li>
-                        <li>NH Collection Gran Hotel</li>
-                        <li>Hotel Palafox</li>
+
+                <!-- Zaragoza -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-crown text-4xl text-amber-600 mb-3"></i>
+                        <h3 class="font-display text-xl font-bold text-amber-800">Em Zaragoza</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Hotel Reina Petronila
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            NH Collection Gran Hotel
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Hotel Palafox
+                        </li>
                     </ul>
                 </div>
-                <!-- Card Hospedagem -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="font-bold text-xl mb-3 text-red-800">Nos Pirineus</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Hotel Silken Ordesa (Torla)</li>
-                        <li>Hotel Bujaruelo (Torla)</li>
-                        <li>Hotel Los Siete Reyes (Aínsa)</li>
+
+                <!-- Pirineus -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-mountain text-4xl text-amber-600 mb-3"></i>
+                        <h3 class="font-display text-xl font-bold text-amber-800">Nos Pirineus</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Hotel Silken Ordesa (Torla)
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Hotel Bujaruelo (Torla)
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Hotel Los Siete Reyes (Aínsa)
+                        </li>
                     </ul>
                 </div>
-                <!-- Card Hospedagem -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h3 class="font-bold text-xl mb-3 text-red-800">Em Teruel/Albarracín</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-1">
-                        <li>Parador de Teruel</li>
-                        <li>Gran Hotel Botánicos</li>
-                        <li>Hotel Arabia (Albarracín)</li>
+
+                <!-- Teruel/Albarracín -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg card-hover">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-chess-rook text-4xl text-amber-600 mb-3"></i>
+                        <h3 class="font-display text-xl font-bold text-amber-800">Em Teruel/Albarracín</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Parador de Teruel
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Gran Hotel Botánicos
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>
+                            Hotel Arabia (Albarracín)
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -260,15 +685,32 @@
     </main>
 
     <!-- Rodapé -->
-    <footer class="bg-gray-800 text-white mt-16">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <p>&copy; 2024 Viagem a Aragão. Todos os direitos reservados.</p>
-            <p class="text-sm text-gray-400 mt-2">Um guia para explorar as suas raízes e a história de uma terra inesquecível.</p>
+    <footer class="bg-gradient-to-r from-amber-900 to-orange-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <div class="font-display text-3xl font-bold mb-4">
+                    <i class="fas fa-crown mr-2"></i>Aragão
+                </div>
+                <p class="text-xl mb-6">Onde a História Encontra a Sua Alma</p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="#inicio" class="hover:text-amber-300 transition">Início</a>
+                    <a href="#historia" class="hover:text-amber-300 transition">História</a>
+                    <a href="#destinos" class="hover:text-amber-300 transition">Destinos</a>
+                    <a href="#roteiro" class="hover:text-amber-300 transition">Roteiro</a>
+                    <a href="#hospedagem" class="hover:text-amber-300 transition">Hospedagem</a>
+                </div>
+                <div class="border-t border-amber-700 pt-6">
+                    <p>&copy; 2024 Viagem a Aragão. Todos os direitos reservados.</p>
+                    <p class="text-sm text-amber-200 mt-2">
+                        Um guia para explorar as suas raízes e a história de uma terra inesquecível.
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Script para menu móvel -->
     <script>
+        // Menu móvel
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -283,6 +725,58 @@
                 mobileMenu.classList.add('hidden');
             });
         });
+
+        // Animação de scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos fade-in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navegação suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efeito parallax no hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-bg');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Animação inicial dos elementos fade-in
+        setTimeout(() => {
+            document.querySelectorAll('.fade-in').forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * 200);
+            });
+        }, 500);
     </script>
 </body>
 </html>
+
